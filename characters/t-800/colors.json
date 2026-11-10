@@ -1,0 +1,30 @@
+[
+  {
+    "material": "hotw_character_t_800_0",
+    "group": "clothing",
+    "map": "/hotw/characters/t-800/textures/0.color.dds",
+    "source": "/hotw/characters/t-800/textures/0.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_t_800_1",
+    "group": "clothing",
+    "map": "/hotw/characters/t-800/textures/0.color.dds",
+    "source": "/hotw/characters/t-800/textures/0.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_t_800_4",
+    "group": "clothing",
+    "map": "/hotw/characters/t-800/textures/4.color.dds",
+    "source": "/hotw/characters/t-800/textures/4.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_t_800_5",
+    "group": "clothing",
+    "map": "/hotw/characters/t-800/textures/0.color.dds",
+    "source": "/hotw/characters/t-800/textures/0.color.png",
+    "field": "baseColorMap"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "material": "hotw_character_dummy_robot_0",
+    "group": "clothing",
+    "map": "/hotw/characters/dummy_robot/textures/0.color.dds",
+    "source": "/hotw/characters/dummy_robot/textures/0.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_dummy_robot_1",
+    "group": "clothing",
+    "map": "/hotw/characters/dummy_robot/textures/0.color.dds",
+    "source": "/hotw/characters/dummy_robot/textures/0.color.png",
+    "field": "baseColorMap"
+  }
+]

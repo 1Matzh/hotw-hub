@@ -1,0 +1,1176 @@
+{
+  "schema": 1,
+  "characters": [
+    {
+      "id": "ada",
+      "name": "Resident Evil 5 Movie Ada Wong",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 86,
+          "sha256": "3492bf87767d870ac7b3b23a930c06343062562c634bb9142fcb7be5fb13e299"
+        },
+        {
+          "path": "colors.json",
+          "size": 1945,
+          "sha256": "32c750997690c8e06e42c25504a9ce6ee24283f5f7da9ee12d3b5b649cc698ef"
+        },
+        {
+          "path": "feet.json",
+          "size": 1343,
+          "sha256": "87fc9e52467261df3781f6096eee7bf05f10bd182caef7cbbb6721faa77dafea"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 3648,
+          "sha256": "a53a368dca5f373111ca3dee0ac84001acc3f712c91dc58980e1dc757486679a"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 13269996,
+          "sha256": "d93b68dd4075cbd54a28cab1a21dbe34284db58d1ff3426aebbd582a5225fbc4"
+        },
+        {
+          "path": "materials.json",
+          "size": 8044,
+          "sha256": "95a2abd458827de59e938b6690e48b453fa5f1bf76ce4836752e6efa32a85224"
+        },
+        {
+          "path": "pbr/0-ao.data.dds",
+          "size": 2796364,
+          "sha256": "e314931daa1fea785a1aa9e72cd6868992cf5f598a6c290798532919d28f5b98"
+        },
+        {
+          "path": "pbr/0-metallic.data.dds",
+          "size": 2796364,
+          "sha256": "e11c047b47bee51173053b579b6f6a0f3d7e404dd2e089d6581fa8d040b8f856"
+        },
+        {
+          "path": "pbr/0-roughness.data.dds",
+          "size": 2796364,
+          "sha256": "97e1f97e651a38f58ecd66920161ecf1a5098593b415280f29bba2b7c29637b2"
+        },
+        {
+          "path": "pbr/1-ao.data.dds",
+          "size": 2796364,
+          "sha256": "2cb0836916c94036699fd112bb5c2ef24906c57bfeb42c0f00d6f64db110faf7"
+        },
+        {
+          "path": "pbr/1-metallic.data.dds",
+          "size": 2796364,
+          "sha256": "832457ed355cf1ec479f00084b737bc703449d3429386b1263f1548001c18d4c"
+        },
+        {
+          "path": "pbr/1-roughness.data.dds",
+          "size": 2796364,
+          "sha256": "857338490c6fcca39093ea6d946c613302af08ff387cc469cd81817c033d0493"
+        },
+        {
+          "path": "pbr/3-ao.data.dds",
+          "size": 2796364,
+          "sha256": "459e2f3f05a1a026f0730dc5a8474d0af96394e1242fda26e29b2b51a87b163e"
+        },
+        {
+          "path": "pbr/3-metallic.data.dds",
+          "size": 2796364,
+          "sha256": "16dc2dfa658a5b7d6c1f9b4e1e85e915bb8a3a0685d0ecccb49de5fcda53531e"
+        },
+        {
+          "path": "pbr/3-roughness.data.dds",
+          "size": 2796364,
+          "sha256": "4767c3725530c9276307d730499fe590eab223b11f94bf861dd896f220ca58f3"
+        },
+        {
+          "path": "pbr/7-ao.data.dds",
+          "size": 2796364,
+          "sha256": "bdde529d1d49c1532c48034602a2737067de02b2e255167721062184ed7c28fb"
+        },
+        {
+          "path": "pbr/7-metallic.data.dds",
+          "size": 2796364,
+          "sha256": "832457ed355cf1ec479f00084b737bc703449d3429386b1263f1548001c18d4c"
+        },
+        {
+          "path": "pbr/7-roughness.data.dds",
+          "size": 2796364,
+          "sha256": "913e9340110095bb2f0b54dca7da7eae547bb517e54ba0595568a9eff8b66ab8"
+        },
+        {
+          "path": "pbr/hotw_character_ada_6-opacity.data.dds",
+          "size": 174924,
+          "sha256": "31cf6613b1b37bc5c0affea2eee8a95c6ae6a2d631b306417568aa7da5c6140b"
+        },
+        {
+          "path": "pbr/hotw_character_ada_8-opacity.data.dds",
+          "size": 1398268,
+          "sha256": "c8270ab79394d72ca8085c6f7f9f0d6749f134dd0c015f83636e6ac418acab83"
+        },
+        {
+          "path": "textures/0.color.dds",
+          "size": 5592580,
+          "sha256": "1570c4cd0d0ffdb228770e889e538ba71aab757256792d7377561c71b4db689a"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 2510761,
+          "sha256": "9e3c2bfd510d5e5f38209dadfd8ff48c3498bb443bf2c16a37574f41b8b22370"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 5592580,
+          "sha256": "97264e64d86510905ff35ea790da14077bdb8679beb0e4e6229fe8c81674cc6b"
+        },
+        {
+          "path": "textures/10.color.dds",
+          "size": 87556,
+          "sha256": "0c6c819e3ffe3825517fabe4dc6be97ae3a84f58dfbcf92e4eed1ac101675e49"
+        },
+        {
+          "path": "textures/11.color.dds",
+          "size": 349700,
+          "sha256": "d2358bb80e1dfb641646c007625bb064160fd4303b094779f375de685970df1f"
+        },
+        {
+          "path": "textures/11.color.png",
+          "size": 248046,
+          "sha256": "957556cf6059c5633a7b4dc5ef52e2cf9b11a7f4d7e3fb8b7da0f9a90b78daa2"
+        },
+        {
+          "path": "textures/12.normal.dds",
+          "size": 349700,
+          "sha256": "53fb07d78c4f4cb088a14506373923a9d1904a0da91c5ddadd8e1e800297eee1"
+        },
+        {
+          "path": "textures/13.color.dds",
+          "size": 2796388,
+          "sha256": "ef88f5a510d5d013787211fb5b4c131399a45865c86b259574c5381ecbd664ff"
+        },
+        {
+          "path": "textures/13.color.png",
+          "size": 505865,
+          "sha256": "16c3c2cbd0b8e3fda4f07348d6f9070347b57f172445a705eabac7d3b0fd8df4"
+        },
+        {
+          "path": "textures/14.normal.dds",
+          "size": 2796388,
+          "sha256": "4222e3a351728f0ba5cd7f771f725f49da82eca0604f3650f13462f8f36ccb88"
+        },
+        {
+          "path": "textures/15.color.dds",
+          "size": 5592580,
+          "sha256": "55163f651e3efcc97c63b3a1536b4c12dc553dacbe2b926923b2798c180cd756"
+        },
+        {
+          "path": "textures/15.color.png",
+          "size": 651155,
+          "sha256": "36b3cbba63d13d5a8f6688ba38ff61a35c7f80437e50b7eb16d201a61d518bd5"
+        },
+        {
+          "path": "textures/16.normal.dds",
+          "size": 5592580,
+          "sha256": "37998647b06af4be72f255b5c01f55c2a78f53cd9c3e1d16f5daf8dfc8ddada0"
+        },
+        {
+          "path": "textures/17.color.dds",
+          "size": 174948,
+          "sha256": "f59f7ee5bc847da7d1759ae5d477b92ecc79dca7c7fc92c899bf7f61b34cfe22"
+        },
+        {
+          "path": "textures/17.color.png",
+          "size": 27311,
+          "sha256": "7a9041e1c610140f4ca67b2244bcdafd043c65a6ad4c4b11494ab8726e95a987"
+        },
+        {
+          "path": "textures/18.normal.dds",
+          "size": 516,
+          "sha256": "6fb19446717b0fedc2d40c9211877aed1281a4b96faf992665493540d87bd1eb"
+        },
+        {
+          "path": "textures/2.color.dds",
+          "size": 5592580,
+          "sha256": "dcd2a6c1f90a4614103d772775cfd6053abe7c5336b6891085e57578c0782b2e"
+        },
+        {
+          "path": "textures/2.color.png",
+          "size": 2357653,
+          "sha256": "7475437c4ebf873f1611f9e90ed4f1fe3f10b502f6fc8eb450838dea20848f52"
+        },
+        {
+          "path": "textures/3.normal.dds",
+          "size": 5592580,
+          "sha256": "0c1479eed5f33368054c59a1b43afc4fcb5bcb653cde3d465ae6f7b87e9fdc35"
+        },
+        {
+          "path": "textures/4.color.dds",
+          "size": 349700,
+          "sha256": "3dc9c018059cc9f7bbfbbce9c070e1c2ec5664386249fe7c5e6faee614aa9c24"
+        },
+        {
+          "path": "textures/4.color.png",
+          "size": 223751,
+          "sha256": "37e232e905beac536ee09838dc7b6624ecba14881ef05a6accd4cae63da5cc33"
+        },
+        {
+          "path": "textures/5.normal.dds",
+          "size": 349700,
+          "sha256": "42cad6dca8b1435e1c33b57d7516d638632b6049af3d3aa90de7eb5973d28e27"
+        },
+        {
+          "path": "textures/6.color.dds",
+          "size": 5592580,
+          "sha256": "c65a4e127a01c46e489ba44395da2706a6124ca58ed1d5da4bbd8fdb5e3a8cb7"
+        },
+        {
+          "path": "textures/6.color.png",
+          "size": 1244090,
+          "sha256": "710642fa7c5c8fed8ff910e59dd4ca74241c88c957c7d2294e604c68cc94f9f5"
+        },
+        {
+          "path": "textures/7.normal.dds",
+          "size": 5592580,
+          "sha256": "7b89ae20705a522db33c0bd781fadb682b0e9945356d845b81fde700437d9895"
+        },
+        {
+          "path": "textures/8.color.dds",
+          "size": 5592580,
+          "sha256": "09935997622a447883ac34b05d04ba399483cdda247a7a08ea523a7307ffcb40"
+        },
+        {
+          "path": "textures/8.color.png",
+          "size": 876351,
+          "sha256": "84854d412a9ffc283473d21efc8eb8adcb4d90e73c00c6d9e0080bcd26d51917"
+        },
+        {
+          "path": "textures/9.normal.dds",
+          "size": 5592580,
+          "sha256": "c62958e61781b6ac9b98bc19107f44817cce12cddf677e041c1130ecade3347f"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 56930,
+          "sha256": "206a2450e41d2c39259502fdda01dd65447ea684305754626c0ae39c68f8f954"
+        }
+      ]
+    },
+    {
+      "id": "brian",
+      "name": "The Fast and The Furious Brian O'Conner",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 97,
+          "sha256": "336c8723c7a929c57a9588cce27a446f97f0edecc57d4e2ab0fd498f28ab053e"
+        },
+        {
+          "path": "colors.json",
+          "size": 1094,
+          "sha256": "92ccc6c5bfa51606e3b99457207b4bb1b0f4bb5b273d5b490ffad4c86c3e2117"
+        },
+        {
+          "path": "feet.json",
+          "size": 1342,
+          "sha256": "efa8a044b9fd814e28a42a78a0102712cb80656c22d2091f0fd773ebb484ec91"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 2986,
+          "sha256": "2c89462584d3af904dfa57bc0e602aef06595ead889321dcc48b5ce331e39f0b"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 992371,
+          "sha256": "9957ce3385e08cbc69c8c708072e06788b1233f6f1122d8e5bb3c4aa5da62c10"
+        },
+        {
+          "path": "materials.json",
+          "size": 4167,
+          "sha256": "842f8ef63adb98a5d4ad1388b977d42052016b51608c5c5b9743ad11e7ed89bb"
+        },
+        {
+          "path": "textures/0.color.dds",
+          "size": 349700,
+          "sha256": "ca28e3017662874e7fea7deabf58ef17e9f55a778c30967d40ddfe590b1961af"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 358984,
+          "sha256": "f07f6bf43e95f270bc8d031fd99b283e816065b640cda1c8096e616679227cec"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 349700,
+          "sha256": "025fdfcc3c7abbe4826e745db8508138c86ef79d65d748eb39c12fa9783c3e4b"
+        },
+        {
+          "path": "textures/2.color.dds",
+          "size": 349700,
+          "sha256": "a5945d327867926a7b8d7bcc50a4937ad3abaed668f2c1c594ad7edf16439479"
+        },
+        {
+          "path": "textures/2.color.png",
+          "size": 446301,
+          "sha256": "e646f6c73dfcc5b98a00a302b19acc17673419e53d8dd56d58f28b3322d04414"
+        },
+        {
+          "path": "textures/3.normal.dds",
+          "size": 349700,
+          "sha256": "b57f4d1c3510ff3472881aef887b890dc6235e4d7f460b291709200dc993ea2a"
+        },
+        {
+          "path": "textures/4.normal.dds",
+          "size": 349700,
+          "sha256": "e47d640b46bc5ec79396f00e89cff30a21a6c8abc3490313460f2f787442212e"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 58694,
+          "sha256": "b36244a4cfeaab7d4f3bdc7590353ec08985352d0184adfb62d11d35714c5b26"
+        }
+      ]
+    },
+    {
+      "id": "dummy_robot",
+      "name": "Dummy Robot",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 75,
+          "sha256": "b33490b6d44e8fe0cfa33f7c3d24c414e1f20e6868f513bd7c476d383826a750"
+        },
+        {
+          "path": "colors.json",
+          "size": 485,
+          "sha256": "6dcec682d8aa967c701132f6a078916d04e69d77bc87b4d22b7a037e0dccf30b"
+        },
+        {
+          "path": "feet.json",
+          "size": 1333,
+          "sha256": "299473d6d14ee9cee8a07f03df3ccaeed85dd0c238b7c3248bc22b119717e880"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 1842,
+          "sha256": "59893a2e21cab068dbf5532157aef0962d08de0a9211225165e2e6bcf5cbb46d"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 1677040,
+          "sha256": "92e33ab101e80273a7127c0472a06f6c9a8bfb8c4fd655b59f4c52f93089ee80"
+        },
+        {
+          "path": "materials.json",
+          "size": 1617,
+          "sha256": "d7c49ecdb7b4074680dd13d3efb6580e4783636c1fb1a7ece1222b1bb9ed2ddf"
+        },
+        {
+          "path": "pbr/0-ao.data.dds",
+          "size": 2796364,
+          "sha256": "82e66aac75093e256a4452f78efd79b672a29a2037e8ef573a9353c42ca2c8a0"
+        },
+        {
+          "path": "pbr/1-ao.data.dds",
+          "size": 2796364,
+          "sha256": "82e66aac75093e256a4452f78efd79b672a29a2037e8ef573a9353c42ca2c8a0"
+        },
+        {
+          "path": "pbr/robot-metallic.data.dds",
+          "size": 2796364,
+          "sha256": "00b8ea7195cbdfed7d75e71b36f170c8a439b62fc0a2899b154e1e74c48c8382"
+        },
+        {
+          "path": "textures/0.color.dds",
+          "size": 5592580,
+          "sha256": "40f06e08d641e438d9cafcd4488ebb90c1e2d538e0cfa2c8fabe8dc548570522"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 3600360,
+          "sha256": "8d0c03bc8d2dd0fe3f69ae16b418fb444f647919ecddcd1e0fe8aacdba91a22a"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 5592580,
+          "sha256": "314f394e26eeb75a419cbd547638dcc4b632efd4fed079654d7dd0c736426b4c"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 54379,
+          "sha256": "7c021665aa41e5da76d15e21a2a7472a683b8568424dce05e9f465d2da10f1c3"
+        }
+      ]
+    },
+    {
+      "id": "james_bond",
+      "name": "007 James Bond",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 77,
+          "sha256": "bd32f5f2525d617d6a10ae72fcc9e95ab3ca094a8c4ab0cae972da2f2b46381d"
+        },
+        {
+          "path": "colors.json",
+          "size": 705,
+          "sha256": "8fb9d81685593c2249dec46e86a1ba26642d6c18920b97a0f27d7cc6acdefe5d"
+        },
+        {
+          "path": "feet.json",
+          "size": 1340,
+          "sha256": "3cb87ddc1902be1dfefdca708c47b79f445c47b4a20fec2c29726a1118ca2e88"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 3138,
+          "sha256": "20bc34c6860b4685dc02a591b38a450e1e57bcdbe1d12b5bf41dd578e2c6b659"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 902848,
+          "sha256": "d96d145b8093ec2e362e817f06b35f8e18981878c578adda1696e45549388180"
+        },
+        {
+          "path": "materials.json",
+          "size": 2817,
+          "sha256": "df7633965e84ad1bad0b691ba1d600af6c7fd8dbc629d654c169d6c6842b18cc"
+        },
+        {
+          "path": "textures/0.color.dds",
+          "size": 1398276,
+          "sha256": "10c81dc027c43ebea26c7fc2d93662294c2f812ce99baa6ef099a89425de0402"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 1631506,
+          "sha256": "a90bd014bde7eb3d0bbd68345ef2463586ec60c3c48ab2e347b06959c94b45aa"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 1398276,
+          "sha256": "79c457bba084089aa1d106b00d8c31506a62d9d6e63caed1bee753c64138cb3d"
+        },
+        {
+          "path": "textures/2.color.dds",
+          "size": 349700,
+          "sha256": "51a32d8ebbb7a6393abf145975672f4fc307dac62703c650454499175d89d457"
+        },
+        {
+          "path": "textures/2.color.png",
+          "size": 178487,
+          "sha256": "62d663c7d93625008134b7e555d1af7f9b97285cdc7f083a559f4b84698c7b74"
+        },
+        {
+          "path": "textures/3.normal.dds",
+          "size": 349700,
+          "sha256": "0912eb6096d12ac01598faf17160447259b1ebf743a437a70321d06527570762"
+        },
+        {
+          "path": "textures/4.color.dds",
+          "size": 22020,
+          "sha256": "e27cfd537c6c3b4fb44cd7dac163b13d52fd9480b89c61799c8557d1d7f8b35f"
+        },
+        {
+          "path": "textures/5.normal.dds",
+          "size": 22020,
+          "sha256": "85f65a27c4eb853669dc9f7af553cf581e1c0940e3c26a521a1f7ecdc5ea966d"
+        },
+        {
+          "path": "textures/6.color.dds",
+          "size": 349700,
+          "sha256": "74be5d0de263ee829028435dd364595bf71e4aee96fe6b18bb047d9df06a6577"
+        },
+        {
+          "path": "textures/6.color.png",
+          "size": 302189,
+          "sha256": "9ad3e80b9f6c831f2d708478115299156417d2d97d613bca4ea6d0ee6c00c798"
+        },
+        {
+          "path": "textures/7.normal.dds",
+          "size": 349700,
+          "sha256": "7708aee642ed780a55667618b280c8686ec25edbe6986d650adc3c558aa11167"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 53515,
+          "sha256": "00ab4e6ad19d4c309c161e86cfb7cdbf05a7e82139b07b53e2bff995442af43c"
+        }
+      ]
+    },
+    {
+      "id": "rinoa",
+      "name": "Final Fantasy 8 Rinoa",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 79,
+          "sha256": "0e87580b98f9bef366bd97599032544e2824db4184534a596e4edfd8ba1957ea"
+        },
+        {
+          "path": "colors.json",
+          "size": 4215,
+          "sha256": "8f826f49caadf3540aac68fb98599bed94e92b52c14ed033f7634b10b299e65e"
+        },
+        {
+          "path": "feet.json",
+          "size": 1340,
+          "sha256": "380adbd375556b03322081b4861c49c20e612bb9ec86c82b2917f0420d189d87"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 6274,
+          "sha256": "1c9b0ac3d06ef56235abc6f13479404b1b806b4c912dcff29dae001c3a194424"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 35582588,
+          "sha256": "11ec75cb566e3f46bb19d85cfe419508fcca18a6c852730204b1588851c307f5"
+        },
+        {
+          "path": "materials.json",
+          "size": 14594,
+          "sha256": "e39369ffbea6565f6762b5171d194dde63da0e917a8fe4761acb7b56714752f7"
+        },
+        {
+          "path": "pbr/hotw_character_rinoa_10-opacity.data.dds",
+          "size": 699212,
+          "sha256": "8d22a8e5b18a3db94e796e083bf2c9eb6bac1c909a71216bae037a0127438c75"
+        },
+        {
+          "path": "pbr/hotw_character_rinoa_11-opacity.data.dds",
+          "size": 699212,
+          "sha256": "8d22a8e5b18a3db94e796e083bf2c9eb6bac1c909a71216bae037a0127438c75"
+        },
+        {
+          "path": "pbr/hotw_character_rinoa_12-opacity.data.dds",
+          "size": 699212,
+          "sha256": "8d22a8e5b18a3db94e796e083bf2c9eb6bac1c909a71216bae037a0127438c75"
+        },
+        {
+          "path": "pbr/hotw_character_rinoa_4-opacity.data.dds",
+          "size": 699212,
+          "sha256": "8d22a8e5b18a3db94e796e083bf2c9eb6bac1c909a71216bae037a0127438c75"
+        },
+        {
+          "path": "pbr/hotw_character_rinoa_8-opacity.data.dds",
+          "size": 699212,
+          "sha256": "8d22a8e5b18a3db94e796e083bf2c9eb6bac1c909a71216bae037a0127438c75"
+        },
+        {
+          "path": "pbr/hotw_character_rinoa_9-opacity.data.dds",
+          "size": 699212,
+          "sha256": "8d22a8e5b18a3db94e796e083bf2c9eb6bac1c909a71216bae037a0127438c75"
+        },
+        {
+          "path": "textures/0.color.dds",
+          "size": 5592580,
+          "sha256": "29e3c6a983dc6f4b35ac462a34cda00dab37e5fb3a19de5aa9c814943d74b2e3"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 2443251,
+          "sha256": "a5900b5be874ec0b153f9fbee27ae7033298bcd6add464bd0c2e742bf54a6ac5"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 5592580,
+          "sha256": "4d4293129d054d771ab96d347f61687a478699f26d797d15f18f95843b8267cf"
+        },
+        {
+          "path": "textures/10.color.dds",
+          "size": 349700,
+          "sha256": "d878110e5dde8f58916daac7ceb3e19984a87e7159593e200690764ebf4b0401"
+        },
+        {
+          "path": "textures/10.color.png",
+          "size": 79556,
+          "sha256": "dbc3db9b93812918073ecc540c1346dc99c8472db5d689169c4bbb542dc55d41"
+        },
+        {
+          "path": "textures/11.normal.dds",
+          "size": 349700,
+          "sha256": "3b2c4acf544d268902d844766ff970f7212c8562495db0e9b1307f1e57eabe66"
+        },
+        {
+          "path": "textures/12.color.dds",
+          "size": 2796388,
+          "sha256": "ebdb411407eb056c31b7c0d7d86ad0e3bc37b83efc2314a2b485d7f667748daa"
+        },
+        {
+          "path": "textures/12.color.png",
+          "size": 2899841,
+          "sha256": "a3e3423e986bc337f99d56785a20dd999621f867dc6cf97f946fcaba8904610f"
+        },
+        {
+          "path": "textures/13.normal.dds",
+          "size": 2796388,
+          "sha256": "56095dde0dbb6f93fddef2fb3bc5ccfb69027237bfdedb4498250a29f9ffeea5"
+        },
+        {
+          "path": "textures/14.color.dds",
+          "size": 349700,
+          "sha256": "6df7eec67d6bc1a8c3974aef761f0b1dab90746ba4485a8545deb2c4b9d66b03"
+        },
+        {
+          "path": "textures/14.color.png",
+          "size": 84637,
+          "sha256": "0dbb00af365b25e70ca2b4d29141db0ba26e58c6ddc0fe365cdb8ff5357da057"
+        },
+        {
+          "path": "textures/15.normal.dds",
+          "size": 349700,
+          "sha256": "b1170731226c21fef9ddc480cc9e7e6ff46b842f8730bb409faf0005995ccb9a"
+        },
+        {
+          "path": "textures/2.color.dds",
+          "size": 1398276,
+          "sha256": "1275bd19b05a23ee777ee03369cf0afd4bbc8450564b9eade083f2785eccb57d"
+        },
+        {
+          "path": "textures/2.color.png",
+          "size": 969793,
+          "sha256": "0b4d55967da82b827f83f335a80bf7816c86d3f8290aabe242322ea6f58e3169"
+        },
+        {
+          "path": "textures/3.normal.dds",
+          "size": 1398276,
+          "sha256": "6b807bd9bef6809502d8168983a76743e4f207e7d2d246e0a6448a1d57c10781"
+        },
+        {
+          "path": "textures/4.color.dds",
+          "size": 1398276,
+          "sha256": "21aebb58f528529974c3b89d8b918e8031eef277baff7b41b88d4da85dba9384"
+        },
+        {
+          "path": "textures/4.color.png",
+          "size": 604939,
+          "sha256": "3b44722d430b1153703f51da23921ab78e43d3d62d715ea0f0c18fb4da840bbf"
+        },
+        {
+          "path": "textures/5.normal.dds",
+          "size": 1398276,
+          "sha256": "e8a067ba19b6dde1a689cc67925ff1a18a036a79d58095a443b227a000fd0ad2"
+        },
+        {
+          "path": "textures/6.color.dds",
+          "size": 1398276,
+          "sha256": "e0dcee231ee4a50d6f83e17849cfa0747f1d60594ae821b4d4da5bca1a1e0d07"
+        },
+        {
+          "path": "textures/6.color.png",
+          "size": 408402,
+          "sha256": "52a2ce4153090175256c3f5b2d7b0f7d6db524bac56c9d6f765abaa8b338ce6f"
+        },
+        {
+          "path": "textures/7.normal.dds",
+          "size": 1398276,
+          "sha256": "c608a88cce9e1f6d88a73fe5f5f377572385e69973dbd8a769bd17cc2b202759"
+        },
+        {
+          "path": "textures/8.color.dds",
+          "size": 87556,
+          "sha256": "caad8131f070b84153f9a1d803605d44918b63349c10dccb914dd680931f5771"
+        },
+        {
+          "path": "textures/9.normal.dds",
+          "size": 87556,
+          "sha256": "0304fca8fbae6fa8d8ae36474c70e4400d97c165e20b5323c3a692332b30cfb0"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 61022,
+          "sha256": "f02f7e28b7b46627796848ca8fabcd7b58ee7142068f576aeba6e551f4ddb793"
+        }
+      ]
+    },
+    {
+      "id": "t-800",
+      "name": "T-800 Terminator",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 74,
+          "sha256": "784cdb52ecf6bd073bdd62f83be90a057461a964fc6899af92a57a835c9669c4"
+        },
+        {
+          "path": "colors.json",
+          "size": 895,
+          "sha256": "58bedf5e3379834fc89711abf486acf13d5e239de210f3b3d996c41c355b6121"
+        },
+        {
+          "path": "feet.json",
+          "size": 1344,
+          "sha256": "c213f4031a194f60e88341dde14cbf3a3eb6f2458de6f07d1b42bd155eb3d224"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 2840,
+          "sha256": "70363af2cf44dce5d5e141bd50be854076ef8ed20693c75e477db0afaaf33990"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 18396641,
+          "sha256": "0589ea5ae218d103b251cabbb7e4662d3c01da461334bd319fd9d1d6de0eaf86"
+        },
+        {
+          "path": "materials.json",
+          "size": 4296,
+          "sha256": "86d073150714792007bc041afad90e0a0902a6cc5bfb96e0ea12402655510e06"
+        },
+        {
+          "path": "pbr/0-albedo-ao.data.dds",
+          "size": 2796364,
+          "sha256": "094f4fe9c052aa724bd489494eb191577b087a2e2730c15d20db569621794573"
+        },
+        {
+          "path": "pbr/1-albedo-ao.data.dds",
+          "size": 2796364,
+          "sha256": "094f4fe9c052aa724bd489494eb191577b087a2e2730c15d20db569621794573"
+        },
+        {
+          "path": "pbr/2-albedo-ao.data.dds",
+          "size": 174924,
+          "sha256": "de3e9c6d80874f90814c2bbb4d7448a3725c396be8e54f36ced3d91c736af4e9"
+        },
+        {
+          "path": "pbr/4-albedo-ao.data.dds",
+          "size": 699212,
+          "sha256": "497731aaaa0db957c08948a2f06e67acbd9a40ad5e71e2344aa169276d8584b1"
+        },
+        {
+          "path": "pbr/5-albedo-ao.data.dds",
+          "size": 2796364,
+          "sha256": "094f4fe9c052aa724bd489494eb191577b087a2e2730c15d20db569621794573"
+        },
+        {
+          "path": "pbr/eyes-emission.color.dds",
+          "size": 349700,
+          "sha256": "5db357e8d5745e2373acda8285725aaf7ae7359e12254e81e5ffee5229bc47a1"
+        },
+        {
+          "path": "textures/0.color.dds",
+          "size": 5592580,
+          "sha256": "fcb472f54776b6dd6d685b01c8e4e303bb374689b99ce1c0f981e655e4e05933"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 5060574,
+          "sha256": "febfd41c6668e8916fb3371446023b037aa199653e54b8e28c39d1135a0f0e67"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 5592580,
+          "sha256": "ed7dfcd115542f2b818b30c6dfd66c1fbad27436a7c8622671b07a3f584fd807"
+        },
+        {
+          "path": "textures/2.color.dds",
+          "size": 349700,
+          "sha256": "30edd3fc5a47e6081a40a15fe105f9f3576697925b069169925f2c95370405fe"
+        },
+        {
+          "path": "textures/3.normal.dds",
+          "size": 349700,
+          "sha256": "feab3f8d68c6b2a6a56d608355d93e1462be128284e3c11c9326e96879d23ddd"
+        },
+        {
+          "path": "textures/4.color.dds",
+          "size": 1398276,
+          "sha256": "207c169008ecd325cd5bbdf7c15881a77c3cffbfa665003ad69e4a55b5b3f400"
+        },
+        {
+          "path": "textures/4.color.png",
+          "size": 1565332,
+          "sha256": "4037d0edc9474af5a3dc1c2a988227b7c1dd9b9884db7a93e9354e0706a8b78b"
+        },
+        {
+          "path": "textures/5.normal.dds",
+          "size": 1398276,
+          "sha256": "a6a183b5c185733cb68456aadb628a039569507c031df08c3db932109a8a2d25"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 70207,
+          "sha256": "35fca2d41582ee620ef5dcb0d4bbb098b52508fdd45dfb1d86844e13413f453a"
+        }
+      ]
+    },
+    {
+      "id": "senna",
+      "name": "Ayrton Senna",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 70,
+          "sha256": "d323894bdd47b823143c8cc5e50f8f9a1aa0762f9de04329da3f07742e4337bf"
+        },
+        {
+          "path": "colors.json",
+          "size": 2002,
+          "sha256": "1802144114bd0358f829f25a81c2c1634a9e84feff1806cbe04111ca31102401"
+        },
+        {
+          "path": "feet.json",
+          "size": 1340,
+          "sha256": "ab9e0e73875e960f642d2ad25f98b302a5b77120864668aa0b0637a8df9e15c7"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 4153,
+          "sha256": "2c52f03749581a1f354590a67bdd374d805a0cc6a62f990675b9631a8ffcca37"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 11904271,
+          "sha256": "a50c656ee798a94de2a736faf48a8373259227b6132dad076c3055c196d7cf3d"
+        },
+        {
+          "path": "materials.json",
+          "size": 6008,
+          "sha256": "76c864f0e45cde877ca77ad333aa20eefdda81d1a799c2e9f3e451675d6e8de4"
+        },
+        {
+          "path": "textures/0.color.dds",
+          "size": 1398276,
+          "sha256": "2a9f57f1f476bf14dd5b4a55fad046d3e6d53d5cd479d296f3122e55c694e868"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 26077,
+          "sha256": "400e0cfc317730981896b13281fc915faa13bf8027d4b79e43e95eddfb2d351d"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 87556,
+          "sha256": "8bae8fee548418154d70a5adc23a6302f6c21cbf1ec63342ffea7b3383a4e110"
+        },
+        {
+          "path": "textures/10.color.dds",
+          "size": 5592580,
+          "sha256": "dc181700025eee15c24b3f678eb561832b3dcfb00b1fb7e5b6de299cd370c74b"
+        },
+        {
+          "path": "textures/10.color.png",
+          "size": 1088223,
+          "sha256": "7838bce7d5406ad21652835f78b3a51fb51314649fb582a2cd8f8e9382259efa"
+        },
+        {
+          "path": "textures/11.normal.dds",
+          "size": 5592580,
+          "sha256": "f3240efb0cd7febb515a02605a29ac4e3e6e8b6f26056b35aa0479168a90ac12"
+        },
+        {
+          "path": "textures/12.color.dds",
+          "size": 1398276,
+          "sha256": "432bea7df4a6195cd06ff44f5dd8f8b136c57ed3d9f619e66b824c8d2ef5f777"
+        },
+        {
+          "path": "textures/12.color.png",
+          "size": 759501,
+          "sha256": "0fba457b47b6b5b103675ca0a8a2d683381f6a1ac1878c16ee06bc9a667827fa"
+        },
+        {
+          "path": "textures/13.normal.dds",
+          "size": 1398276,
+          "sha256": "f07c89cf0b47a444535cfda8a8af61656e2e0a45996264ecf4ea9501261191f3"
+        },
+        {
+          "path": "textures/2.color.dds",
+          "size": 87556,
+          "sha256": "893b99fd625796c005e0e11851eeb267d091e2610d0829e7ecbdcecd66b36ea7"
+        },
+        {
+          "path": "textures/2.color.png",
+          "size": 150313,
+          "sha256": "8aa478f0e08162aa511bbf8accf865864f3808d50358c59bca4bfaa7cc17dd30"
+        },
+        {
+          "path": "textures/3.normal.dds",
+          "size": 699236,
+          "sha256": "8fd91485b441139241ef554e0f8affbf847be5b1543fa27281cc274c426e6690"
+        },
+        {
+          "path": "textures/4.color.dds",
+          "size": 2796388,
+          "sha256": "1133bd174e906162ecdd488dba968a7003c6d371b43ce6cf91c5fac94b0774d1"
+        },
+        {
+          "path": "textures/4.color.png",
+          "size": 536083,
+          "sha256": "57938e1efc9cad361028a3188a6c9feaa23e8c3a678d311fb73c51c0743c0527"
+        },
+        {
+          "path": "textures/5.color.dds",
+          "size": 5636,
+          "sha256": "57efff665794618e399e87328b9a0eeab718d090982ce3eeefd417acf85c50e4"
+        },
+        {
+          "path": "textures/5.color.png",
+          "size": 3881,
+          "sha256": "907e57bb3db81398509a59dd010048ca63be15d957da9e417858e6a732d50f04"
+        },
+        {
+          "path": "textures/6.color.dds",
+          "size": 1398276,
+          "sha256": "4ac31fa7ab401b7642f43fb7894ffe1d9ed0ebe854b9a548bf3616fe3a37f5fe"
+        },
+        {
+          "path": "textures/6.color.png",
+          "size": 66068,
+          "sha256": "d91c23831369ee6a9ac32cb66e3c648ac1a2cce21b3b4ecbd7d071527a1a3113"
+        },
+        {
+          "path": "textures/7.normal.dds",
+          "size": 1398276,
+          "sha256": "c778ad1d9c1ec0f6d0ee0d8e097521838aaa3ddbebb1a97368610a35c4f99688"
+        },
+        {
+          "path": "textures/8.color.dds",
+          "size": 1398276,
+          "sha256": "b24288923db362858a96994408b0cf3d4c1bacdcbd6ac76b8c2fcbbf25e680ad"
+        },
+        {
+          "path": "textures/8.color.png",
+          "size": 42469,
+          "sha256": "6e59c850637df3089863098ecafc9162bd39d790a980e8abc21974c5248ab34b"
+        },
+        {
+          "path": "textures/9.color.dds",
+          "size": 5592580,
+          "sha256": "d8e1b3a1d319847946ca8c97a9e69c55e9295bb9676f048cf10d9a879b21f622"
+        },
+        {
+          "path": "textures/9.color.png",
+          "size": 382589,
+          "sha256": "0fb0e76400aea7854d2be1b93d7b01b4cceb67be7acc892895798dd784bc0f75"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 55530,
+          "sha256": "ec8c0ea5e4805ea9959f8ce8bcc0e32923aa12229b6efcd79742c1088fe0953d"
+        }
+      ]
+    },
+    {
+      "id": "robocop",
+      "name": "ROBOCOP",
+      "author": "taikoro3",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 67,
+          "sha256": "f67af9c0e2a8551bafc993a673a84ad823c1fc5e2d6311710f2262cb258637d0"
+        },
+        {
+          "path": "colors.json",
+          "size": 5089,
+          "sha256": "7e3654cb6041a228aee0e7511b1be20a7b4baa4b4a8b459af5dac91afd260efe"
+        },
+        {
+          "path": "feet.json",
+          "size": 1332,
+          "sha256": "59f0ed717707c6ec28297eae69041ef92a9d184c27b459c4abc1572b9101af80"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 6102,
+          "sha256": "748baa56907b7572e660bcd445edf581c2b2a3833c1d1cd38426486e829acf1f"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 1976869,
+          "sha256": "18cd251e88f0980533333195ef94e2f370ada362d0334748af08cf96eb8f3bed"
+        },
+        {
+          "path": "materials.json",
+          "size": 14641,
+          "sha256": "2728de373f265e4a830a4e5a8c97896be423037221ac7fe80075824ab787aec1"
+        },
+        {
+          "path": "pbr/glove-albedo.color.dds",
+          "size": 87556,
+          "sha256": "c7c50fe30fd796ccd44189ac52b51dbdfb5f37598b68baa77b9eb3b664595402"
+        },
+        {
+          "path": "pbr/glove-albedo.color.png",
+          "size": 10175,
+          "sha256": "0be1deadd97da7ab3c9a7f14a8ef69b0339a4fff64fd8df03e9746717fd96d3b"
+        },
+        {
+          "path": "textures/1.normal.dds",
+          "size": 22020,
+          "sha256": "23c9cc2e2616186ab441258c19696bdc8d0972752a6021fac0a12bb5ac30173c"
+        },
+        {
+          "path": "textures/10.color.dds",
+          "size": 87556,
+          "sha256": "a08d35a3b1062585906a69715fcdecf172fb1c804898174bd9ed3ec9949e063b"
+        },
+        {
+          "path": "textures/10.color.png",
+          "size": 43044,
+          "sha256": "e84783ba32f80dcd85f6391b7c2c3c24e519d9beb4ee2aa71205df67b2fd6caa"
+        },
+        {
+          "path": "textures/11.normal.dds",
+          "size": 87556,
+          "sha256": "4be48014cc1edd54cc3330a84cfb4ef1d824697ae69b01327c07575a72a36779"
+        },
+        {
+          "path": "textures/12.color.dds",
+          "size": 1398276,
+          "sha256": "4ed65a6ecc57bfab7f6f108e2aa312836255dfafbcfcc490f1053bbb3e986ef5"
+        },
+        {
+          "path": "textures/12.color.png",
+          "size": 1263051,
+          "sha256": "6b6f1633e388a29b41250ff130494eb3f2f9cb9c76ea9d0562fc3ec64cb9da0c"
+        },
+        {
+          "path": "textures/13.normal.dds",
+          "size": 1398276,
+          "sha256": "06acdd2be796da20e894a2206d9e86639628f720b42f9844696d92cde147e476"
+        },
+        {
+          "path": "textures/14.color.dds",
+          "size": 1398276,
+          "sha256": "1f26f8f7979f63b097531d355667910a28e6d8fbb8a69055e6d2a1fada496610"
+        },
+        {
+          "path": "textures/14.color.png",
+          "size": 1082183,
+          "sha256": "2f2be7862e88c7d2d42e1e188929eb3c59f2d22f107cb44f08ef01cb59c39d0a"
+        },
+        {
+          "path": "textures/15.normal.dds",
+          "size": 1398276,
+          "sha256": "fccbae88c8e63b2e3e371b4e3e26dca4084fb7258dfb454d344c70f9b165f99e"
+        },
+        {
+          "path": "textures/16.color.dds",
+          "size": 1398276,
+          "sha256": "0708533bfb98b24622b31e32f7fbfb58f1b4c4082f59becff9def2bc35c3b2b6"
+        },
+        {
+          "path": "textures/16.color.png",
+          "size": 1604514,
+          "sha256": "7c26095df311389fbf0f07ec4a7ad44f2d6e2b9e1642ed24999f9f1f2423273a"
+        },
+        {
+          "path": "textures/17.normal.dds",
+          "size": 1398276,
+          "sha256": "17c142bba2b1ca6ee565306c9b5547d9b2d0d874fe0ce9f949a069018f73da64"
+        },
+        {
+          "path": "textures/18.color.dds",
+          "size": 1398276,
+          "sha256": "3094ebc1c532cea87a6700915887d3f86af9afb8362cf57c9bfa81329c76744d"
+        },
+        {
+          "path": "textures/18.color.png",
+          "size": 1479275,
+          "sha256": "bf960c11aaf1f34bfb732fad612a3c0e32f04b6b3f89807c0b9b36afb4c9474b"
+        },
+        {
+          "path": "textures/19.normal.dds",
+          "size": 1398276,
+          "sha256": "a90ecb18dc871f1e205ea5a96f5ab4442c71bf833c08f4a89188dfa942f75da5"
+        },
+        {
+          "path": "textures/2.color.dds",
+          "size": 87556,
+          "sha256": "67698bc9b47dca39b5a7f11706154023d6e7e753976d620962d6330a1ae4328d"
+        },
+        {
+          "path": "textures/2.color.png",
+          "size": 30136,
+          "sha256": "f0bbe9a781a9c904b8567eb0af19aa0eb8ffbe3d651650b012bb487836717da3"
+        },
+        {
+          "path": "textures/20.color.dds",
+          "size": 22020,
+          "sha256": "ee1505fafa178f46c34cacbae19963757eda09257a63d77c78997bbf3507220f"
+        },
+        {
+          "path": "textures/21.normal.dds",
+          "size": 22020,
+          "sha256": "7ba5b74076fb03b10dc36e2236bf8baad21c69347e7b1740c87d5ef5561b684c"
+        },
+        {
+          "path": "textures/22.color.dds",
+          "size": 1398276,
+          "sha256": "d9c84dd92109f5eccd96bf5490bd9d7170bcb8220f93a4d9ee0940e9dab677e0"
+        },
+        {
+          "path": "textures/22.color.png",
+          "size": 335271,
+          "sha256": "f400d3698fc4f7a895d4486e55b4cdb510b7c201393d9d9cbf01b4e2ce2dc224"
+        },
+        {
+          "path": "textures/23.normal.dds",
+          "size": 1398276,
+          "sha256": "89bcfa09abf88f3f3c0d1ca3f62932cf37be0b6d94eada86ccf95abeb748f589"
+        },
+        {
+          "path": "textures/3.normal.dds",
+          "size": 87556,
+          "sha256": "668fda88e15602135bf68486d5909bf2fa3450948f14c9227e6a0b1220dc5134"
+        },
+        {
+          "path": "textures/4.color.dds",
+          "size": 87556,
+          "sha256": "489ae6a00a1d2ea1d333c3cb86c40dc32e9c4dc25ddec2feb0779ae500e3f067"
+        },
+        {
+          "path": "textures/4.color.png",
+          "size": 20744,
+          "sha256": "aaa8205da53d001407dfe56edcd260600ea462987c80cbe9d37fe5ff55e76b65"
+        },
+        {
+          "path": "textures/5.normal.dds",
+          "size": 87556,
+          "sha256": "99a4821aaa02f15f63172159cfcbe7f0982e5bd2efc15f6b2c49be7140ac7bf1"
+        },
+        {
+          "path": "textures/6.color.dds",
+          "size": 87556,
+          "sha256": "8c0bca4bc924342f35c998be38e55b1d08f773dca4533b71586e00f8c1359d06"
+        },
+        {
+          "path": "textures/6.color.png",
+          "size": 58092,
+          "sha256": "190e2d32e8bef26dca1c7e5a35eb0616817f7bb9798ec39862875b0f0fdd4cff"
+        },
+        {
+          "path": "textures/7.normal.dds",
+          "size": 87556,
+          "sha256": "0f3f717823a60b3f706ac65bac5ac31f96f2abef440ee7806eb2bf371762ef37"
+        },
+        {
+          "path": "textures/8.color.dds",
+          "size": 87556,
+          "sha256": "ffb9f96ceba047897fdf3c35945cab67d025a243324634b873ea76ec286dcc6c"
+        },
+        {
+          "path": "textures/8.color.png",
+          "size": 45647,
+          "sha256": "3449216e61420c9333455e25be2456b3e55fc9bcc43bcab789da89c8b3679660"
+        },
+        {
+          "path": "textures/9.normal.dds",
+          "size": 87556,
+          "sha256": "89eaca89cbc6861c6407df7d8a9874d35829744480db86d4523921c01c0ffce9"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 63152,
+          "sha256": "7fc9beff33c8fc0a784d2e532c9f9e10dfb2b92ad77ccf00c5265d7355eb8ff8"
+        }
+      ]
+    }
+  ]
+}

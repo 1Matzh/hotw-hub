@@ -1,0 +1,120 @@
+{
+  "source": "assets/ac_characters/brian.kn5",
+  "author": "taikoro3",
+  "meshes": [
+    {
+      "name": "rig_hotw_upperbody_brian_00",
+      "vertices": 456,
+      "triangles": 634,
+      "material": "hotw_character_brian_0",
+      "part": "upperbody"
+    },
+    {
+      "name": "rig_hotw_lowerbody_brian_00",
+      "vertices": 719,
+      "triangles": 1136,
+      "material": "hotw_character_brian_0",
+      "part": "lowerbody"
+    },
+    {
+      "name": "rig_hotw_neck_brian_10",
+      "vertices": 49,
+      "triangles": 69,
+      "material": "hotw_character_brian_0",
+      "part": "neck"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_brian_20",
+      "vertices": 69,
+      "triangles": 105,
+      "material": "hotw_character_brian_0",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_brian_30",
+      "vertices": 63,
+      "triangles": 94,
+      "material": "hotw_character_brian_0",
+      "part": "sleeves_L"
+    },
+    {
+      "name": "rig_hotw_neck_cover_brian_40",
+      "vertices": 17,
+      "triangles": 16,
+      "material": "hotw_character_brian_0",
+      "part": "neck_cover"
+    },
+    {
+      "name": "rig_hotw_head_brian_50",
+      "vertices": 1038,
+      "triangles": 1804,
+      "material": "hotw_character_brian_1",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_brian_60",
+      "vertices": 92,
+      "triangles": 160,
+      "material": "hotw_character_brian_2",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_brian_70",
+      "vertices": 196,
+      "triangles": 312,
+      "material": "hotw_character_brian_3",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_brian_80",
+      "vertices": 152,
+      "triangles": 210,
+      "material": "hotw_character_brian_4",
+      "part": "sleeves_L"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_brian_90",
+      "vertices": 156,
+      "triangles": 220,
+      "material": "hotw_character_brian_4",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_gloves_R_brian_100",
+      "vertices": 441,
+      "triangles": 661,
+      "material": "hotw_character_brian_4",
+      "part": "gloves_R"
+    },
+    {
+      "name": "rig_hotw_gloves_L_brian_110",
+      "vertices": 438,
+      "triangles": 643,
+      "material": "hotw_character_brian_4",
+      "part": "gloves_L"
+    },
+    {
+      "name": "rig_hotw_upperbody_brian_120",
+      "vertices": 69,
+      "triangles": 58,
+      "material": "hotw_character_brian_4",
+      "part": "upperbody"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_brian_130",
+      "vertices": 117,
+      "triangles": 185,
+      "material": "hotw_character_brian_5",
+      "part": "sleeves_L"
+    }
+  ],
+  "armSeamTrianglesDropped": 0,
+  "newBones": 0,
+  "calfSkin": {
+    "footNodeRole": "calf_extension",
+    "vertices": 555
+  },
+  "sourceTriangles": 6291,
+  "nativeReady": true,
+  "eyeBones": 2
+}

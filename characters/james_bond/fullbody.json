@@ -1,0 +1,120 @@
+{
+  "source": "assets/ac_characters/james_bond.kn5",
+  "author": "taikoro3",
+  "meshes": [
+    {
+      "name": "rig_hotw_sleeves_L_james_bond_00",
+      "vertices": 466,
+      "triangles": 564,
+      "material": "hotw_character_james_bond_0",
+      "part": "sleeves_L"
+    },
+    {
+      "name": "rig_hotw_gloves_L_james_bond_10",
+      "vertices": 28,
+      "triangles": 22,
+      "material": "hotw_character_james_bond_0",
+      "part": "gloves_L"
+    },
+    {
+      "name": "rig_hotw_upperbody_james_bond_20",
+      "vertices": 832,
+      "triangles": 1159,
+      "material": "hotw_character_james_bond_0",
+      "part": "upperbody"
+    },
+    {
+      "name": "rig_hotw_lowerbody_james_bond_20",
+      "vertices": 826,
+      "triangles": 1137,
+      "material": "hotw_character_james_bond_0",
+      "part": "lowerbody"
+    },
+    {
+      "name": "rig_hotw_neck_james_bond_30",
+      "vertices": 359,
+      "triangles": 475,
+      "material": "hotw_character_james_bond_0",
+      "part": "neck"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_james_bond_40",
+      "vertices": 527,
+      "triangles": 625,
+      "material": "hotw_character_james_bond_0",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_gloves_R_james_bond_50",
+      "vertices": 4,
+      "triangles": 2,
+      "material": "hotw_character_james_bond_0",
+      "part": "gloves_R"
+    },
+    {
+      "name": "rig_hotw_neck_cover_james_bond_60",
+      "vertices": 55,
+      "triangles": 51,
+      "material": "hotw_character_james_bond_0",
+      "part": "neck_cover"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_james_bond_70",
+      "vertices": 24,
+      "triangles": 22,
+      "material": "hotw_character_james_bond_1",
+      "part": "sleeves_L"
+    },
+    {
+      "name": "rig_hotw_gloves_L_james_bond_80",
+      "vertices": 167,
+      "triangles": 232,
+      "material": "hotw_character_james_bond_1",
+      "part": "gloves_L"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_james_bond_90",
+      "vertices": 22,
+      "triangles": 19,
+      "material": "hotw_character_james_bond_1",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_gloves_R_james_bond_100",
+      "vertices": 166,
+      "triangles": 227,
+      "material": "hotw_character_james_bond_1",
+      "part": "gloves_R"
+    },
+    {
+      "name": "rig_hotw_upperbody_james_bond_110",
+      "vertices": 6,
+      "triangles": 5,
+      "material": "hotw_character_james_bond_1",
+      "part": "upperbody"
+    },
+    {
+      "name": "rig_hotw_head_james_bond_120",
+      "vertices": 16,
+      "triangles": 16,
+      "material": "hotw_character_james_bond_2",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_james_bond_130",
+      "vertices": 406,
+      "triangles": 703,
+      "material": "hotw_character_james_bond_3",
+      "part": "head"
+    }
+  ],
+  "armSeamTrianglesDropped": 0,
+  "newBones": 0,
+  "calfSkin": {
+    "footNodeRole": "calf_extension",
+    "vertices": 310
+  },
+  "sourceTriangles": 5208,
+  "nativeReady": true,
+  "eyeBones": 2
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "material": "hotw_character_ada_0",
+    "group": "clothing",
+    "map": "/hotw/characters/ada/textures/0.color.dds",
+    "source": "/hotw/characters/ada/textures/0.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_ada_1",
+    "group": "clothing",
+    "map": "/hotw/characters/ada/textures/2.color.dds",
+    "source": "/hotw/characters/ada/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_ada_10",
+    "group": "clothing",
+    "map": "/hotw/characters/ada/textures/17.color.dds",
+    "source": "/hotw/characters/ada/textures/17.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_ada_2",
+    "group": "clothing",
+    "map": "/hotw/characters/ada/textures/4.color.dds",
+    "source": "/hotw/characters/ada/textures/4.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_ada_3",
+    "group": "clothing",
+    "map": "/hotw/characters/ada/textures/6.color.dds",
+    "source": "/hotw/characters/ada/textures/6.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_ada_4",
+    "group": "skin",
+    "map": "/hotw/characters/ada/textures/8.color.dds",
+    "source": "/hotw/characters/ada/textures/8.color.png",
+    "field": "diffuseMap"
+  },
+  {
+    "material": "hotw_character_ada_6",
+    "group": "skin",
+    "map": "/hotw/characters/ada/textures/11.color.dds",
+    "source": "/hotw/characters/ada/textures/11.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_ada_8",
+    "group": "skin",
+    "map": "/hotw/characters/ada/textures/13.color.dds",
+    "source": "/hotw/characters/ada/textures/13.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_ada_9",
+    "group": "skin",
+    "map": "/hotw/characters/ada/textures/15.color.dds",
+    "source": "/hotw/characters/ada/textures/15.color.png",
+    "field": "diffuseMap"
+  }
+]

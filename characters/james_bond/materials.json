@@ -1,0 +1,117 @@
+{
+  "hotw_character_james_bond_0": {
+    "class": "Material",
+    "name": "hotw_character_james_bond_0",
+    "mapTo": "hotw_character_james_bond_0",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": false,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/james_bond/textures/0.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.88,
+        "normalMap": "/hotw/characters/james_bond/textures/1.normal.dds",
+        "normalMapStrength": 0.15
+      }
+    ]
+  },
+  "hotw_character_james_bond_1": {
+    "class": "Material",
+    "name": "hotw_character_james_bond_1",
+    "mapTo": "hotw_character_james_bond_1",
+    "doubleSided": true,
+    "alphaTest": true,
+    "alphaRef": 90,
+    "version": 1,
+    "dynamicCubemap": false,
+    "castShadows": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "diffuseMap": "/hotw/characters/james_bond/textures/2.color.dds",
+        "diffuseColor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          0.03,
+          0.03,
+          0.03,
+          1
+        ],
+        "specularPower": 16,
+        "normalMap": "/hotw/characters/james_bond/textures/3.normal.dds",
+        "normalMapStrength": 0.15
+      }
+    ]
+  },
+  "hotw_character_james_bond_2": {
+    "class": "Material",
+    "name": "hotw_character_james_bond_2",
+    "mapTo": "hotw_character_james_bond_2",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/james_bond/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.16,
+        "normalMap": "/hotw/characters/james_bond/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_james_bond_3": {
+    "class": "Material",
+    "name": "hotw_character_james_bond_3",
+    "mapTo": "hotw_character_james_bond_3",
+    "doubleSided": true,
+    "alphaTest": true,
+    "alphaRef": 90,
+    "version": 1,
+    "dynamicCubemap": false,
+    "castShadows": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "diffuseMap": "/hotw/characters/james_bond/textures/6.color.dds",
+        "diffuseColor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          0.03,
+          0.03,
+          0.03,
+          1
+        ],
+        "specularPower": 16,
+        "normalMap": "/hotw/characters/james_bond/textures/7.normal.dds",
+        "normalMapStrength": 0.15
+      }
+    ]
+  }
+}

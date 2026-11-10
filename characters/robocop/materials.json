@@ -1,0 +1,587 @@
+{
+  "hotw_character_robocop_0": {
+    "class": "Material",
+    "name": "hotw_character_robocop_0",
+    "mapTo": "hotw_character_robocop_0",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/pbr/glove-albedo.color.dds",
+        "baseColorFactor": [
+          3,
+          3,
+          3,
+          1
+        ],
+        "metallicFactor": 0.8,
+        "roughnessFactor": 0.5,
+        "normalMap": "/hotw/characters/robocop/textures/1.normal.dds",
+        "normalMapStrength": 0.15
+      }
+    ]
+  },
+  "hotw_character_robocop_1": {
+    "class": "Material",
+    "name": "hotw_character_robocop_1",
+    "mapTo": "hotw_character_robocop_1",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/pbr/glove-albedo.color.dds",
+        "baseColorFactor": [
+          3,
+          3,
+          3,
+          1
+        ],
+        "metallicFactor": 0.8,
+        "roughnessFactor": 0.5,
+        "normalMap": "/hotw/characters/robocop/textures/1.normal.dds",
+        "normalMapStrength": 0.15
+      }
+    ]
+  },
+  "hotw_character_robocop_2": {
+    "class": "Material",
+    "name": "hotw_character_robocop_2",
+    "mapTo": "hotw_character_robocop_2",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/2.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/3.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_3": {
+    "class": "Material",
+    "name": "hotw_character_robocop_3",
+    "mapTo": "hotw_character_robocop_3",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_4": {
+    "class": "Material",
+    "name": "hotw_character_robocop_4",
+    "mapTo": "hotw_character_robocop_4",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/6.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/7.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_5": {
+    "class": "Material",
+    "name": "hotw_character_robocop_5",
+    "mapTo": "hotw_character_robocop_5",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_6": {
+    "class": "Material",
+    "name": "hotw_character_robocop_6",
+    "mapTo": "hotw_character_robocop_6",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/8.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/9.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_7": {
+    "class": "Material",
+    "name": "hotw_character_robocop_7",
+    "mapTo": "hotw_character_robocop_7",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/10.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/11.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_8": {
+    "class": "Material",
+    "name": "hotw_character_robocop_8",
+    "mapTo": "hotw_character_robocop_8",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_9": {
+    "class": "Material",
+    "name": "hotw_character_robocop_9",
+    "mapTo": "hotw_character_robocop_9",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_10": {
+    "class": "Material",
+    "name": "hotw_character_robocop_10",
+    "mapTo": "hotw_character_robocop_10",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_11": {
+    "class": "Material",
+    "name": "hotw_character_robocop_11",
+    "mapTo": "hotw_character_robocop_11",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/10.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/11.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_12": {
+    "class": "Material",
+    "name": "hotw_character_robocop_12",
+    "mapTo": "hotw_character_robocop_12",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_13": {
+    "class": "Material",
+    "name": "hotw_character_robocop_13",
+    "mapTo": "hotw_character_robocop_13",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/2.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/3.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_14": {
+    "class": "Material",
+    "name": "hotw_character_robocop_14",
+    "mapTo": "hotw_character_robocop_14",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1,
+    "dynamicCubemap": false,
+    "castShadows": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "diffuseMap": "/hotw/characters/robocop/textures/12.color.dds",
+        "diffuseColor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          0.03,
+          0.03,
+          0.03,
+          1
+        ],
+        "specularPower": 16,
+        "normalMap": "/hotw/characters/robocop/textures/13.normal.dds",
+        "normalMapStrength": 0.15
+      }
+    ]
+  },
+  "hotw_character_robocop_15": {
+    "class": "Material",
+    "name": "hotw_character_robocop_15",
+    "mapTo": "hotw_character_robocop_15",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/4.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/5.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_16": {
+    "class": "Material",
+    "name": "hotw_character_robocop_16",
+    "mapTo": "hotw_character_robocop_16",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/14.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/15.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_17": {
+    "class": "Material",
+    "name": "hotw_character_robocop_17",
+    "mapTo": "hotw_character_robocop_17",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/16.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/17.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_18": {
+    "class": "Material",
+    "name": "hotw_character_robocop_18",
+    "mapTo": "hotw_character_robocop_18",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/18.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/19.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_19": {
+    "class": "Material",
+    "name": "hotw_character_robocop_19",
+    "mapTo": "hotw_character_robocop_19",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/16.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/17.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_20": {
+    "class": "Material",
+    "name": "hotw_character_robocop_20",
+    "mapTo": "hotw_character_robocop_20",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/20.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.16,
+        "normalMap": "/hotw/characters/robocop/textures/21.normal.dds",
+        "normalMapStrength": 0.35
+      }
+    ]
+  },
+  "hotw_character_robocop_21": {
+    "class": "Material",
+    "name": "hotw_character_robocop_21",
+    "mapTo": "hotw_character_robocop_21",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/16.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/17.normal.dds"
+      }
+    ]
+  },
+  "hotw_character_robocop_22": {
+    "class": "Material",
+    "name": "hotw_character_robocop_22",
+    "mapTo": "hotw_character_robocop_22",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/robocop/textures/22.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.28,
+        "normalMap": "/hotw/characters/robocop/textures/23.normal.dds"
+      }
+    ]
+  }
+}

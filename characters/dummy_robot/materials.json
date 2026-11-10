@@ -1,0 +1,56 @@
+{
+  "hotw_character_dummy_robot_0": {
+    "class": "Material",
+    "name": "hotw_character_dummy_robot_0",
+    "mapTo": "hotw_character_dummy_robot_0",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/dummy_robot/textures/0.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.5,
+        "normalMap": "/hotw/characters/dummy_robot/textures/1.normal.dds",
+        "ambientOcclusionMap": "/hotw/characters/dummy_robot/pbr/0-ao.data.dds",
+        "metallicMap": "/hotw/characters/dummy_robot/pbr/robot-metallic.data.dds"
+      }
+    ]
+  },
+  "hotw_character_dummy_robot_1": {
+    "class": "Material",
+    "name": "hotw_character_dummy_robot_1",
+    "mapTo": "hotw_character_dummy_robot_1",
+    "doubleSided": true,
+    "alphaTest": false,
+    "alphaRef": 90,
+    "version": 1.5,
+    "dynamicCubemap": true,
+    "materialTag0": "hotw",
+    "Stages": [
+      {
+        "baseColorMap": "/hotw/characters/dummy_robot/textures/0.color.dds",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.5,
+        "normalMap": "/hotw/characters/dummy_robot/textures/1.normal.dds",
+        "ambientOcclusionMap": "/hotw/characters/dummy_robot/pbr/1-ao.data.dds",
+        "metallicMap": "/hotw/characters/dummy_robot/pbr/robot-metallic.data.dds"
+      }
+    ]
+  }
+}

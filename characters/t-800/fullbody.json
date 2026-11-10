@@ -1,0 +1,113 @@
+{
+  "source": "assets/ac_characters/t-800.kn5",
+  "author": "taikoro3",
+  "meshes": [
+    {
+      "name": "rig_hotw_head_t_800_00",
+      "vertices": 14806,
+      "triangles": 21050,
+      "material": "hotw_character_t_800_0",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_t_800_10",
+      "vertices": 1488,
+      "triangles": 2780,
+      "material": "hotw_character_t_800_1",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_t_800_20",
+      "vertices": 442,
+      "triangles": 576,
+      "material": "hotw_character_t_800_2",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_t_800_30",
+      "vertices": 87,
+      "triangles": 128,
+      "material": "hotw_character_t_800_3",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_upperbody_t_800_40",
+      "vertices": 16681,
+      "triangles": 22317,
+      "material": "hotw_character_t_800_4",
+      "part": "upperbody"
+    },
+    {
+      "name": "rig_hotw_lowerbody_t_800_40",
+      "vertices": 788,
+      "triangles": 966,
+      "material": "hotw_character_t_800_4",
+      "part": "lowerbody"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_t_800_50",
+      "vertices": 3255,
+      "triangles": 4315,
+      "material": "hotw_character_t_800_4",
+      "part": "sleeves_L"
+    },
+    {
+      "name": "rig_hotw_upperbody_t_800_60",
+      "vertices": 12405,
+      "triangles": 17511,
+      "material": "hotw_character_t_800_5",
+      "part": "upperbody"
+    },
+    {
+      "name": "rig_hotw_lowerbody_t_800_60",
+      "vertices": 30199,
+      "triangles": 40914,
+      "material": "hotw_character_t_800_5",
+      "part": "lowerbody"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_t_800_70",
+      "vertices": 3282,
+      "triangles": 4333,
+      "material": "hotw_character_t_800_5",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_t_800_80",
+      "vertices": 1042,
+      "triangles": 1502,
+      "material": "hotw_character_t_800_5",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_gloves_R_t_800_90",
+      "vertices": 5294,
+      "triangles": 6369,
+      "material": "hotw_character_t_800_5",
+      "part": "gloves_R"
+    },
+    {
+      "name": "rig_hotw_gloves_L_t_800_100",
+      "vertices": 5307,
+      "triangles": 6369,
+      "material": "hotw_character_t_800_4",
+      "part": "gloves_L"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_t_800_110",
+      "vertices": 1074,
+      "triangles": 1520,
+      "material": "hotw_character_t_800_4",
+      "part": "sleeves_L"
+    }
+  ],
+  "armSeamTrianglesDropped": 0,
+  "newBones": 0,
+  "calfSkin": {
+    "footNodeRole": "calf_extension",
+    "vertices": 15829
+  },
+  "sourceTriangles": 130650,
+  "nativeReady": true,
+  "eyeBones": 2
+}

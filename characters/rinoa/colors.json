@@ -1,0 +1,135 @@
+[
+  {
+    "material": "hotw_character_rinoa_0",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/0.color.dds",
+    "source": "/hotw/characters/rinoa/textures/0.color.png",
+    "field": "diffuseMap"
+  },
+  {
+    "material": "hotw_character_rinoa_1",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/2.color.dds",
+    "source": "/hotw/characters/rinoa/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_10",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/6.color.dds",
+    "source": "/hotw/characters/rinoa/textures/6.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_11",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/6.color.dds",
+    "source": "/hotw/characters/rinoa/textures/6.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_12",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/6.color.dds",
+    "source": "/hotw/characters/rinoa/textures/6.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_13",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/2.color.dds",
+    "source": "/hotw/characters/rinoa/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_14",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/12.color.dds",
+    "source": "/hotw/characters/rinoa/textures/12.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_15",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/2.color.dds",
+    "source": "/hotw/characters/rinoa/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_16",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/2.color.dds",
+    "source": "/hotw/characters/rinoa/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_17",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/2.color.dds",
+    "source": "/hotw/characters/rinoa/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_18",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/0.color.dds",
+    "source": "/hotw/characters/rinoa/textures/0.color.png",
+    "field": "diffuseMap"
+  },
+  {
+    "material": "hotw_character_rinoa_19",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/2.color.dds",
+    "source": "/hotw/characters/rinoa/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_2",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/2.color.dds",
+    "source": "/hotw/characters/rinoa/textures/2.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_20",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/14.color.dds",
+    "source": "/hotw/characters/rinoa/textures/14.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_3",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/4.color.dds",
+    "source": "/hotw/characters/rinoa/textures/4.color.png",
+    "field": "diffuseMap"
+  },
+  {
+    "material": "hotw_character_rinoa_4",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/6.color.dds",
+    "source": "/hotw/characters/rinoa/textures/6.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_6",
+    "group": "clothing",
+    "map": "/hotw/characters/rinoa/textures/10.color.dds",
+    "source": "/hotw/characters/rinoa/textures/10.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_8",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/6.color.dds",
+    "source": "/hotw/characters/rinoa/textures/6.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_rinoa_9",
+    "group": "skin",
+    "map": "/hotw/characters/rinoa/textures/6.color.dds",
+    "source": "/hotw/characters/rinoa/textures/6.color.png",
+    "field": "baseColorMap"
+  }
+]
