@@ -1,38 +1,27 @@
-# HOTW Character Catalog
+# HOTW Hub
 
-This repository contains the downloadable characters for Hands on the Wheel (HOTW) for BeamNG.drive. Character assets are stored unpacked so you can inspect the files that the catalog installs.
+HOTW Hub is the portable companion to Hands on the Wheel for BeamNG.drive. It installs, updates, and removes character packs for the selected BeamNG user folder. It uses local HTML and CSS in a pywebview window. Character data comes from the [characters branch](https://github.com/1Matzh/hotw-hub/tree/characters).
 
-## Submit a character
+## Run the Hub
 
-1. Fork this repository and create a branch in your fork.
-2. Export your character against HOTW's shared full-body skeleton. Use an existing character as a reference for the bone names, bind pose, mesh metadata, foot contacts, and material layout. Include assets you have permission to share and credit their original creators.
-3. Create a folder under `characters/` using a unique ID of up to 40 characters. Use lowercase letters, numbers, hyphens, or underscores, and start with a letter or number. The ID `default` is reserved.
-4. Add the files listed below. Set the ID, display name, and author in `character.json`.
-5. From the repository root, run `python tools/update_catalog.py`. Review the generated `catalog.json`, then commit it together with the character folder and open a pull request against `main`.
+- **Windows x64.** From the HOTW menu, select **Download more characters**, then **Open folder**. Double-click `HOTW-Hub.exe`. The standalone download is also available in [Releases](https://github.com/1Matzh/hotw-hub/releases). The Windows build uses the Microsoft Edge WebView2 Runtime.
+- **Linux x86-64 and Steam Deck.** In Desktop Mode, get `HOTW-Hub-linux-x86_64` from Releases. In the file manager, open its properties, enable execution, and open the file. The build uses Qt WebEngine and needs a graphical desktop session. On the command line, use `chmod +x HOTW-Hub-linux-x86_64` before opening it.
 
-```json
-{
-  "id": "example-driver",
-  "name": "Example Driver",
-  "author": "Original Artist"
-}
+If the profile is missing or you use a custom location, use **Choose folder** and select the active BeamNG user folder that contains `settings` and `mods`. The Hub puts character data under `hotw/characters`. After changing your installed characters, select **Refresh installed characters** in the HOTW menu.
+
+The Hub checks GitHub Releases on startup. If a newer stable release is available, the update button opens the release page. Close the Hub before replacing the portable executable.
+
+## Contribute a character
+
+Open your character pull request against the **characters** branch. The [character submission guide](https://github.com/1Matzh/hotw-hub/blob/characters/README.md) explains the folder structure and how to generate the manifest, file sizes, and SHA-256 hashes.
+
+## Build
+
+Build on the operating system you are targeting with Python 3.10 or later.
+
+```sh
+python -m pip install -r hub/requirements.txt
+python hub/build.py dist
 ```
 
-| File | Contents |
-| --- | --- |
-| `character.json` | ID, display name, and author credit |
-| `fullbody.xml` | Rigged Collada model exported for HOTW |
-| `fullbody.json` | Mesh metadata used for in-game visibility |
-| `feet.json` | Left and right foot contact points |
-| `materials.json` | BeamNG materials owned by this character |
-| `colors.json` | Optional recolor bindings. Use `[]` if the character has none |
-| `thumbnail.png` | 256 × 256 portrait. Match the framing and background of the existing portraits |
-| `textures/` and `pbr/` | PNG and DDS texture assets referenced by the character |
-
-Material names and `mapTo` values must start with `hotw_character_<id>_`, replacing hyphens in the ID with underscores for the material name. Texture paths in the material and recolor files should point to `/hotw/characters/<id>/` and stay within that character's folder. Keep the model's Collada references local to the asset. The catalog accepts model, texture, and metadata files.
-
-## How the catalog verifies downloads
-
-Run the generator again whenever any asset changes. It reads each file as bytes and records its relative `path`, its exact byte count as `size`, and its SHA-256 checksum as `sha256`. The HOTW catalog helper checks the size and checksum before installing a character. The generator uses Python's standard library.
-
-In the pull request, include an in-game screenshot, the source and redistribution terms for the model and textures, and any notes about the rig or materials. The catalog reads the manifest from `main`, so the character becomes available after the pull request is merged.
+The app code is published for inspection. See [LICENSE](LICENSE) for the code usage terms. The packaged Python and WebView dependencies keep their own licenses.

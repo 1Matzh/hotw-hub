@@ -1,0 +1,63 @@
+name: Build portable HOTW Hub
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - runner: windows-latest
+            binary: HOTW-Hub.exe
+          - runner: ubuntu-22.04
+            binary: HOTW-Hub-linux-x86_64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxcb-cursor0 libxkbcommon-x11-0 libegl1 libnss3
+      - run: python -m pip install -r hub/requirements.txt
+      - if: startsWith(github.ref, 'refs/tags/')
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: python -c "import os,sys; sys.path.insert(0,'hub'); from app import VERSION; assert 'v'+VERSION==os.environ['RELEASE_TAG']"
+      - run: python hub/build.py dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.binary }}
+          path: dist/${{ matrix.binary }}
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - working-directory: dist
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          sha256sum HOTW-Hub.exe HOTW-Hub-linux-x86_64 > SHA256SUMS.txt
+          gh release create "$TAG" HOTW-Hub.exe HOTW-Hub-linux-x86_64 SHA256SUMS.txt \
+            --verify-tag --title "HOTW Hub $TAG" \
+            --notes 'Portable Windows and Linux builds. On Steam Deck, open the Linux build in Desktop Mode.'

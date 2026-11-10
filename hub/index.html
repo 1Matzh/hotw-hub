@@ -1,0 +1,61 @@
+<!--
+Hands on the Wheel (HOTW)
+Copyright (c) 2026 1Matzh. All rights reserved.
+Unauthorized copying, modification, redistribution, reuse or sale is prohibited.
+Written permission from 1Matzh is required. See LICENSE or hotw/code-license.txt.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'">
+  <title>HOTW Hub</title>
+  <style>/* HOTW_STYLES */</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="HOTW_ICON" alt="" width="44" height="44">
+      <div><strong>HOTW Hub</strong><small>Hands on the Wheel</small></div>
+    </div>
+    <div class="header-actions">
+      <button id="release" class="primary" hidden>Update available</button>
+      <button id="source" class="quiet">GitHub</button>
+    </div>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">HANDS ON THE WHEEL</p><h1>Characters</h1>
+        <p class="muted">Find drivers and passengers for BeamNG.drive.</p></div>
+      <button id="refresh" class="secondary">Refresh catalog</button>
+    </section>
+    <section class="profile">
+      <div><strong>BeamNG user folder</strong><small id="profile">Choose the folder containing settings and mods.</small></div>
+      <button id="choose" class="secondary">Choose folder</button>
+    </section>
+    <nav aria-label="Character views">
+      <button class="tab" id="catalog-tab" aria-pressed="true">Catalog</button>
+      <button class="tab" id="installed-tab" aria-pressed="false">Installed <span id="count">0</span></button>
+    </nav>
+    <p id="status" class="notice" role="status" hidden></p>
+    <p id="empty" class="empty muted" hidden></p>
+    <div id="cards" class="cards"></div>
+    <div id="pagination" class="pagination" hidden>
+      <button id="previous" class="secondary" aria-label="Previous page">‹</button>
+      <span id="page-label"></span>
+      <button id="next" class="secondary" aria-label="Next page">›</button>
+    </div>
+  </main>
+  <footer><span>HOTW Hub HOTW_VERSION</span><span>After making changes, refresh installed characters in HOTW.</span></footer>
+  <dialog id="confirm">
+    <h2 id="confirm-title">Remove character?</h2>
+    <p class="muted">This removes the installed copy from this BeamNG profile.</p>
+    <div class="dialog-actions">
+      <button id="cancel-remove" class="secondary" autofocus>Cancel</button>
+      <button id="confirm-remove" value="remove" class="danger">Remove</button>
+    </div>
+  </dialog>
+  <script>/* HOTW_SCRIPT */</script>
+</body>
+</html>
