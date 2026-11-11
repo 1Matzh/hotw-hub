@@ -16,8 +16,11 @@ SPDX-License-Identifier: MIT
   <!-- HOTW_ICONS -->
   <div class="shell">
     <aside class="rail">
-      <img class="brand" src="HOTW_ICON" alt="HOTW Hub" width="58" height="58">
-      <nav class="rail-nav" aria-label="HOTW Hub">
+      <div class="brand-block">
+        <img class="brand" src="HOTW_ICON" alt="HOTW Hub" width="58" height="58">
+        <span class="brand-version" aria-label="Version HOTW_VERSION">HOTW_VERSION</span>
+      </div>
+      <nav class="rail-nav" id="navigation" aria-label="HOTW Hub" hidden>
         <button class="rail-button" id="catalog-tab" aria-pressed="true" aria-label="Catalog" title="Catalog">
           <svg class="icon" aria-hidden="true" data-icon="grid-fill"></svg>
         </button>
@@ -28,9 +31,14 @@ SPDX-License-Identifier: MIT
           <svg class="icon" aria-hidden="true" data-icon="gear-fill"></svg>
         </button>
       </nav>
-      <button id="source" class="rail-button rail-link" aria-label="GitHub" title="GitHub">
-        <svg class="icon" aria-hidden="true" data-icon="github"></svg>
-      </button>
+      <div class="rail-bottom">
+        <button id="release" class="rail-button release-button" aria-label="Update available" title="Update available" hidden>
+          <svg class="icon" aria-hidden="true" data-icon="arrow-up-circle"></svg>
+        </button>
+        <button id="source" class="rail-button rail-link" aria-label="GitHub" title="GitHub">
+          <svg class="icon" aria-hidden="true" data-icon="github"></svg>
+        </button>
+      </div>
     </aside>
     <div class="main-pane">
       <header class="titlebar">
@@ -42,30 +50,35 @@ SPDX-License-Identifier: MIT
         </div>
       </header>
       <main class="workspace">
-      <div class="workspace-content">
+      <section class="setup" id="setup" aria-labelledby="setup-title">
+        <div class="setup-content">
+          <h1 id="setup-title">Connect BeamNG.drive</h1>
+          <p class="setup-description muted">Choose your BeamNG user folder to manage your drivers and passengers.</p>
+          <div class="setup-folder">
+            <svg class="icon" aria-hidden="true" data-icon="folder2-open"></svg>
+            <div><strong>BeamNG user folder</strong><p class="muted">Select the folder containing <b>settings</b> and <b>mods</b>.</p></div>
+          </div>
+          <p id="setup-status" class="notice" role="status" hidden></p>
+          <div class="setup-actions">
+            <button id="choose-setup" class="primary" disabled><svg class="icon" aria-hidden="true" data-icon="folder2-open"></svg> Choose BeamNG folder</button>
+          </div>
+        </div>
+      </section>
+      <div class="workspace-content" id="main-view" hidden>
         <header class="toolbar">
           <div>
             <h1 id="view-label">Character catalog</h1>
             <p class="muted view-caption" id="view-caption">Drivers and passengers for BeamNG.drive</p>
           </div>
           <div class="toolbar-actions">
-            <button id="release" class="primary" hidden>Update available</button>
             <button id="refresh" class="round secondary" aria-label="Refresh catalog" title="Refresh catalog">
               <svg class="icon" aria-hidden="true" data-icon="arrow-clockwise"></svg>
             </button>
           </div>
         </header>
         <p id="status" class="notice" role="status" hidden></p>
-        <section class="transfer" id="transfer" hidden>
-          <div class="transfer-label">
-            <span id="transfer-message" role="status"></span>
-            <span id="transfer-count" class="muted"></span>
-          </div>
-          <progress id="download-progress" max="1" aria-label="Character download progress"></progress>
-        </section>
         <div class="empty-state" id="empty-state" hidden>
           <p id="empty" class="muted"></p>
-          <button id="choose-empty" class="secondary" hidden>Choose BeamNG folder</button>
         </div>
         <section id="shelf" aria-label="Characters" hidden>
           <div id="cards" class="cards"></div>
@@ -75,11 +88,18 @@ SPDX-License-Identifier: MIT
               <button id="next" class="round secondary" aria-label="Next page"><svg class="icon" aria-hidden="true" data-icon="chevron-right"></svg></button>
             </div>
         </section>
-        <footer>HOTW Hub HOTW_VERSION</footer>
       </div>
       </main>
     </div>
   </div>
+  <section class="transfer" id="transfer" aria-label="Download notification" hidden>
+    <div class="transfer-label">
+      <svg class="icon" aria-hidden="true" data-icon="download"></svg>
+      <span id="transfer-message" role="status"></span>
+    </div>
+    <progress id="download-progress" max="1" aria-label="Character download progress"></progress>
+    <div class="transfer-meta muted"><span id="transfer-count"></span><span id="transfer-percent"></span></div>
+  </section>
   <dialog id="preferences" aria-labelledby="settings-title">
     <h2 id="settings-title">Settings</h2>
     <p class="settings-label">BeamNG user folder</p>

@@ -12,9 +12,11 @@ let busy = false
 let revision = 0
 
 function status(message, error = false) {
-  $('status').hidden = !message
-  $('status').textContent = message
-  $('status').classList.toggle('error', error)
+  for (const id of ['status', 'setup-status']) {
+    $(id).hidden = !message || (id === 'status' ? !state.profile : Boolean(state.profile))
+    $(id).textContent = message
+    $(id).classList.toggle('error', error)
+  }
 }
 
 function element(tag, className, text) {
@@ -48,6 +50,9 @@ function button(label, tone, action, glyph) {
 }
 
 function render() {
+  $('setup').hidden = Boolean(state.profile)
+  $('main-view').hidden = !state.profile
+  $('navigation').hidden = !state.profile
   $('profile').textContent = state.profile || 'Choose the folder containing settings and mods.'
   $('installed-tab').title = `Installed (${state.installed.length})`
   $('view-label').textContent = view === 'catalog' ? 'Character catalog' : 'Installed'
@@ -57,8 +62,7 @@ function render() {
   $('installed-tab').setAttribute('aria-pressed', view === 'installed')
   $('refresh').disabled = busy || !state.profile
   $('choose').disabled = busy
-  $('choose-empty').disabled = busy
-  $('choose-empty').hidden = Boolean(state.profile)
+  $('choose-setup').disabled = busy
   const list = state[view]
   const pages = Math.max(1, Math.ceil(list.length / pageSize))
   page = Math.min(page, pages - 1)
@@ -175,10 +179,12 @@ function trackDownload(name) {
   const bar = $('download-progress')
   const message = $('transfer-message')
   const count = $('transfer-count')
+  const percent = $('transfer-percent')
   transfer.hidden = false
   bar.removeAttribute('value')
   message.textContent = `Downloading ${name}…`
   count.textContent = ''
+  percent.textContent = ''
   let active = true
   let reading = false
   const timer = setInterval(async () => {
@@ -190,6 +196,7 @@ function trackDownload(name) {
       const ratio = Math.min(progress.received / progress.total, 1)
       bar.value = ratio
       count.textContent = `${size.format(progress.received / 1000000)} / ${size.format(progress.total / 1000000)} MB`
+      percent.textContent = `${Math.round(ratio * 100)}%`
       if (ratio === 1) message.textContent = `Verifying and installing ${name}…`
     } catch {
       // The operation still reports its own result if the progress request fails.
@@ -254,9 +261,10 @@ $('cancel-remove').onclick = () => $('confirm').close()
 async function chooseFolder() {
   if ($('preferences').open) $('preferences').close()
   let changed = false
-  await run('Opening the folder picker…', async () => {
+  await run('', async () => {
     const selection = await pywebview.api.choose_profile()
     if (selection) {
+      if (selection.error) throw Error(selection.error)
       state = selection
       changed = true
       invalidatePortraits()
@@ -265,13 +273,13 @@ async function chooseFolder() {
   if (changed) refresh()
 }
 $('choose').onclick = chooseFolder
-$('choose-empty').onclick = chooseFolder
+$('choose-setup').onclick = chooseFolder
 
 window.addEventListener('pywebviewready', async () => {
   pywebview.api.check_update().then(tag => {
     if (!tag) return
-    $('release').textContent = `Get update ${tag}`
-    $('release').title = 'Open the release to download and replace the portable app.'
+    $('release').setAttribute('aria-label', `Get update ${tag}`)
+    $('release').title = `Get update ${tag}. Open the release to download and replace the portable app.`
     $('release').hidden = false
   }).catch(() => {})
   await run('Finding your BeamNG profile…', async () => {

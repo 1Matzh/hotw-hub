@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import sys
+from tempfile import NamedTemporaryFile
 from threading import Lock
 from urllib.request import Request, build_opener
 import webbrowser
@@ -19,7 +20,7 @@ from hotw_character_catalog import (CatalogError, Library, NoRedirect, SLUG, ass
                                     own_path, parse_catalog, require)
 
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 REPOSITORY = 'https://github.com/1Matzh/hotw-hub'
 RELEASE_API = 'https://api.github.com/repos/1Matzh/hotw-hub/releases/latest'
 RESOURCES = Path(__file__).resolve().parent
@@ -30,10 +31,39 @@ def app_icon():
     return RESOURCES / 'app_icon.png'
 
 
+def preferences_path():
+    if sys.platform == 'win32':
+        base = Path(os.environ.get('LOCALAPPDATA', Path.home() / 'AppData/Local'))
+        return base / 'HOTW Hub/settings.json'
+    base = Path(os.environ.get('XDG_CONFIG_HOME', Path.home() / '.config'))
+    return base / 'hotw-hub/settings.json'
+
+
+def remember_profile(path):
+    destination = preferences_path()
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temporary = NamedTemporaryFile(mode='w', encoding='utf-8', dir=destination.parent,
+                                  prefix='settings-', suffix='.tmp', delete=False)
+    temporary_path = Path(temporary.name)
+    try:
+        with temporary:
+            json.dump({'profile': str(path)}, temporary)
+        os.replace(temporary_path, destination)
+    finally:
+        temporary_path.unlink(missing_ok=True)
+
+
 def detect_profile():
     executable = Path(sys.executable) if getattr(sys, 'frozen', False) else None
     if executable and executable.parent.name.lower() == 'characters' and executable.parents[1].name.lower() == 'hotw':
         return executable.parents[2].resolve()
+    try:
+        saved = json.loads(preferences_path().read_text(encoding='utf-8'))
+        if isinstance(saved, dict) and isinstance(saved.get('profile'), str) and saved['profile']:
+            path = Path(saved['profile'])
+            return path.resolve() if path.is_absolute() and (path / 'settings').is_dir() else None
+    except (OSError, ValueError):
+        pass
     if sys.platform == 'win32':
         base = Path(os.environ.get('LOCALAPPDATA', Path.home() / 'AppData/Local'))
         candidates = [base / 'BeamNG/BeamNG.drive/current']
@@ -89,7 +119,13 @@ class Hub:
         folder = self._window.create_file_dialog(webview.FileDialog.FOLDER)
         if folder:
             with self._lock:
-                self._library = Library(Path(folder[0]).resolve())
+                path = Path(folder[0]).resolve()
+                library = Library(path)
+                try:
+                    remember_profile(path)
+                except OSError:
+                    return {**self._snapshot(), 'error': 'The folder could not be remembered. Check write access to the HOTW Hub preferences folder and try again.'}
+                self._library = library
                 return self._snapshot()
         return None
 
