@@ -19,7 +19,7 @@ from hotw_character_catalog import (CatalogError, Library, SLUG, asset, fetch,
 from updater import apply_update, finish_update, latest_release, prepare_update, start_update
 
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 REPOSITORY = 'https://github.com/1Matzh/hotw-hub'
 RESOURCES = Path(__file__).resolve().parent
 THUMBNAIL_LIMIT = 1024 * 1024
