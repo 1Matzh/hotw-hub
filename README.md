@@ -11,6 +11,8 @@ If the profile is missing, the welcome screen asks you to choose the active Beam
 
 The Hub checks GitHub Releases on startup. Click the update icon above GitHub to download an available release. Progress appears in the top-right notification. The Hub verifies the release checksum, closes, replaces its portable executable, and restarts automatically. Your BeamNG folder selection and installed characters are preserved. The folder containing the executable must be writable.
 
+The catalog keeps character cards at a fixed size and loads more as you scroll. **New** sorts by the date a character was added, while **Updated** sorts by its latest asset change. The catalog loads when you open the Hub or return to the catalog from Installed. Sorting and scrolling reuse the loaded catalog.
+
 ## Contribute a character
 
 Open your character pull request against the **characters** branch. The [character submission guide](https://github.com/1Matzh/hotw-hub/blob/characters/README.md) explains the folder structure and how to generate the manifest, file sizes, and SHA-256 hashes.

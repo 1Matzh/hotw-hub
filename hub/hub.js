@@ -3,11 +3,12 @@
 // SPDX-License-Identifier: MIT
 const $ = id => document.getElementById(id)
 const size = new Intl.NumberFormat(undefined, {maximumFractionDigits: 1})
-const pageSize = 6
+const batchSize = 6
 const portraits = new Map()
 let state = {profile: null, catalog: [], installed: []}
 let view = 'catalog'
-let page = 0
+let visibleCount = batchSize
+let order = 'new'
 let busy = false
 let revision = 0
 
@@ -56,29 +57,59 @@ function render() {
   $('profile').textContent = state.profile || 'Choose the folder containing settings and mods.'
   $('installed-tab').title = `Installed (${state.installed.length})`
   $('view-label').textContent = view === 'catalog' ? 'Character catalog' : 'Installed'
-  $('view-caption').textContent = view === 'catalog' ? 'Drivers and passengers for BeamNG.drive'
-    : `${state.installed.length} ${state.installed.length === 1 ? 'character' : 'characters'} in this BeamNG user folder`
   $('catalog-tab').setAttribute('aria-pressed', view === 'catalog')
   $('installed-tab').setAttribute('aria-pressed', view === 'installed')
-  $('refresh').disabled = busy || !state.profile
   $('choose').disabled = busy
   $('choose-setup').disabled = busy
   $('release').disabled = busy
-  const list = state[view]
-  const pages = Math.max(1, Math.ceil(list.length / pageSize))
-  page = Math.min(page, pages - 1)
-  $('pagination').hidden = pages === 1
-  $('previous').disabled = page === 0
-  $('next').disabled = page + 1 === pages
-  $('page-label').textContent = `Page ${page + 1} of ${pages}`
-  const visible = list.slice(page * pageSize, (page + 1) * pageSize)
+  $('catalog-filters').hidden = view !== 'catalog'
+  $('sort-new').setAttribute('aria-pressed', order === 'new')
+  $('sort-updated').setAttribute('aria-pressed', order === 'updated')
+  const list = sortedCharacters()
+  const visible = list.slice(0, visibleCount)
+  $('load-more').hidden = visible.length >= list.length
   $('shelf').hidden = !visible.length
   $('empty-state').hidden = Boolean(visible.length) || busy
   $('empty').textContent = state.profile
     ? (view === 'installed' ? 'No Hub characters are installed in this profile.' : 'The catalog is empty or could not be loaded.')
     : 'Select your BeamNG user folder to get started.'
+  portraitObserver.disconnect()
   $('cards').replaceChildren(...visible.map(characterCard))
+  listObserver.unobserve($('load-more'))
+  listObserver.observe($('load-more'))
 }
+
+function sortedCharacters() {
+  if (view !== 'catalog') return state.installed
+  const date = character => Date.parse(order === 'new' ? character.createdAt : character.updatedAt || character.createdAt) || 0
+  return [...state.catalog].sort((a, b) => date(b) - date(a))
+}
+
+function loadMore() {
+  if (busy || !state.profile) return
+  const list = sortedCharacters()
+  const next = list.slice(visibleCount, visibleCount + batchSize)
+  visibleCount += next.length
+  $('cards').append(...next.map(characterCard))
+  $('load-more').hidden = visibleCount >= list.length
+  listObserver.unobserve($('load-more'))
+  listObserver.observe($('load-more'))
+}
+
+const portraitObserver = new IntersectionObserver(entries => {
+  for (const {target: portrait, isIntersecting} of entries) {
+    if (!isIntersecting || !portrait.isConnected) continue
+    portraitObserver.unobserve(portrait)
+    const image = portrait.querySelector('img')
+    const character = state[view].find(item => item.id === image.dataset.character)
+    if (character) showPortrait(image, character)
+  }
+}, {root: document.querySelector('.workspace'), rootMargin: '80px'})
+
+const listObserver = new IntersectionObserver(entries => {
+  if (entries.some(entry => entry.isIntersecting)) loadMore()
+}, {root: document.querySelector('.workspace')})
+listObserver.observe($('load-more'))
 
 function characterCard(character) {
   const card = element('article', 'card')
@@ -86,7 +117,8 @@ function characterCard(character) {
   const image = element('img')
   image.alt = ''
   portrait.append(image)
-  showPortrait(image, character)
+  image.dataset.character = character.id
+  portraitObserver.observe(portrait)
   const details = element('div', 'card-details')
   details.append(element('h2', '', character.name), element('p', 'muted', 'by ' + character.author))
   const actions = element('div', 'card-actions')
@@ -226,15 +258,24 @@ function confirmRemoval(character) {
 function selectView(next) {
   if (view === next) return
   view = next
-  page = 0
+  visibleCount = batchSize
+  document.querySelector('.workspace').scrollTop = 0
+  render()
+  if (view === 'catalog') refresh()
+}
+
+function selectOrder(next) {
+  if (order === next) return
+  order = next
+  visibleCount = batchSize
+  document.querySelector('.workspace').scrollTop = 0
   render()
 }
 
 $('catalog-tab').onclick = () => selectView('catalog')
 $('installed-tab').onclick = () => selectView('installed')
-$('previous').onclick = () => { page--; render() }
-$('next').onclick = () => { page++; render() }
-$('refresh').onclick = refresh
+$('sort-new').onclick = () => selectOrder('new')
+$('sort-updated').onclick = () => selectOrder('updated')
 $('source').onclick = () => pywebview.api.open_source()
 $('release').onclick = () => run('', async () => {
   const finish = trackDownload('HOTW Hub')

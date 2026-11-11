@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MIT
 """Validate and manage character files for HOTW Hub."""
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 import hashlib
 import json
 import os
@@ -101,7 +102,14 @@ def parse_catalog(raw):
             total += size
         require(REQUIRED <= {value[0] for value in files.values()} and total <= MAX_CHARACTER,
                 'Character assets are missing or too large.')
-        catalog[character] = {'id': character, 'name': name, 'author': author, 'sizeBytes': total, 'files': files}
+        dates = {}
+        for field in ('createdAt', 'updatedAt'):
+            value = entry.get(field)
+            if value is not None:
+                require(isinstance(value, str) and len(value) <= 40, 'Invalid character date.')
+                require(datetime.fromisoformat(value.replace('Z', '+00:00')).tzinfo is not None, 'Character dates must include a time zone.')
+            dates[field] = value
+        catalog[character] = {'id': character, 'name': name, 'author': author, 'sizeBytes': total, 'files': files, **dates}
     return catalog
 
 

@@ -65,28 +65,18 @@ SPDX-License-Identifier: MIT
         </div>
       </section>
       <div class="workspace-content" id="main-view" hidden>
-        <header class="toolbar">
-          <div>
-            <h1 id="view-label">Character catalog</h1>
-            <p class="muted view-caption" id="view-caption">Drivers and passengers for BeamNG.drive</p>
-          </div>
-          <div class="toolbar-actions">
-            <button id="refresh" class="round secondary" aria-label="Refresh catalog" title="Refresh catalog">
-              <svg class="icon" aria-hidden="true" data-icon="arrow-clockwise"></svg>
-            </button>
-          </div>
-        </header>
+        <header class="toolbar"><h1 id="view-label">Character catalog</h1></header>
+        <div class="catalog-filters" id="catalog-filters" role="group" aria-label="Sort characters">
+          <button class="filter-button" id="sort-new" aria-pressed="true"><svg class="icon" aria-hidden="true" data-icon="sun"></svg> New</button>
+          <button class="filter-button" id="sort-updated" aria-pressed="false"><svg class="icon" aria-hidden="true" data-icon="arrow-clockwise"></svg> Updated</button>
+        </div>
         <p id="status" class="notice" role="status" hidden></p>
         <div class="empty-state" id="empty-state" hidden>
           <p id="empty" class="muted"></p>
         </div>
         <section id="shelf" aria-label="Characters" hidden>
           <div id="cards" class="cards"></div>
-            <div id="pagination" class="pagination" hidden>
-              <button id="previous" class="round secondary" aria-label="Previous page"><svg class="icon" aria-hidden="true" data-icon="chevron-left"></svg></button>
-              <span id="page-label"></span>
-              <button id="next" class="round secondary" aria-label="Next page"><svg class="icon" aria-hidden="true" data-icon="chevron-right"></svg></button>
-            </div>
+          <div id="load-more" aria-hidden="true" hidden></div>
         </section>
       </div>
       </main>

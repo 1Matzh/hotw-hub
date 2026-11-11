@@ -145,7 +145,7 @@ class Hub:
         for entry in library.catalog.values():
             slug = entry['id']
             available = slug in installed and library.update_available(entry)
-            catalog.append({**{key: entry[key] for key in ('id', 'name', 'author', 'sizeBytes')},
+            catalog.append({**{key: entry[key] for key in ('id', 'name', 'author', 'sizeBytes', 'createdAt', 'updatedAt')},
                             'installed': slug in installed, 'updateAvailable': available})
             if slug in installed:
                 installed[slug]['updateAvailable'] = available
