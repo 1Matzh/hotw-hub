@@ -6,23 +6,21 @@ import base64
 import json
 import os
 from pathlib import Path
-import re
 import sys
 from tempfile import NamedTemporaryFile
 from threading import Lock
-from urllib.request import Request, build_opener
 import webbrowser
 
 if not getattr(sys, 'frozen', False):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from hotw_character_catalog import (CatalogError, Library, NoRedirect, SLUG, asset, fetch,
+from hotw_character_catalog import (CatalogError, Library, SLUG, asset, fetch,
                                     own_path, parse_catalog, require)
+from updater import apply_update, finish_update, latest_release, prepare_update, start_update
 
 
-VERSION = '0.1.1'
+VERSION = '0.1.0'
 REPOSITORY = 'https://github.com/1Matzh/hotw-hub'
-RELEASE_API = 'https://api.github.com/repos/1Matzh/hotw-hub/releases/latest'
 RESOURCES = Path(__file__).resolve().parent
 THUMBNAIL_LIMIT = 1024 * 1024
 
@@ -79,21 +77,6 @@ def image_url(data):
     return 'data:image/png;base64,' + base64.b64encode(data).decode('ascii')
 
 
-def latest_version():
-    request = Request(RELEASE_API, headers={'Accept': 'application/vnd.github+json', 'User-Agent': 'HOTW-Hub'})
-    try:
-        with build_opener(NoRedirect()).open(request, timeout=6) as response:
-            release = json.loads(response.read(256 * 1024))
-        tag = release['tag_name']
-        match = re.fullmatch(r'v(\d{1,4}\.\d{1,4}\.\d{1,4})', tag)
-        if match and not release.get('draft') and not release.get('prerelease'):
-            if tuple(map(int, match[1].split('.'))) > tuple(map(int, VERSION.split('.'))):
-                return tag
-    except (OSError, ValueError, KeyError, TypeError):
-        pass
-    return None
-
-
 class Hub:
     def __init__(self):
         self._library = None
@@ -103,14 +86,17 @@ class Hub:
         self._transfer = None
         self._maximized = False
         self._release = None
+        self._updating = False
+        self._handoff = False
+        self._startup_error = None
 
     def initialize(self):
         path = detect_profile()
         if path is None:
-            return self._snapshot()
+            return {**self._snapshot(), 'error': self._startup_error}
         try:
             self._library = Library(path)
-            return self._snapshot()
+            return {**self._snapshot(), 'error': self._startup_error}
         except (CatalogError, OSError) as error:
             return {**self._snapshot(), 'error': str(error)}
 
@@ -226,23 +212,45 @@ class Hub:
         self._window.run_js(f'window.dispatchEvent(new CustomEvent("hotw-window-state", {{detail: {str(value).lower()}}}))')
 
     def check_update(self):
-        self._release = latest_version()
-        return self._release
+        self._release = latest_release(VERSION)
+        return self._release['tag'] if self._release else None
 
-    def open_release(self):
-        if self._release:
-            webbrowser.open(REPOSITORY + '/releases/tag/' + self._release)
+    def update_app(self):
+        require(getattr(sys, 'frozen', False), 'Use the portable executable to update HOTW Hub.')
+        with self._lock:
+            require(self._release is not None, 'No application update is available.')
+            self._updating = True
+            with self._transfer_lock:
+                self._transfer = {'received': 0, 'total': self._release['size'], 'phase': 'download'}
+            try:
+                job = prepare_update(self._release, Path(sys.executable).absolute(), self._received)
+                with self._transfer_lock:
+                    self._transfer['phase'] = 'restart'
+                start_update(job)
+                self._handoff = True
+                self._window.destroy()
+            finally:
+                self._updating = False
+                with self._transfer_lock:
+                    self._transfer = None
+
+    def can_close(self):
+        return not self._updating or self._handoff
 
     def open_source(self):
         webbrowser.open(REPOSITORY)
 
 
 def main():
+    if len(sys.argv) == 3 and sys.argv[1] == '--apply-update':
+        raise SystemExit(apply_update(Path(sys.argv[2]).absolute()))
     if sys.platform == 'linux':
         os.environ.setdefault('QT_API', 'pyside6')
     import webview
 
     hub = Hub()
+    if '--update-error' in sys.argv:
+        hub._startup_error = 'The update could not be installed. ' + sys.argv[sys.argv.index('--update-error') + 1]
     html = (RESOURCES / 'index.html').read_text(encoding='utf-8')
     html = html.replace('/* HOTW_STYLES */', (RESOURCES / 'hub.css').read_text(encoding='utf-8'))
     html = html.replace('/* HOTW_SCRIPT */', (RESOURCES / 'hub.js').read_text(encoding='utf-8'))
@@ -257,6 +265,9 @@ def main():
                                        frameless=True, easy_drag=False)
     hub._window.events.maximized += lambda: hub._set_maximized(True)
     hub._window.events.restored += lambda: hub._set_maximized(False)
+    hub._window.events.closing += hub.can_close
+    if len(sys.argv) >= 4 and sys.argv[1] == '--finish-update':
+        hub._window.events.loaded += lambda: finish_update(Path(sys.argv[2]).absolute(), int(sys.argv[3]))
     webview.start(gui='edgechromium' if sys.platform == 'win32' else 'qt',
                   icon=str(icon), private_mode=True)
 

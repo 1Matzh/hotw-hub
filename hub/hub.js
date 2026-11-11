@@ -63,6 +63,7 @@ function render() {
   $('refresh').disabled = busy || !state.profile
   $('choose').disabled = busy
   $('choose-setup').disabled = busy
+  $('release').disabled = busy
   const list = state[view]
   const pages = Math.max(1, Math.ceil(list.length / pageSize))
   page = Math.min(page, pages - 1)
@@ -197,7 +198,8 @@ function trackDownload(name) {
       bar.value = ratio
       count.textContent = `${size.format(progress.received / 1000000)} / ${size.format(progress.total / 1000000)} MB`
       percent.textContent = `${Math.round(ratio * 100)}%`
-      if (ratio === 1) message.textContent = `Verifying and installing ${name}…`
+      if (progress.phase === 'restart') message.textContent = 'Restarting HOTW Hub…'
+      else if (ratio === 1) message.textContent = `Verifying and installing ${name}…`
     } catch {
       // The operation still reports its own result if the progress request fails.
     } finally {
@@ -234,7 +236,14 @@ $('previous').onclick = () => { page--; render() }
 $('next').onclick = () => { page++; render() }
 $('refresh').onclick = refresh
 $('source').onclick = () => pywebview.api.open_source()
-$('release').onclick = () => pywebview.api.open_release()
+$('release').onclick = () => run('', async () => {
+  const finish = trackDownload('HOTW Hub')
+  try {
+    await pywebview.api.update_app()
+  } finally {
+    finish()
+  }
+})
 async function windowAction(action) {
   try {
     const maximized = await pywebview.api.window_action(action)
@@ -279,12 +288,12 @@ window.addEventListener('pywebviewready', async () => {
   pywebview.api.check_update().then(tag => {
     if (!tag) return
     $('release').setAttribute('aria-label', `Get update ${tag}`)
-    $('release').title = `Get update ${tag}. Open the release to download and replace the portable app.`
+    $('release').title = `Update to ${tag}. HOTW Hub will download the update and restart.`
     $('release').hidden = false
   }).catch(() => {})
   await run('Finding your BeamNG profile…', async () => {
     state = await pywebview.api.initialize()
     if (state.error) throw Error(state.error)
   })
-  if (state.profile) refresh()
+  if (state.profile && !state.error) refresh()
 }, {once: true})

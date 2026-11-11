@@ -9,7 +9,7 @@ HOTW Hub is the portable companion to Hands on the Wheel for BeamNG.drive. It in
 
 If the profile is missing, the welcome screen asks you to choose the active BeamNG user folder that contains `settings` and `mods`. The Hub remembers your selection for future launches. You can change it in **Settings**. Preferences are saved in `%LOCALAPPDATA%/HOTW Hub/settings.json` on Windows and `$XDG_CONFIG_HOME/hotw-hub/settings.json` on Linux, defaulting to `~/.config/hotw-hub/settings.json`. If the selected folder becomes unavailable, the welcome screen appears again. The Hub puts character data under `hotw/characters` and notifies HOTW after each completed change.
 
-The Hub checks GitHub Releases on startup. If a newer stable release is available, the update button opens the release page. Close the Hub before replacing the portable executable.
+The Hub checks GitHub Releases on startup. Click the update icon above GitHub to download an available release. Progress appears in the top-right notification. The Hub verifies the release checksum, closes, replaces its portable executable, and restarts automatically. Your BeamNG folder selection and installed characters are preserved. The folder containing the executable must be writable.
 
 ## Contribute a character
 
