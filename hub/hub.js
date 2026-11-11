@@ -70,9 +70,12 @@ function render() {
   $('load-more').hidden = visible.length >= list.length
   $('shelf').hidden = !visible.length
   $('empty-state').hidden = Boolean(visible.length) || busy
-  $('empty').textContent = state.profile
-    ? (view === 'installed' ? 'No characters are installed in this profile.' : 'The catalog is empty or could not be loaded.')
-    : 'Select your BeamNG user folder to get started.'
+  $('empty-title').textContent = view === 'installed' ? 'No characters installed' : 'No characters available'
+  $('empty').textContent = view === 'installed'
+    ? 'Find drivers and passengers in the catalog. Your characters will appear here once installed.'
+    : 'The catalog is empty or could not be loaded.'
+  $('browse-catalog').hidden = view !== 'installed'
+  $('browse-catalog').disabled = busy
   portraitObserver.disconnect()
   $('cards').replaceChildren(...visible.map(characterCard))
   listObserver.unobserve($('load-more'))
@@ -282,6 +285,7 @@ function selectOrder(next) {
 
 $('catalog-tab').onclick = () => selectView('catalog')
 $('installed-tab').onclick = () => selectView('installed')
+$('browse-catalog').onclick = () => selectView('catalog')
 $('sort-new').onclick = () => selectOrder('new')
 $('sort-updated').onclick = () => selectOrder('updated')
 $('source').onclick = () => pywebview.api.open_source()
@@ -307,7 +311,6 @@ function setWindowState(maximized) {
   const button = $('maximize')
   button.title = maximized ? 'Restore' : 'Maximize'
   button.setAttribute('aria-label', button.title)
-  button.replaceChildren(icon(maximized ? 'copy' : 'square'))
 }
 
 $('minimize').onclick = () => windowAction('minimize')

@@ -42,11 +42,11 @@ SPDX-License-Identifier: MIT
     </aside>
     <div class="main-pane">
       <header class="titlebar">
-        <div class="title-drag pywebview-drag-region" id="title-drag">HOTW Hub</div>
+        <div class="title-drag pywebview-drag-region" id="title-drag" aria-label="Drag window"></div>
         <div class="window-controls" aria-label="Window controls">
-          <button id="minimize" aria-label="Minimize" title="Minimize"><svg data-icon="dash-lg"></svg></button>
-          <button id="maximize" aria-label="Maximize" title="Maximize"><svg data-icon="square"></svg></button>
-          <button id="close-window" aria-label="Close window" title="Close window"><svg data-icon="x-lg"></svg></button>
+          <button id="minimize" aria-label="Minimize" title="Minimize"><svg class="window-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5h9"/></svg></button>
+          <button id="maximize" aria-label="Maximize" title="Maximize"><svg class="window-glyph maximize-glyph" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9"/></svg><svg class="window-glyph restore-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 3.5v-2h7v7h-2"/><rect x="1.5" y="3.5" width="7" height="7"/></svg></button>
+          <button id="close-window" aria-label="Close window" title="Close window"><svg class="window-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="m1.5 1.5 9 9m0-9-9 9"/></svg></button>
         </div>
       </header>
       <main class="workspace">
@@ -72,7 +72,10 @@ SPDX-License-Identifier: MIT
         </div>
         <p id="status" class="notice" role="status" hidden></p>
         <div class="empty-state" id="empty-state" hidden>
+          <div class="empty-preview" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h2 id="empty-title">No characters installed</h2>
           <p id="empty" class="muted"></p>
+          <button id="browse-catalog" class="primary"><svg class="icon" aria-hidden="true" data-icon="grid-fill"></svg> Browse catalog</button>
         </div>
         <section id="shelf" aria-label="Characters" hidden>
           <div id="cards" class="cards"></div>
