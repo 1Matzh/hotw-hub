@@ -1,7 +1,6 @@
 # Hands on the Wheel (HOTW)
-# Copyright (c) 2026 1Matzh. All rights reserved.
-# Unauthorized copying, modification, redistribution, reuse or sale is prohibited.
-# Written permission from 1Matzh is required. See LICENSE or hotw/code-license.txt.
+# Copyright (c) 2026 1Matzh
+# SPDX-License-Identifier: MIT
 """Build the portable Hub for the host operating system."""
 import argparse
 from pathlib import Path
@@ -23,7 +22,8 @@ def build(output):
                '--workpath', str(output / 'work'), '--specpath', str(output),
                '--exclude-module', 'PIL', '--exclude-module', 'numpy',
                '--exclude-module', 'psutil', '--exclude-module', 'cryptography']
-    for asset in (icon, *(here / name for name in ('index.html', 'hub.css', 'hub.js'))):
+    assets = ('index.html', 'hub.css', 'hub.js', 'icons.svg', 'InterVariable.woff2', 'Inter-OFL.txt', 'LICENSE')
+    for asset in (icon, *(here / name for name in assets)):
         command.extend(['--add-data', f'{asset}:.'])
     if sys.platform == 'win32':
         name = 'HOTW-Hub'

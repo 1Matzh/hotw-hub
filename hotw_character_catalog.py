@@ -1,7 +1,6 @@
 # Hands on the Wheel (HOTW)
-# Copyright (c) 2026 1Matzh. All rights reserved.
-# Unauthorized copying, modification, redistribution, reuse or sale is prohibited.
-# Written permission from 1Matzh is required. See LICENSE or hotw/code-license.txt.
+# Copyright (c) 2026 1Matzh
+# SPDX-License-Identifier: MIT
 """Validate and manage character files for HOTW Hub."""
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
@@ -23,6 +22,7 @@ TEXTURE = re.compile(r'(?:pbr|textures)/[a-zA-Z0-9_.-]+\.(?:dds|png)')
 REQUIRED = {'character.json', 'fullbody.xml', 'fullbody.json', 'feet.json',
             'materials.json', 'colors.json', 'thumbnail.png'}
 MARKER = 'hotw-installed.json'
+CHANGE_SIGNAL = 'characters-changed.json'
 MAX_ASSET = 80 * 1024 * 1024
 MAX_CHARACTER = 220 * 1024 * 1024
 MATERIAL_FIELDS = {'Stages', 'alphaRef', 'alphaTest', 'castShadows', 'class', 'doubleSided',
@@ -48,11 +48,20 @@ def require(condition, message):
         raise CatalogError(message)
 
 
-def fetch(path, limit):
+def fetch(path, limit, progress=None):
     request = Request(REMOTE + path, headers={'User-Agent': 'HOTW-Character-Catalog'})
     try:
         with build_opener(NoRedirect()).open(request, timeout=20) as response:
-            data = response.read(limit + 1)
+            if progress is None:
+                data = response.read(limit + 1)
+            else:
+                data = bytearray()
+                while len(data) <= limit:
+                    block = response.read(min(256 * 1024, limit + 1 - len(data)))
+                    if not block:
+                        break
+                    data.extend(block)
+                    progress(len(block))
     except (URLError, OSError) as error:
         raise CatalogError('Could not download the catalog asset from GitHub.') from error
     require(len(data) <= limit, 'Catalog asset exceeds its size limit.')
@@ -96,9 +105,10 @@ def parse_catalog(raw):
     return catalog
 
 
-def asset(character, file):
+def asset(character, file, progress=None):
     path, size, sha = file
-    content = fetch(f'characters/{character}/{path}', size)
+    url = f'characters/{character}/{path}'
+    content = fetch(url, size) if progress is None else fetch(url, size, progress)
     require(len(content) == size and hashlib.sha256(content).hexdigest() == sha,
             'An asset changed or failed verification. Refresh the catalog and try again.')
     return content
@@ -214,7 +224,7 @@ class Library:
             except (CatalogError, OSError, ValueError, TypeError):
                 return False
 
-    def install(self, character, update=False):
+    def install(self, character, update=False, progress=None):
         entry = self.entry(character)
         with self.lock:
             target = own_path(self.characters / character)
@@ -230,7 +240,7 @@ class Library:
                 def copy(file):
                     path = staging / file[0]
                     path.parent.mkdir(parents=True, exist_ok=True)
-                    path.write_bytes(asset(character, file))
+                    path.write_bytes(asset(character, file, progress))
 
                 with ThreadPoolExecutor(max_workers=4) as workers:
                     list(workers.map(copy, entry['files'].values()))
@@ -250,6 +260,19 @@ class Library:
                     raise
                 if update:
                     shutil.rmtree(previous, ignore_errors=True)
+            return self.signal_change()
+
+    def signal_change(self):
+        destination = self.hotw / CHANGE_SIGNAL
+        try:
+            own_path(destination)
+            with tempfile.TemporaryDirectory(prefix='notify-', dir=self.hotw) as temporary:
+                signal = Path(temporary) / CHANGE_SIGNAL
+                signal.write_text(json.dumps({'revision': os.urandom(16).hex()}), encoding='utf-8')
+                os.replace(signal, destination)
+            return True
+        except (CatalogError, OSError):
+            return False
 
     def owned_files(self, target):
         marker = own_path(target / MARKER)
@@ -278,3 +301,4 @@ class Library:
             self.owned_files(target)
             with tempfile.TemporaryDirectory(prefix='uninstall-', dir=self.hotw) as temporary:
                 os.rename(target, Path(temporary) / character)
+            return self.signal_change()

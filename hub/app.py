@@ -1,7 +1,6 @@
 # Hands on the Wheel (HOTW)
-# Copyright (c) 2026 1Matzh. All rights reserved.
-# Unauthorized copying, modification, redistribution, reuse or sale is prohibited.
-# Written permission from 1Matzh is required. See LICENSE or hotw/code-license.txt.
+# Copyright (c) 2026 1Matzh
+# SPDX-License-Identifier: MIT
 """Portable character manager for Hands on the Wheel."""
 import base64
 import json
@@ -28,8 +27,7 @@ THUMBNAIL_LIMIT = 1024 * 1024
 
 
 def app_icon():
-    packaged = RESOURCES / 'icon.jpg'
-    return packaged if packaged.is_file() else RESOURCES.parents[1] / 'mod/mod_info/handsonthewheel/icon.jpg'
+    return RESOURCES / 'app_icon.png'
 
 
 def detect_profile():
@@ -71,6 +69,9 @@ class Hub:
         self._library = None
         self._window = None
         self._lock = Lock()
+        self._transfer_lock = Lock()
+        self._transfer = None
+        self._maximized = False
         self._release = None
 
     def initialize(self):
@@ -146,12 +147,47 @@ class Hub:
         with self._lock:
             library = self._current_library()
             if action == 'remove':
-                library.uninstall(slug)
+                notified = library.uninstall(slug)
             elif action in ('download', 'update'):
-                library.install(slug, update=action == 'update')
+                with self._transfer_lock:
+                    self._transfer = {'received': 0, 'total': library.entry(slug)['sizeBytes']}
+                try:
+                    notified = library.install(slug, update=action == 'update', progress=self._received)
+                finally:
+                    with self._transfer_lock:
+                        self._transfer = None
             else:
                 raise CatalogError('Unknown character action.')
-            return self._snapshot()
+            state = self._snapshot()
+            if not notified:
+                state['notice'] = 'Change saved. Reopen Characters in BeamNG to reload the list.'
+            return state
+
+    def _received(self, count):
+        with self._transfer_lock:
+            self._transfer['received'] += count
+
+    def download_progress(self):
+        with self._transfer_lock:
+            return self._transfer.copy() if self._transfer else None
+
+    def window_action(self, action):
+        if action == 'minimize':
+            self._window.minimize()
+        elif action == 'maximize':
+            maximized = not self._maximized
+            if maximized:
+                self._window.maximize()
+            else:
+                self._window.restore()
+            self._maximized = maximized
+            return maximized
+        elif action == 'close':
+            self._window.destroy()
+
+    def _set_maximized(self, value):
+        self._maximized = value
+        self._window.run_js(f'window.dispatchEvent(new CustomEvent("hotw-window-state", {{detail: {str(value).lower()}}}))')
 
     def check_update(self):
         self._release = latest_version()
@@ -175,10 +211,16 @@ def main():
     html = html.replace('/* HOTW_STYLES */', (RESOURCES / 'hub.css').read_text(encoding='utf-8'))
     html = html.replace('/* HOTW_SCRIPT */', (RESOURCES / 'hub.js').read_text(encoding='utf-8'))
     icon = app_icon()
-    html = html.replace('HOTW_ICON', 'data:image/jpeg;base64,' + base64.b64encode(icon.read_bytes()).decode())
+    html = html.replace('<!-- HOTW_ICONS -->', (RESOURCES / 'icons.svg').read_text(encoding='utf-8'))
+    html = html.replace('HOTW_ICON', 'data:image/png;base64,' + base64.b64encode(icon.read_bytes()).decode())
+    font = base64.b64encode((RESOURCES / 'InterVariable.woff2').read_bytes()).decode()
+    html = html.replace('HOTW_FONT', 'data:font/woff2;base64,' + font)
     html = html.replace('HOTW_VERSION', VERSION)
-    hub._window = webview.create_window('HOTW Hub', html=html, js_api=hub, width=1000, height=760,
-                                       min_size=(570, 480), background_color='#191e25')
+    hub._window = webview.create_window('HOTW Hub', html=html, js_api=hub, width=960, height=660,
+                                       min_size=(570, 480), background_color='#171c24',
+                                       frameless=True, easy_drag=False)
+    hub._window.events.maximized += lambda: hub._set_maximized(True)
+    hub._window.events.restored += lambda: hub._set_maximized(False)
     webview.start(gui='edgechromium' if sys.platform == 'win32' else 'qt',
                   icon=str(icon), private_mode=True)
 

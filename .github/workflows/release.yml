@@ -58,6 +58,11 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           sha256sum HOTW-Hub.exe HOTW-Hub-linux-x86_64 > SHA256SUMS.txt
-          gh release create "$TAG" HOTW-Hub.exe HOTW-Hub-linux-x86_64 SHA256SUMS.txt \
-            --verify-tag --title "HOTW Hub $TAG" \
-            --notes 'Portable Windows and Linux builds. On Steam Deck, open the Linux build in Desktop Mode.'
+          assets=(HOTW-Hub.exe HOTW-Hub-linux-x86_64 SHA256SUMS.txt)
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "${assets[@]}" --clobber
+          else
+            gh release create "$TAG" "${assets[@]}" \
+              --verify-tag --title "HOTW Hub $TAG" \
+              --notes 'Portable Windows and Linux builds. On Steam Deck, open the Linux build in Desktop Mode.'
+          fi

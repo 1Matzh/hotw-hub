@@ -1,53 +1,94 @@
 <!--
 Hands on the Wheel (HOTW)
-Copyright (c) 2026 1Matzh. All rights reserved.
-Unauthorized copying, modification, redistribution, reuse or sale is prohibited.
-Written permission from 1Matzh is required. See LICENSE or hotw/code-license.txt.
+Copyright (c) 2026 1Matzh
+SPDX-License-Identifier: MIT
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; font-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'">
   <title>HOTW Hub</title>
   <style>/* HOTW_STYLES */</style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <img src="HOTW_ICON" alt="" width="44" height="44">
-      <div><strong>HOTW Hub</strong><small>Hands on the Wheel</small></div>
+  <!-- HOTW_ICONS -->
+  <div class="shell">
+    <aside class="rail">
+      <img class="brand" src="HOTW_ICON" alt="HOTW Hub" width="58" height="58">
+      <nav class="rail-nav" aria-label="HOTW Hub">
+        <button class="rail-button" id="catalog-tab" aria-pressed="true" aria-label="Catalog" title="Catalog">
+          <svg class="icon" aria-hidden="true" data-icon="grid-fill"></svg>
+        </button>
+        <button class="rail-button" id="installed-tab" aria-pressed="false" aria-label="Installed" title="Installed">
+          <svg class="icon" aria-hidden="true" data-icon="collection-fill"></svg>
+        </button>
+        <button class="rail-button" id="settings" aria-label="Settings" title="Settings" aria-haspopup="dialog">
+          <svg class="icon" aria-hidden="true" data-icon="gear-fill"></svg>
+        </button>
+      </nav>
+      <button id="source" class="rail-button rail-link" aria-label="GitHub" title="GitHub">
+        <svg class="icon" aria-hidden="true" data-icon="github"></svg>
+      </button>
+    </aside>
+    <div class="main-pane">
+      <header class="titlebar">
+        <div class="title-drag pywebview-drag-region" id="title-drag">HOTW Hub</div>
+        <div class="window-controls" aria-label="Window controls">
+          <button id="minimize" aria-label="Minimize" title="Minimize"><svg data-icon="dash-lg"></svg></button>
+          <button id="maximize" aria-label="Maximize" title="Maximize"><svg data-icon="square"></svg></button>
+          <button id="close-window" aria-label="Close window" title="Close window"><svg data-icon="x-lg"></svg></button>
+        </div>
+      </header>
+      <main class="workspace">
+      <div class="workspace-content">
+        <header class="toolbar">
+          <div>
+            <h1 id="view-label">Character catalog</h1>
+            <p class="muted view-caption" id="view-caption">Drivers and passengers for BeamNG.drive</p>
+          </div>
+          <div class="toolbar-actions">
+            <button id="release" class="primary" hidden>Update available</button>
+            <button id="refresh" class="round secondary" aria-label="Refresh catalog" title="Refresh catalog">
+              <svg class="icon" aria-hidden="true" data-icon="arrow-clockwise"></svg>
+            </button>
+          </div>
+        </header>
+        <p id="status" class="notice" role="status" hidden></p>
+        <section class="transfer" id="transfer" hidden>
+          <div class="transfer-label">
+            <span id="transfer-message" role="status"></span>
+            <span id="transfer-count" class="muted"></span>
+          </div>
+          <progress id="download-progress" max="1" aria-label="Character download progress"></progress>
+        </section>
+        <div class="empty-state" id="empty-state" hidden>
+          <p id="empty" class="muted"></p>
+          <button id="choose-empty" class="secondary" hidden>Choose BeamNG folder</button>
+        </div>
+        <section id="shelf" aria-label="Characters" hidden>
+          <div id="cards" class="cards"></div>
+            <div id="pagination" class="pagination" hidden>
+              <button id="previous" class="round secondary" aria-label="Previous page"><svg class="icon" aria-hidden="true" data-icon="chevron-left"></svg></button>
+              <span id="page-label"></span>
+              <button id="next" class="round secondary" aria-label="Next page"><svg class="icon" aria-hidden="true" data-icon="chevron-right"></svg></button>
+            </div>
+        </section>
+        <footer>HOTW Hub HOTW_VERSION</footer>
+      </div>
+      </main>
     </div>
-    <div class="header-actions">
-      <button id="release" class="primary" hidden>Update available</button>
-      <button id="source" class="quiet">GitHub</button>
+  </div>
+  <dialog id="preferences" aria-labelledby="settings-title">
+    <h2 id="settings-title">Settings</h2>
+    <p class="settings-label">BeamNG user folder</p>
+    <p class="muted path" id="profile">Choose the folder containing settings and mods.</p>
+    <div class="dialog-actions">
+      <button id="close-settings" class="secondary" autofocus>Close</button>
+      <button id="choose" class="primary"><svg class="icon" aria-hidden="true" data-icon="folder2-open"></svg> Choose folder</button>
     </div>
-  </header>
-  <main>
-    <section class="intro">
-      <div><p class="eyebrow">HANDS ON THE WHEEL</p><h1>Characters</h1>
-        <p class="muted">Find drivers and passengers for BeamNG.drive.</p></div>
-      <button id="refresh" class="secondary">Refresh catalog</button>
-    </section>
-    <section class="profile">
-      <div><strong>BeamNG user folder</strong><small id="profile">Choose the folder containing settings and mods.</small></div>
-      <button id="choose" class="secondary">Choose folder</button>
-    </section>
-    <nav aria-label="Character views">
-      <button class="tab" id="catalog-tab" aria-pressed="true">Catalog</button>
-      <button class="tab" id="installed-tab" aria-pressed="false">Installed <span id="count">0</span></button>
-    </nav>
-    <p id="status" class="notice" role="status" hidden></p>
-    <p id="empty" class="empty muted" hidden></p>
-    <div id="cards" class="cards"></div>
-    <div id="pagination" class="pagination" hidden>
-      <button id="previous" class="secondary" aria-label="Previous page">‹</button>
-      <span id="page-label"></span>
-      <button id="next" class="secondary" aria-label="Next page">›</button>
-    </div>
-  </main>
-  <footer><span>HOTW Hub HOTW_VERSION</span><span>After making changes, refresh installed characters in HOTW.</span></footer>
+  </dialog>
   <dialog id="confirm">
     <h2 id="confirm-title">Remove character?</h2>
     <p class="muted">This removes the installed copy from this BeamNG profile.</p>
