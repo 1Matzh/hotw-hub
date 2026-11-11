@@ -302,6 +302,17 @@ class Library:
                 require(path.is_file() and path.name in owned, 'The character folder contains files outside its manifest.')
         return metadata
 
+    def local_character(self, target):
+        own_path(target)
+        require(target.parent == self.characters and target.name != 'default'
+                and SLUG.fullmatch(target.name), 'Invalid character folder.')
+        details = json.loads(own_path(target / 'character.json').read_bytes())
+        require(isinstance(details, dict) and details.get('id') == target.name
+                and all(isinstance(details.get(key), str) and 0 < len(details[key].strip()) <= 100
+                        for key in ('name', 'author')), 'Invalid local character metadata.')
+        require(all(own_path(target / name).is_file() for name in REQUIRED), 'Missing character assets.')
+        return details
+
     def uninstall(self, character):
         with self.lock:
             target = own_path(self.characters / character)

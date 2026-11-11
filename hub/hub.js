@@ -71,7 +71,7 @@ function render() {
   $('shelf').hidden = !visible.length
   $('empty-state').hidden = Boolean(visible.length) || busy
   $('empty').textContent = state.profile
-    ? (view === 'installed' ? 'No Hub characters are installed in this profile.' : 'The catalog is empty or could not be loaded.')
+    ? (view === 'installed' ? 'No characters are installed in this profile.' : 'The catalog is empty or could not be loaded.')
     : 'Select your BeamNG user folder to get started.'
   portraitObserver.disconnect()
   $('cards').replaceChildren(...visible.map(characterCard))
@@ -141,7 +141,11 @@ function characterActions(character) {
   } else {
     actions.push(button('Download', 'primary', () => change(character, 'download'), 'download'))
   }
-  if (view === 'installed') {
+  if (view === 'installed' && character.local) {
+    const local = element('span', 'muted', 'Local')
+    local.title = 'Created locally. Manage its files in hotw/characters.'
+    actions.push(local)
+  } else if (view === 'installed') {
     actions.push(button('Remove', 'secondary', () => confirmRemoval(character), 'trash3-fill'))
   }
   return actions
@@ -262,6 +266,10 @@ function selectView(next) {
   document.querySelector('.workspace').scrollTop = 0
   render()
   if (view === 'catalog') refresh()
+  else run('', async () => {
+    state = await pywebview.api.installed_characters()
+    invalidatePortraits()
+  })
 }
 
 function selectOrder(next) {
@@ -295,6 +303,7 @@ async function windowAction(action) {
 }
 
 function setWindowState(maximized) {
+  document.body.classList.toggle('maximized', maximized)
   const button = $('maximize')
   button.title = maximized ? 'Restore' : 'Maximize'
   button.setAttribute('aria-label', button.title)
@@ -305,6 +314,69 @@ $('minimize').onclick = () => windowAction('minimize')
 $('maximize').onclick = $('title-drag').ondblclick = () => windowAction('maximize')
 $('close-window').onclick = () => windowAction('close')
 window.addEventListener('hotw-window-state', ({detail}) => setWindowState(detail))
+
+for (const edge of ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw']) {
+  const handle = element('div', 'window-resize')
+  handle.dataset.edge = edge
+  handle.setAttribute('aria-hidden', 'true')
+  document.body.append(handle)
+  handle.onpointerdown = async event => {
+    if (event.button !== 0 || !window.pywebview || document.body.classList.contains('maximized')) return
+    event.preventDefault()
+    handle.setPointerCapture(event.pointerId)
+    const startX = event.screenX, startY = event.screenY
+    let dimensions, pending, sending = false, scheduled = false, ended = false
+    async function flush() {
+      scheduled = false
+      if (sending || !dimensions || !pending) return
+      const next = pending
+      pending = null
+      sending = true
+      try {
+        await pywebview.api.resize_window(next.width, next.height, edge)
+      } catch (error) {
+        pending = null
+        status(error.message || String(error), true)
+      } finally {
+        sending = false
+        if (pending) schedule()
+      }
+    }
+    function schedule() {
+      if (!scheduled) { scheduled = true; requestAnimationFrame(flush) }
+    }
+    function move(event) {
+      if (!dimensions) return
+      const dx = (event.screenX - startX) * dimensions.scaleX
+      const dy = (event.screenY - startY) * dimensions.scaleY
+      pending = {
+        width: Math.max(dimensions.minWidth, Math.round(dimensions.width + (edge.includes('e') ? dx : edge.includes('w') ? -dx : 0))),
+        height: Math.max(dimensions.minHeight, Math.round(dimensions.height + (edge.includes('s') ? dy : edge.includes('n') ? -dy : 0)))
+      }
+      schedule()
+    }
+    function finish(event) {
+      if (ended) return
+      ended = true
+      if (event.type === 'pointerup') move(event)
+      handle.removeEventListener('pointermove', move)
+      handle.removeEventListener('pointerup', finish)
+      handle.removeEventListener('lostpointercapture', finish)
+      handle.removeEventListener('pointercancel', finish)
+      if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId)
+    }
+    handle.addEventListener('pointermove', move)
+    handle.addEventListener('pointerup', finish)
+    handle.addEventListener('lostpointercapture', finish)
+    handle.addEventListener('pointercancel', finish)
+    try {
+      dimensions = await pywebview.api.begin_resize(window.innerWidth, window.innerHeight)
+    } catch (error) {
+      finish(event)
+      status(error.message || String(error), true)
+    }
+  }
+}
 $('settings').onclick = () => $('preferences').showModal()
 $('close-settings').onclick = () => $('preferences').close()
 $('cancel-remove').onclick = () => $('confirm').close()

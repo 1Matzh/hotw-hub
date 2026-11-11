@@ -13,6 +13,20 @@ The Hub checks GitHub Releases on startup. Click the update icon above GitHub to
 
 The catalog keeps character cards at a fixed size and loads more as you scroll. **New** sorts by the date a character was added, while **Updated** sorts by its latest asset change. The catalog loads when you open the Hub or return to the catalog from Installed. Sorting and scrolling reuse the loaded catalog.
 
+The window can be resized from its edges and corners, or maximized using its titlebar.
+
+## Test a local character
+
+Put your game-ready character in `<BeamNG user folder>/hotw/characters/<id>/`. Use a unique ID of up to 40 lowercase letters, digits, hyphens, and underscores, starting with a letter or digit. The folder must contain `character.json`, `fullbody.xml`, `fullbody.json`, `feet.json`, `materials.json`, `colors.json`, `thumbnail.png`, and its textures. The rig and material paths must follow the [character submission guide](https://github.com/1Matzh/hotw-hub/blob/characters/README.md).
+
+For example, `hotw/characters/my-driver/character.json` contains:
+
+```json
+{"id": "my-driver", "name": "My Driver", "author": "Your name"}
+```
+
+Open **Characters** in HOTW to reload the game list, and open **Installed** in the Hub to see the local character. No catalog entry, SHA-256 hashes, or `hotw-installed.json` file is needed. Local characters are labeled **Local**. Keep editing or removing these folders yourself; the Hub preserves your source files and does not replace them with catalog downloads. After changing a loaded model, restart the game or add/change the optional `revision` value in its local `character.json` and reopen Characters to reload it.
+
 ## Contribute a character
 
 Open your character pull request against the **characters** branch. The [character submission guide](https://github.com/1Matzh/hotw-hub/blob/characters/README.md) explains the folder structure and how to generate the manifest, file sizes, and SHA-256 hashes.

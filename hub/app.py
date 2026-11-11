@@ -19,7 +19,7 @@ from hotw_character_catalog import (CatalogError, Library, SLUG, asset, fetch,
 from updater import apply_update, finish_update, latest_release, prepare_update, start_update
 
 
-VERSION = '0.1.1'
+VERSION = '0.1.0'
 REPOSITORY = 'https://github.com/1Matzh/hotw-hub'
 RESOURCES = Path(__file__).resolve().parent
 THUMBNAIL_LIMIT = 1024 * 1024
@@ -89,6 +89,7 @@ class Hub:
         self._updating = False
         self._handoff = False
         self._startup_error = None
+        self._resize_minimum = (570, 480)
 
     def initialize(self):
         path = detect_profile()
@@ -125,6 +126,10 @@ class Hub:
         require(self._library is not None, 'Choose your BeamNG user folder first.')
         return self._library
 
+    def installed_characters(self):
+        with self._lock:
+            return self._snapshot()
+
     def _snapshot(self):
         library = self._library
         if library is None:
@@ -134,19 +139,22 @@ class Hub:
             if not folder.is_dir() or folder.name == 'default' or not SLUG.fullmatch(folder.name):
                 continue
             try:
-                library.owned_files(own_path(folder))
-                details = json.loads((folder / 'character.json').read_bytes())
+                local = not (folder / 'hotw-installed.json').exists()
+                if not local:
+                    library.owned_files(own_path(folder))
+                details = library.local_character(folder)
                 name, author = details['name'], details['author']
                 if isinstance(name, str) and isinstance(author, str):
-                    installed[folder.name] = {'id': folder.name, 'name': name, 'author': author}
+                    installed[folder.name] = {'id': folder.name, 'name': name, 'author': author, 'local': local}
             except (CatalogError, OSError, KeyError, ValueError, TypeError):
                 continue
         catalog = []
         for entry in library.catalog.values():
             slug = entry['id']
-            available = slug in installed and library.update_available(entry)
+            local = installed.get(slug, {}).get('local', False)
+            available = slug in installed and not local and library.update_available(entry)
             catalog.append({**{key: entry[key] for key in ('id', 'name', 'author', 'sizeBytes', 'createdAt', 'updatedAt')},
-                            'installed': slug in installed, 'updateAvailable': available})
+                            'installed': slug in installed, 'updateAvailable': available, 'local': local})
             if slug in installed:
                 installed[slug]['updateAvailable'] = available
         return {'profile': str(library.hotw.parent), 'catalog': catalog, 'installed': list(installed.values())}
@@ -156,7 +164,7 @@ class Hub:
         require(isinstance(slug, str) and SLUG.fullmatch(slug) and slug != 'default', 'Invalid character.')
         if local:
             target = own_path(library.characters / slug)
-            library.owned_files(target)
+            library.local_character(target)
             path = target / 'thumbnail.png'
             require(path.stat().st_size <= THUMBNAIL_LIMIT, 'Character portrait exceeds the size limit.')
             return image_url(path.read_bytes())
@@ -206,6 +214,25 @@ class Hub:
             return maximized
         elif action == 'close':
             self._window.destroy()
+
+    def begin_resize(self, viewport_width, viewport_height):
+        require(all(isinstance(value, (int, float)) and 0 < value <= 32768
+                    for value in (viewport_width, viewport_height)), 'Invalid window size.')
+        width, height = self._window.width, self._window.height
+        scale_x, scale_y = width / viewport_width, height / viewport_height
+        self._resize_minimum = (round(570 * scale_x), round(480 * scale_y))
+        return {'width': width, 'height': height, 'scaleX': scale_x, 'scaleY': scale_y,
+                'minWidth': self._resize_minimum[0], 'minHeight': self._resize_minimum[1]}
+
+    def resize_window(self, width, height, edge):
+        from webview.window import FixPoint
+        require(edge in ('n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw')
+                and all(type(value) is int and 0 < value <= 32768 for value in (width, height)),
+                'Invalid window resize.')
+        if self._maximized:
+            return
+        anchor = (FixPoint.EAST if 'w' in edge else FixPoint.WEST) | (FixPoint.SOUTH if 'n' in edge else FixPoint.NORTH)
+        self._window.resize(max(self._resize_minimum[0], width), max(self._resize_minimum[1], height), anchor)
 
     def _set_maximized(self, value):
         self._maximized = value
@@ -262,7 +289,7 @@ def main():
     html = html.replace('HOTW_VERSION', VERSION)
     hub._window = webview.create_window('HOTW Hub', html=html, js_api=hub, width=960, height=660,
                                        min_size=(570, 480), background_color='#171c24',
-                                       frameless=True, easy_drag=False)
+                                       frameless=True, easy_drag=False, resizable=True)
     hub._window.events.maximized += lambda: hub._set_maximized(True)
     hub._window.events.restored += lambda: hub._set_maximized(False)
     hub._window.events.closing += hub.can_close

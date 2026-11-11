@@ -103,8 +103,18 @@ progress { display: block; width: 100%; height: 6px; border: 0; border-radius: 1
 progress::-webkit-progress-bar { border-radius: 10px; background: #151b23; }
 progress::-webkit-progress-value { border-radius: 10px; background: var(--accent); }
 progress:not([value]) { appearance: auto; }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(0, 230px)); gap: 16px; }
-.card { display: flex; flex-direction: column; min-width: 0; border-radius: 13px; overflow: hidden; background: var(--card); }
+.cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.card { display: flex; flex-direction: column; flex: 0 0 230px; min-width: 0; border-radius: 13px; overflow: hidden; background: var(--card); }
+.window-resize { position: fixed; z-index: 100; touch-action: none; user-select: none; }
+.window-resize[data-edge="n"], .window-resize[data-edge="s"] { left: 7px; right: 7px; height: 5px; cursor: ns-resize; }
+.window-resize[data-edge="e"], .window-resize[data-edge="w"] { top: 7px; bottom: 7px; width: 5px; cursor: ew-resize; }
+.window-resize[data-edge*="n"] { top: 0; }
+.window-resize[data-edge*="s"] { bottom: 0; }
+.window-resize[data-edge*="e"] { right: 0; }
+.window-resize[data-edge*="w"] { left: 0; }
+.window-resize[data-edge="ne"], .window-resize[data-edge="sw"] { width: 9px; height: 9px; cursor: nesw-resize; }
+.window-resize[data-edge="nw"], .window-resize[data-edge="se"] { width: 9px; height: 9px; cursor: nwse-resize; }
+body.maximized .window-resize { display: none; }
 .portrait { position: relative; height: 155px; flex: none; background: #1a2028; }
 .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .card-details { flex: 1; min-height: 65px; padding: 10px 12px 3px; overflow-wrap: anywhere; }
