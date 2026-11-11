@@ -251,7 +251,9 @@
           "size": 56930,
           "sha256": "206a2450e41d2c39259502fdda01dd65447ea684305754626c0ae39c68f8f954"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     },
     {
       "id": "brian",
@@ -328,7 +330,9 @@
           "size": 58694,
           "sha256": "b36244a4cfeaab7d4f3bdc7590353ec08985352d0184adfb62d11d35714c5b26"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     },
     {
       "id": "dummy_robot",
@@ -400,7 +404,9 @@
           "size": 54379,
           "sha256": "7c021665aa41e5da76d15e21a2a7472a683b8568424dce05e9f465d2da10f1c3"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     },
     {
       "id": "james_bond",
@@ -497,7 +503,9 @@
           "size": 53515,
           "sha256": "00ab4e6ad19d4c309c161e86cfb7cdbf05a7e82139b07b53e2bff995442af43c"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     },
     {
       "id": "rinoa",
@@ -684,7 +692,9 @@
           "size": 61022,
           "sha256": "f02f7e28b7b46627796848ca8fabcd7b58ee7142068f576aeba6e551f4ddb793"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     },
     {
       "id": "t-800",
@@ -796,7 +806,9 @@
           "size": 70207,
           "sha256": "35fca2d41582ee620ef5dcb0d4bbb098b52508fdd45dfb1d86844e13413f453a"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     },
     {
       "id": "senna",
@@ -953,7 +965,9 @@
           "size": 55530,
           "sha256": "ec8c0ea5e4805ea9959f8ce8bcc0e32923aa12229b6efcd79742c1088fe0953d"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     },
     {
       "id": "robocop",
@@ -1170,7 +1184,9 @@
           "size": 63152,
           "sha256": "7fc9beff33c8fc0a784d2e532c9f9e10dfb2b92ad77ccf00c5265d7355eb8ff8"
         }
-      ]
+      ],
+      "createdAt": "2026-11-10T00:54:24Z",
+      "updatedAt": "2026-11-10T00:54:24Z"
     }
   ]
 }

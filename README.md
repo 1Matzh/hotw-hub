@@ -35,4 +35,6 @@ Material names and `mapTo` values must start with `hotw_character_<id>_`, replac
 
 Run the generator again whenever any asset changes. It reads each file as bytes and records its relative `path`, its exact byte count as `size`, and its SHA-256 checksum as `sha256`. The HOTW Hub checks the size and checksum before installing a character. The generator uses Python's standard library.
 
+The generator also records `createdAt` and `updatedAt` for the Hub's **New** and **Updated** sorting options. These dates are maintained automatically. Rebuilding an unchanged character preserves its dates, while changing an asset advances `updatedAt`.
+
 In the pull request, include an in-game screenshot, the source and redistribution terms for the model and textures, and any notes about the rig or materials. The catalog reads the manifest from `characters`, so the character becomes available after the pull request is merged.

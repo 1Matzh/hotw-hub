@@ -1,5 +1,6 @@
 """Rebuild catalog.json from the unpacked HOTW character folders."""
 from pathlib import Path
+from datetime import datetime, timezone
 import hashlib
 import json
 import re
@@ -53,6 +54,12 @@ def main():
     require(len(folders) == len(namespaces) and len(folders) <= 250,
             "Character IDs must have unique material namespaces.")
     entries = [entry_for(folder) for folder in folders]
+    saved = {entry["id"]: entry for entry in previous}
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    for entry in entries:
+        old = saved.get(entry["id"], {})
+        entry["createdAt"] = old.get("createdAt", now)
+        entry["updatedAt"] = old.get("updatedAt", entry["createdAt"]) if old.get("files") == entry["files"] else now
     output.write_bytes((json.dumps({"schema": 1, "characters": entries}, indent=2, ensure_ascii=False) + "\n").encode())
     print(f"Updated catalog.json for {len(entries)} characters.")
 
