@@ -53,6 +53,8 @@ def remember_profile(path):
 
 def detect_profile():
     executable = Path(sys.executable) if getattr(sys, 'frozen', False) else None
+    if executable and executable.parent.name.lower() == 'hotw':
+        return executable.parents[1].resolve()
     if executable and executable.parent.name.lower() == 'characters' and executable.parents[1].name.lower() == 'hotw':
         return executable.parents[2].resolve()
     try:
