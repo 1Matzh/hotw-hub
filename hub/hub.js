@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: MIT
 const $ = id => document.getElementById(id)
 const size = new Intl.NumberFormat(undefined, {maximumFractionDigits: 1})
+const dateFormat = new Intl.DateTimeFormat('en-GB', {day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'})
+const relativeTime = new Intl.RelativeTimeFormat('en', {numeric: 'auto'})
 const batchSize = 6
 const portraits = new Map()
 let state = {profile: null, catalog: [], installed: []}
@@ -10,6 +12,7 @@ let view = 'catalog'
 let visibleCount = batchSize
 let order = 'new'
 let busy = false
+let catalogLoading = false
 let revision = 0
 
 function status(message, error = false) {
@@ -68,7 +71,10 @@ function render() {
   const list = sortedCharacters()
   const visible = list.slice(0, visibleCount)
   $('load-more').hidden = visible.length >= list.length
-  $('shelf').hidden = !visible.length
+  const loading = view === 'catalog' && catalogLoading
+  $('catalog-loading').hidden = !loading
+  $('main-view').setAttribute('aria-busy', loading)
+  $('shelf').hidden = !visible.length || loading
   $('empty-state').hidden = Boolean(visible.length) || busy
   $('empty-title').textContent = view === 'installed' ? 'No characters installed' : 'No characters available'
   $('empty').textContent = view === 'installed'
@@ -123,20 +129,56 @@ function characterCard(character) {
   image.dataset.character = character.id
   portraitObserver.observe(portrait)
   const details = element('div', 'card-details')
-  details.append(element('h2', '', character.name), element('p', 'muted', 'by ' + character.author))
+  const author = element('p', 'card-author', 'by ')
+  author.append(element('span', '', character.author))
+  details.append(element('h2', '', character.name), author)
+  const metadata = view === 'installed' && !character.local
+    ? state.catalog.find(entry => entry.id === character.id) || character : character
+  const dates = characterDates(metadata)
+  if (dates.childElementCount) details.append(dates)
   const actions = element('div', 'card-actions')
   actions.append(...characterActions(character))
   if (view === 'catalog' && character.sizeBytes) {
-    actions.append(element('span', 'card-size muted', size.format(character.sizeBytes / 1000000) + ' MB'))
+    const downloadSize = element('span', 'card-size muted', size.format(character.sizeBytes / 1000000) + ' MB')
+    downloadSize.title = 'Download size'
+    downloadSize.prepend(icon('hdd-fill'))
+    actions.append(downloadSize)
   }
   card.append(portrait, details, actions)
   return card
 }
 
+function characterDates(character) {
+  const dates = element('div', 'card-meta muted')
+  const created = Date.parse(character.createdAt || '')
+  const updated = Date.parse(character.updatedAt || character.createdAt || '')
+  const age = element('time', 'card-updated', '—')
+  age.title = 'Update date unavailable'
+  if (Number.isFinite(updated)) {
+    const days = Math.max(0, Math.floor((Date.now() - updated) / 86400000))
+    const unit = days >= 365 ? 'year' : days >= 30 ? 'month' : 'day'
+    const amount = unit === 'year' ? Math.floor(days / 365) : unit === 'month' ? Math.floor(days / 30) : days
+    age.textContent = relativeTime.format(-amount, unit)
+    age.dateTime = character.updatedAt || character.createdAt
+    age.title = 'Updated ' + dateFormat.format(updated)
+  }
+  age.setAttribute('aria-label', Number.isFinite(updated) ? 'Updated ' + age.textContent : age.title)
+  age.prepend(icon('arrow-clockwise'))
+  dates.append(age)
+  if (Number.isFinite(created)) {
+    const published = element('time', 'card-published', dateFormat.format(created))
+    published.dateTime = character.createdAt
+    published.title = 'Published ' + dateFormat.format(created)
+    published.prepend(icon('upload'))
+    dates.append(published)
+  }
+  return dates
+}
+
 function characterActions(character) {
   const actions = []
   if (character.updateAvailable) {
-    actions.push(button('Update', 'primary', () => change(character, 'update'), 'download'))
+    actions.push(button('Update', 'primary', () => change(character, 'update'), 'arrow-clockwise'))
   } else if (view === 'installed' || character.installed) {
     const installed = element('span', 'install-status', 'Installed')
     installed.prepend(icon('check-circle-fill'))
@@ -194,9 +236,15 @@ async function run(message, operation) {
 }
 
 function refresh() {
-  return run('Loading the catalog…', async () => {
-    state = await pywebview.api.refresh()
-    invalidatePortraits()
+  if (busy) return
+  catalogLoading = true
+  return run('', async () => {
+    try {
+      state = await pywebview.api.refresh()
+      invalidatePortraits()
+    } finally {
+      catalogLoading = false
+    }
   })
 }
 

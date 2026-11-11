@@ -95,6 +95,10 @@ h1 { margin: 0; font-size: clamp(23px, 3.4vw, 34px); font-weight: 760; letter-sp
 .notice { margin: 0 0 14px; padding: 12px 15px; border-radius: 12px; background: #28323e; overflow-wrap: anywhere; }
 .transfer { position: fixed; z-index: 10; top: 53px; right: 18px; width: min(355px, calc(100vw - 88px)); padding: 16px; border: 1px solid #435060; border-radius: 13px; background: #29323e; box-shadow: 0 8px 30px #0b101970; overflow-wrap: anywhere; }
 .notice.error { background: #442a31; color: #ffd1cb; }
+.catalog-loading { display: grid; flex: 1; place-items: center; min-height: 270px; }
+.spinner { width: 38px; height: 38px; border: 3px solid #46515f; border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
 .empty-state { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; padding: 35px 15px 55px; text-align: center; }
 .empty-state h2 { margin: 0 0 8px; font-size: 23px; font-weight: 650; letter-spacing: -.025em; }
 .empty-state p { max-width: 300px; margin: 0; line-height: 1.6; }
@@ -115,7 +119,8 @@ progress::-webkit-progress-bar { border-radius: 10px; background: #151b23; }
 progress::-webkit-progress-value { border-radius: 10px; background: var(--accent); }
 progress:not([value]) { appearance: auto; }
 .cards { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 16px; }
-.card { display: flex; flex-direction: column; flex: 0 0 230px; min-width: 0; border-radius: 13px; overflow: hidden; background: var(--card); }
+.card { display: flex; flex-direction: column; flex: 0 0 230px; min-width: 0; border: 1px solid #3d4856; border-radius: 6px; overflow: hidden; background: var(--card); }
+.card:hover { border-color: #677586; }
 .window-resize { position: fixed; z-index: 100; touch-action: none; user-select: none; }
 .window-resize[data-edge="n"], .window-resize[data-edge="s"] { left: 7px; right: 7px; height: 5px; cursor: ns-resize; }
 .window-resize[data-edge="e"], .window-resize[data-edge="w"] { top: 7px; bottom: 7px; width: 5px; cursor: ew-resize; }
@@ -126,15 +131,19 @@ progress:not([value]) { appearance: auto; }
 .window-resize[data-edge="ne"], .window-resize[data-edge="sw"] { width: 9px; height: 9px; cursor: nesw-resize; }
 .window-resize[data-edge="nw"], .window-resize[data-edge="se"] { width: 9px; height: 9px; cursor: nwse-resize; }
 body.maximized .window-resize { display: none; }
-.portrait { position: relative; height: 155px; flex: none; background: #1a2028; }
+.portrait { position: relative; aspect-ratio: 16 / 9; flex: none; background: #343d49; }
 .portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-.card-details { flex: 1; min-height: 65px; padding: 10px 12px 3px; overflow-wrap: anywhere; }
-.card-details h2 { margin: 0; font-size: 13px; font-weight: 720; line-height: 1.3; }
-.card-details p { margin: 3px 0 0; font-size: 11px; }
-.card-actions { flex-wrap: wrap; padding: 8px 11px 10px; }
-.card-actions button { min-height: 29px; padding: 4px 9px; }
+.card-details { display: flex; flex-direction: column; flex: 1; padding: 12px; overflow-wrap: anywhere; }
+.card-details h2 { min-height: 2.7em; margin: 0; font-size: 14px; font-weight: 650; line-height: 1.35; }
+.card-author { margin: 7px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.card-author span { color: var(--accent); }
+.card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 12px; margin: 12px -12px -12px; padding: 10px 12px 12px; border-top: 1px solid #43505e; font-size: 10px; line-height: 1.4; }
+.card-meta time { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.card-meta .icon { width: 11px; height: 11px; }
+.card-actions { flex-wrap: wrap; min-height: 47px; padding: 9px 12px; border-top: 1px solid #43505e; background: #343e4c; }
+.card-actions button { min-height: 28px; padding: 4px 9px; font-size: 11px; }
 .card-actions .icon { width: 13px; height: 13px; }
-.card-size { margin-left: auto; font-size: 11px; white-space: nowrap; }
+.card-size { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; font-size: 10px; white-space: nowrap; }
 .install-status { gap: 5px; font-size: 11px; color: var(--muted); }
 .install-status .icon { color: var(--accent); }
 #load-more { height: 1px; margin-top: 16px; }
