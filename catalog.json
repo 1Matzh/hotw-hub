@@ -1191,12 +1191,15 @@
     {
       "id": "takumi",
       "name": "Takumi Fujiwara",
-      "author": "Zenkay | Neitancrost",
+      "authors": [
+        "Zenkay",
+        "Neitancrost"
+      ],
       "files": [
         {
           "path": "character.json",
-          "size": 91,
-          "sha256": "a2efc9e4cc495704c38234c4bb8063ec45ac93352037f03032e8c9763df6857e"
+          "size": 90,
+          "sha256": "89f95fe97fa1235db038960af8018ad6246cfef8b33cd184e66c9bdc012f8ad0"
         },
         {
           "path": "colors.json",
@@ -1265,7 +1268,7 @@
         }
       ],
       "createdAt": "2026-11-16T19:04:11Z",
-      "updatedAt": "2026-11-16T19:04:11Z"
+      "updatedAt": "2026-11-16T22:00:09Z"
     }
   ]
 }

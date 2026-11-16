@@ -22,9 +22,14 @@ def entry_for(folder):
     identifier = folder.name
     metadata = json.loads((folder / "character.json").read_bytes())
     require(SLUG.fullmatch(identifier) and identifier != "default", f"Invalid ID: {identifier}")
-    require(set(metadata) == {"id", "name", "author"} and metadata["id"] == identifier
-            and all(isinstance(metadata[key], str) and 0 < len(metadata[key].strip()) <= 100
-                    for key in ("name", "author")), f"Invalid character.json: {folder}")
+    credit_key = "authors" if "authors" in metadata else "author"
+    authors = metadata.get("authors") if credit_key == "authors" else [metadata.get("author")]
+    require(set(metadata) == {"id", "name", credit_key} and metadata["id"] == identifier
+            and isinstance(metadata.get("name"), str) and 0 < len(metadata["name"].strip()) <= 100
+            and isinstance(authors, list) and 1 <= len(authors) <= 10
+            and all(isinstance(name, str) and 0 < len(name.strip()) <= 100 for name in authors),
+            f"Invalid character.json: {folder}")
+    require(len(set(name.strip() for name in authors)) == len(authors), f"Duplicate author: {folder}")
     files, names, total = [], set(), 0
     for asset in sorted(folder.rglob("*")):
         require(not asset.is_symlink(), f"Symbolic link: {asset}")
@@ -41,7 +46,7 @@ def entry_for(folder):
         files.append({"path": name, "size": size, "sha256": hashlib.sha256(asset.read_bytes()).hexdigest()})
     require(REQUIRED <= names and len(files) <= 160 and total <= 220 * MIB,
             f"Missing assets or size limit exceeded: {folder}")
-    return {key: metadata[key] for key in ("id", "name", "author")} | {"files": files}
+    return {key: metadata[key] for key in ("id", "name", credit_key)} | {"files": files}
 
 
 def main():

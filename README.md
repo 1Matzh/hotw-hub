@@ -14,13 +14,15 @@ This repository contains the downloadable characters for Hands on the Wheel (HOT
 {
   "id": "example-driver",
   "name": "Example Driver",
-  "author": "Original Artist"
+  "authors": ["Original Artist", "Another Artist"]
 }
 ```
 
+Use one item in `authors` for each creator (up to 10 names). The game and Hub join the names using the selected language. Existing characters with a single `author` string remain supported.
+
 | File | Contents |
 | --- | --- |
-| `character.json` | ID, display name, and author credit |
+| `character.json` | ID, display name, and list of authors |
 | `fullbody.xml` | Rigged Collada model exported for HOTW |
 | `fullbody.json` | Mesh metadata used for in-game visibility |
 | `feet.json` | Left and right foot contact points |
