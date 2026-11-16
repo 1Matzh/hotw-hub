@@ -78,7 +78,7 @@ h1 { margin: 0; font-size: clamp(23px, 3.4vw, 34px); font-weight: 760; letter-sp
 .muted { color: var(--muted); }
 .notice { margin: 0 0 14px; padding: 12px 15px; border-radius: 12px; background: #28323e; overflow-wrap: anywhere; }
 .notifications { position: fixed; z-index: 10; top: 18px; right: 18px; width: min(355px, calc(100vw - 88px)); display: grid; gap: 12px; pointer-events: none; }
-.transfer, .toast { position: relative; margin: 0; padding: 16px; border: 1px solid #435060; border-radius: 13px; box-shadow: 0 8px 30px #0b101970; overflow-wrap: anywhere; pointer-events: auto; }
+.transfer, .toast { position: relative; margin: 0; padding: 16px; border: 1px solid #435060; border-radius: 13px; overflow-wrap: anywhere; pointer-events: auto; }
 .transfer { background: #29323e; }
 .toast { padding-right: 42px; font-size: 12px; }
 .notice-close { position: absolute; right: 9px; top: 8px; border: 0; background: transparent; color: inherit; font-size: 20px; line-height: 1; padding: 4px; }
