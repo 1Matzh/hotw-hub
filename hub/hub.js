@@ -1,10 +1,13 @@
+import {Hub} from './web-library.js'
+const languageCatalog = await fetch('./languages.json',{cache:'no-store'}).then(response=>response.json())
+const hubApi = new Hub(languageCatalog.languages)
 // Hands on the Wheel (HOTW)
 // Copyright (c) 2026 1Matzh
 // SPDX-License-Identifier: MIT
 const $ = id => document.getElementById(id)
-const size = new Intl.NumberFormat(undefined, {maximumFractionDigits: 1})
-const dateFormat = new Intl.DateTimeFormat('en-GB', {day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'})
-const relativeTime = new Intl.RelativeTimeFormat('en', {numeric: 'auto'})
+let size = new Intl.NumberFormat(undefined, {maximumFractionDigits: 1})
+let dateFormat = new Intl.DateTimeFormat('en-GB', {day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'})
+let relativeTime = new Intl.RelativeTimeFormat('en', {numeric: 'auto'})
 const batchSize = 6
 const portraits = new Map()
 let state = {profile: null, catalog: [], installed: []}
@@ -15,10 +18,47 @@ let busy = false
 let catalogLoading = false
 let revision = 0
 
+
+let activeLocale = 'en-US'
+let selectedLanguage = 'auto'
+const staticCopy = []
+const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {acceptNode: node =>
+  node.parentElement?.closest('script,style,svg') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT})
+while (walker.nextNode()) {
+  const node = walker.currentNode, source = node.textContent.trim()
+  if (source) staticCopy.push({node, source, prefix:node.textContent.match(/^\s*/)[0], suffix:node.textContent.match(/\s*$/)[0]})
+}
+const staticAttributes = [...document.querySelectorAll('[aria-label],[title]')].flatMap(node =>
+  ['aria-label','title'].filter(name=>node.hasAttribute(name)).map(name=>({node,name,source:node.getAttribute(name)})))
+function t(source, parameters) {
+  if (typeof source !== 'string') return source
+  const translated = languageCatalog.messages[activeLocale]?.[source] || source
+  return parameters ? translated.replace(/\{(\w+)\}/g,(match,key)=>parameters[key]??match) : translated
+}
+function applyLanguage(snapshot) {
+  const locale = snapshot.locale || activeLocale
+  selectedLanguage = snapshot.language || selectedLanguage
+  if (activeLocale !== locale || !$('language').options.length) {
+    activeLocale = locale
+    const tag = languageCatalog.languages.find(item=>item.value===locale)?.locale || 'en-US'
+    document.documentElement.lang = tag
+    dateFormat = new Intl.DateTimeFormat(tag, {day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'})
+    relativeTime = new Intl.RelativeTimeFormat(tag, {numeric:'auto'})
+    size = new Intl.NumberFormat(tag, {maximumFractionDigits:1})
+    for(const {node,source,prefix,suffix} of staticCopy) node.textContent = prefix+t(source)+suffix
+    for(const {node,name,source} of staticAttributes) node.setAttribute(name,t(source))
+    $('language').replaceChildren(...[{value:'auto',label:t('Automatic')},...languageCatalog.languages].map(item=>{
+      const option = element('option','',item.label); option.value=item.value; return option
+    }))
+  }
+  $('language').value = selectedLanguage
+
+}
+
 function status(message, error = false) {
   for (const id of ['status', 'setup-status']) {
     $(id).hidden = !message || (id === 'status' ? !state.profile : Boolean(state.profile))
-    $(id).textContent = message
+    $(id).textContent = t(message)
     $(id).classList.toggle('error', error)
   }
 }
@@ -26,7 +66,7 @@ function status(message, error = false) {
 function element(tag, className, text) {
   const node = document.createElement(tag)
   if (className) node.className = className
-  if (text) node.textContent = text
+  if (text) node.textContent = t(text)
   return node
 }
 
@@ -54,17 +94,22 @@ function button(label, tone, action, glyph) {
 }
 
 function render() {
+  applyLanguage(state)
+  const preferences = view === 'settings'
+  $('settings-page').hidden = !preferences
+  $('settings').setAttribute('aria-pressed', preferences)
+  $('language').disabled = busy
+
   $('setup').hidden = Boolean(state.profile)
   $('main-view').hidden = !state.profile
   $('navigation').hidden = !state.profile
-  $('profile').textContent = state.profile || 'Choose the folder containing settings and mods.'
-  $('installed-tab').title = `Installed (${state.installed.length})`
-  $('view-label').textContent = view === 'catalog' ? 'Character catalog' : 'Installed'
+  $('profile').textContent = state.profile || t('Open HOTW Hub from BeamNG.drive')
+  $('installed-tab').title = `${t('Installed')} (${state.installed.length})`
+  $('view-label').textContent = t(view === 'catalog' ? 'Character catalog' : preferences ? 'Settings' : 'Installed')
   $('catalog-tab').setAttribute('aria-pressed', view === 'catalog')
   $('installed-tab').setAttribute('aria-pressed', view === 'installed')
   $('choose').disabled = busy
   $('choose-setup').disabled = busy
-  $('release').disabled = busy
   $('catalog-filters').hidden = view !== 'catalog'
   $('sort-new').setAttribute('aria-pressed', order === 'new')
   $('sort-updated').setAttribute('aria-pressed', order === 'updated')
@@ -74,12 +119,12 @@ function render() {
   const loading = view === 'catalog' && catalogLoading
   $('catalog-loading').hidden = !loading
   $('main-view').setAttribute('aria-busy', loading)
-  $('shelf').hidden = !visible.length || loading
-  $('empty-state').hidden = Boolean(visible.length) || busy
-  $('empty-title').textContent = view === 'installed' ? 'No characters installed' : 'No characters available'
+  $('shelf').hidden = preferences || !visible.length || loading
+  $('empty-state').hidden = preferences || Boolean(visible.length) || busy
+  $('empty-title').textContent = t(view === 'installed' ? 'No characters installed' : 'No characters available')
   $('empty').textContent = view === 'installed'
-    ? 'Find drivers and passengers in the catalog. Your characters will appear here once installed.'
-    : 'The catalog is empty or could not be loaded.'
+    ? t('Find drivers and passengers in the catalog. Your characters will appear here once installed.')
+    : t('The catalog is empty or could not be loaded.')
   $('browse-catalog').hidden = view !== 'installed'
   $('browse-catalog').disabled = busy
   portraitObserver.disconnect()
@@ -89,13 +134,14 @@ function render() {
 }
 
 function sortedCharacters() {
+  if (view === 'settings') return []
   if (view !== 'catalog') return state.installed
   const date = character => Date.parse(order === 'new' ? character.createdAt : character.updatedAt || character.createdAt) || 0
   return [...state.catalog].sort((a, b) => date(b) - date(a))
 }
 
 function loadMore() {
-  if (busy || !state.profile) return
+  if (busy || !state.profile || view === 'settings') return
   const list = sortedCharacters()
   const next = list.slice(visibleCount, visibleCount + batchSize)
   visibleCount += next.length
@@ -129,7 +175,7 @@ function characterCard(character) {
   image.dataset.character = character.id
   portraitObserver.observe(portrait)
   const details = element('div', 'card-details')
-  const author = element('p', 'card-author', 'by ')
+  const author = element('p', 'card-author', t('by')+' ')
   author.append(element('span', '', character.author))
   details.append(element('h2', '', character.name), author)
   const metadata = view === 'installed' && !character.local
@@ -140,7 +186,7 @@ function characterCard(character) {
   actions.append(...characterActions(character))
   if (view === 'catalog' && character.sizeBytes) {
     const downloadSize = element('span', 'card-size muted', size.format(character.sizeBytes / 1000000) + ' MB')
-    downloadSize.title = 'Download size'
+    downloadSize.title = t("Download size")
     downloadSize.prepend(icon('hdd-fill'))
     actions.append(downloadSize)
   }
@@ -152,23 +198,23 @@ function characterDates(character) {
   const dates = element('div', 'card-meta muted')
   const created = Date.parse(character.createdAt || '')
   const updated = Date.parse(character.updatedAt || character.createdAt || '')
-  const age = element('time', 'card-updated', '—')
-  age.title = 'Update date unavailable'
+  const age = element('time', 'card-updated', 'â€”')
+  age.title = t("Update date unavailable")
   if (Number.isFinite(updated)) {
     const days = Math.max(0, Math.floor((Date.now() - updated) / 86400000))
     const unit = days >= 365 ? 'year' : days >= 30 ? 'month' : 'day'
     const amount = unit === 'year' ? Math.floor(days / 365) : unit === 'month' ? Math.floor(days / 30) : days
     age.textContent = relativeTime.format(-amount, unit)
     age.dateTime = character.updatedAt || character.createdAt
-    age.title = 'Updated ' + dateFormat.format(updated)
+    age.title = t('Updated')+' ' + dateFormat.format(updated)
   }
-  age.setAttribute('aria-label', Number.isFinite(updated) ? 'Updated ' + age.textContent : age.title)
+  age.setAttribute('aria-label', Number.isFinite(updated) ? t('Updated')+' ' + age.textContent : age.title)
   age.prepend(icon('arrow-clockwise'))
   dates.append(age)
   if (Number.isFinite(created)) {
     const published = element('time', 'card-published', dateFormat.format(created))
     published.dateTime = character.createdAt
-    published.title = 'Published ' + dateFormat.format(created)
+    published.title = t('Published')+' ' + dateFormat.format(created)
     published.prepend(icon('upload'))
     dates.append(published)
   }
@@ -188,7 +234,7 @@ function characterActions(character) {
   }
   if (view === 'installed' && character.local) {
     const local = element('span', 'muted', 'Local')
-    local.title = 'Created locally. Manage its files in hotw/characters.'
+    local.title = t("Created locally. Manage its files in hotw/characters.")
     actions.push(local)
   } else if (view === 'installed') {
     actions.push(button('Remove', 'secondary', () => confirmRemoval(character), 'trash3-fill'))
@@ -208,7 +254,7 @@ function showPortrait(image, character) {
   image.dataset.portrait = key
   image.removeAttribute('src')
   if (!portraits.has(key)) {
-    portraits.set(key, pywebview.api.portrait(character.id, local).catch(() => ''))
+    portraits.set(key, hubApi.portrait(character.id, local).catch(() => ''))
   }
   portraits.get(key).then(data => {
     if (data && image.isConnected && image.dataset.portrait === key) image.src = data
@@ -216,6 +262,7 @@ function showPortrait(image, character) {
 }
 
 function invalidatePortraits() {
+  for (const promise of portraits.values()) promise.then(url=>{if(url.startsWith('blob:'))URL.revokeObjectURL(url)})
   portraits.clear()
   revision++
 }
@@ -240,7 +287,7 @@ function refresh() {
   catalogLoading = true
   return run('', async () => {
     try {
-      state = await pywebview.api.refresh()
+      state = await hubApi.refresh()
       invalidatePortraits()
     } finally {
       catalogLoading = false
@@ -250,10 +297,10 @@ function refresh() {
 
 function change(character, action) {
   const removing = action === 'remove'
-  return run(removing ? `Removing ${character.name}…` : '', async () => {
+  return run(removing ? t('Removing {name}â€¦',{name:character.name}) : '', async () => {
     const finish = removing ? null : trackDownload(character.name)
     try {
-      state = await pywebview.api.change(character.id, action)
+      state = await hubApi.change(character.id, action)
       invalidatePortraits()
       return state.notice
     } finally {
@@ -270,7 +317,7 @@ function trackDownload(name) {
   const percent = $('transfer-percent')
   transfer.hidden = false
   bar.removeAttribute('value')
-  message.textContent = `Downloading ${name}…`
+  message.textContent = t('Downloading {name}â€¦',{name})
   count.textContent = ''
   percent.textContent = ''
   let active = true
@@ -279,14 +326,14 @@ function trackDownload(name) {
     if (reading) return
     reading = true
     try {
-      const progress = await pywebview.api.download_progress()
+      const progress = await hubApi.download_progress()
       if (!active || !progress?.total) return
       const ratio = Math.min(progress.received / progress.total, 1)
       bar.value = ratio
       count.textContent = `${size.format(progress.received / 1000000)} / ${size.format(progress.total / 1000000)} MB`
       percent.textContent = `${Math.round(ratio * 100)}%`
-      if (progress.phase === 'restart') message.textContent = 'Restarting HOTW Hub…'
-      else if (ratio === 1) message.textContent = `Verifying and installing ${name}…`
+      if (progress.phase === 'restart') message.textContent = t('Restarting HOTW Hubâ€¦')
+      else if (ratio === 1) message.textContent = t('Verifying and installing {name}â€¦',{name})
     } catch {
       // The operation still reports its own result if the progress request fails.
     } finally {
@@ -302,7 +349,7 @@ function trackDownload(name) {
 
 function confirmRemoval(character) {
   const dialog = $('confirm')
-  $('confirm-title').textContent = `Remove ${character.name}?`
+  $('confirm-title').textContent = t('Remove {name}?',{name:character.name})
   $('confirm-remove').onclick = () => {
     dialog.close()
     change(character, 'remove')
@@ -317,8 +364,8 @@ function selectView(next) {
   document.querySelector('.workspace').scrollTop = 0
   render()
   if (view === 'catalog') refresh()
-  else run('', async () => {
-    state = await pywebview.api.installed_characters()
+  else if (view === 'installed') run('', async () => {
+    state = await hubApi.installed_characters()
     invalidatePortraits()
   })
 }
@@ -336,106 +383,17 @@ $('installed-tab').onclick = () => selectView('installed')
 $('browse-catalog').onclick = () => selectView('catalog')
 $('sort-new').onclick = () => selectOrder('new')
 $('sort-updated').onclick = () => selectOrder('updated')
-$('source').onclick = () => pywebview.api.open_source()
-$('release').onclick = () => run('', async () => {
-  const finish = trackDownload('HOTW Hub')
-  try {
-    await pywebview.api.update_app()
-  } finally {
-    finish()
-  }
-})
-async function windowAction(action) {
-  try {
-    const maximized = await pywebview.api.window_action(action)
-    if (typeof maximized === 'boolean') setWindowState(maximized)
-  } catch (error) {
-    status(error.message || String(error), true)
-  }
+$('source').onclick = () => hubApi.open_source()
+$('settings').onclick = () => selectView('settings')
+$('language').onchange = event => {
+  const value = event.target.value
+  return run('', async () => { state = await hubApi.set_language(value) })
 }
-
-function setWindowState(maximized) {
-  document.body.classList.toggle('maximized', maximized)
-  const button = $('maximize')
-  button.title = maximized ? 'Restore' : 'Maximize'
-  button.setAttribute('aria-label', button.title)
-}
-
-$('minimize').onclick = () => windowAction('minimize')
-$('maximize').onclick = $('title-drag').ondblclick = () => windowAction('maximize')
-$('close-window').onclick = () => windowAction('close')
-window.addEventListener('hotw-window-state', ({detail}) => setWindowState(detail))
-
-for (const edge of ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw']) {
-  const handle = element('div', 'window-resize')
-  handle.dataset.edge = edge
-  handle.setAttribute('aria-hidden', 'true')
-  document.body.append(handle)
-  handle.onpointerdown = async event => {
-    if (event.button !== 0 || !window.pywebview || document.body.classList.contains('maximized')) return
-    event.preventDefault()
-    handle.setPointerCapture(event.pointerId)
-    const startX = event.screenX, startY = event.screenY
-    let dimensions, pending, sending = false, scheduled = false, ended = false
-    async function flush() {
-      scheduled = false
-      if (sending || !dimensions || !pending) return
-      const next = pending
-      pending = null
-      sending = true
-      try {
-        await pywebview.api.resize_window(next.width, next.height, edge)
-      } catch (error) {
-        pending = null
-        status(error.message || String(error), true)
-      } finally {
-        sending = false
-        if (pending) schedule()
-      }
-    }
-    function schedule() {
-      if (!scheduled) { scheduled = true; requestAnimationFrame(flush) }
-    }
-    function move(event) {
-      if (!dimensions) return
-      const dx = (event.screenX - startX) * dimensions.scaleX
-      const dy = (event.screenY - startY) * dimensions.scaleY
-      pending = {
-        width: Math.max(dimensions.minWidth, Math.round(dimensions.width + (edge.includes('e') ? dx : edge.includes('w') ? -dx : 0))),
-        height: Math.max(dimensions.minHeight, Math.round(dimensions.height + (edge.includes('s') ? dy : edge.includes('n') ? -dy : 0)))
-      }
-      schedule()
-    }
-    function finish(event) {
-      if (ended) return
-      ended = true
-      if (event.type === 'pointerup') move(event)
-      handle.removeEventListener('pointermove', move)
-      handle.removeEventListener('pointerup', finish)
-      handle.removeEventListener('lostpointercapture', finish)
-      handle.removeEventListener('pointercancel', finish)
-      if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId)
-    }
-    handle.addEventListener('pointermove', move)
-    handle.addEventListener('pointerup', finish)
-    handle.addEventListener('lostpointercapture', finish)
-    handle.addEventListener('pointercancel', finish)
-    try {
-      dimensions = await pywebview.api.begin_resize(window.innerWidth, window.innerHeight)
-    } catch (error) {
-      finish(event)
-      status(error.message || String(error), true)
-    }
-  }
-}
-$('settings').onclick = () => $('preferences').showModal()
-$('close-settings').onclick = () => $('preferences').close()
 $('cancel-remove').onclick = () => $('confirm').close()
-async function chooseFolder() {
-  if ($('preferences').open) $('preferences').close()
+async function reconnectGame() {
   let changed = false
   await run('', async () => {
-    const selection = await pywebview.api.choose_profile()
+    const selection = await hubApi.connectGame()
     if (selection) {
       if (selection.error) throw Error(selection.error)
       state = selection
@@ -443,21 +401,20 @@ async function chooseFolder() {
       invalidatePortraits()
     }
   })
-  if (changed) refresh()
+  if (changed && view === 'catalog') refresh()
 }
-$('choose').onclick = chooseFolder
-$('choose-setup').onclick = chooseFolder
+$('choose').onclick = reconnectGame
+$('choose-setup').onclick = reconnectGame
 
-window.addEventListener('pywebviewready', async () => {
-  pywebview.api.check_update().then(tag => {
-    if (!tag) return
-    $('release').setAttribute('aria-label', `Get update ${tag}`)
-    $('release').title = `Update to ${tag}. HOTW Hub will download the update and restart.`
-    $('release').hidden = false
-  }).catch(() => {})
-  await run('Finding your BeamNG profile…', async () => {
-    state = await pywebview.api.initialize()
-    if (state.error) throw Error(state.error)
-  })
-  if (state.profile && !state.error) refresh()
-}, {once: true})
+await run('', async () => {
+  state = await hubApi.initialize()
+})
+if (state.profile) refresh()
+else $('choose-setup').hidden = !hubApi.connection
+
+window.addEventListener('hashchange', async () => {
+  if (!location.hash.includes('session=')) return
+  await run('', async () => { state = await hubApi.initialize() })
+  if (state.profile) refresh()
+  else $('choose-setup').hidden = !hubApi.connection
+})

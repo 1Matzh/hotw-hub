@@ -1,15 +1,14 @@
 # HOTW Hub
 
-Portable character manager for Hands on the Wheel for BeamNG.drive.
+Character catalog for Hands on the Wheel for BeamNG.drive.
 
 ## Getting started
 
-Download the app from [Releases](https://github.com/1Matzh/hotw-hub/releases). No installation is required.
+Open **Characters → Download more characters** in HOTW. The game creates a temporary connection to the [Hub website](https://1matzh.github.io/hotw-hub/), which installs characters directly into its `hotw/characters` folder. Keep BeamNG.drive open while using the Hub.
 
-- **Windows:** open `HOTW-Hub.exe`.
-- **Linux / Steam Deck:** allow `HOTW-Hub-linux-x86_64` to run as a program, then open it. On Steam Deck, use Desktop Mode.
+Use Chrome, Edge or another Chromium browser on Windows or Linux (Steam Deck: Desktop Mode). Allow local network access if prompted. BeamNG blocks opening this website automatically, so use **Copy connection link** in the game and paste it into your browser. Opening the public website without a game connection shows the game launch instructions.
 
-When prompted, select your BeamNG user folder containing `settings` and `mods`. Characters are stored in `hotw/characters` inside that folder.
+No application installation, Python or manual folder selection is required. Hub language is saved in the browser independently from HOTW.
 
 ## Local character
 
@@ -28,14 +27,9 @@ Open **Characters** in HOTW to reload the game list, and open **Installed** in t
 - **Application:** open pull requests against `main`.
 - **Characters:** follow the [submission guide](https://github.com/1Matzh/hotw-hub/blob/characters/README.md) and open pull requests against `characters`.
 
-## Build
+## Development
 
-Build on the operating system you are targeting with Python 3.10 or later.
-
-```sh
-python -m pip install -r hub/requirements.txt
-python hub/build.py dist
-```
+The `hub/` directory contains the static website published by GitHub Pages. Character assets and contribution instructions live on the [characters branch](https://github.com/1Matzh/hotw-hub/tree/characters).
 
 ## License
 

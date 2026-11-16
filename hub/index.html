@@ -8,17 +8,64 @@ SPDX-License-Identifier: MIT
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; font-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://raw.githubusercontent.com http://127.0.0.1:*; img-src 'self' data: blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'">
   <title>HOTW Hub</title>
-  <style>/* HOTW_STYLES */</style>
+  <link rel="stylesheet" href="./hub.css">
+  <link rel="icon" href="./app_icon.png">
 </head>
 <body>
-  <!-- HOTW_ICONS -->
+  <!-- Bootstrap Icons v1.11.3 - https://github.com/twbs/icons
+The MIT License (MIT)
+
+Copyright (c) 2019-2024 The Bootstrap Authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="icon-library" aria-hidden="true">
+<symbol id="icon-grid-fill" viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/></symbol>
+<symbol id="icon-collection-fill" viewBox="0 0 16 16"><path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/></symbol>
+<symbol id="icon-gear-fill" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></symbol>
+<symbol id="icon-github" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></symbol>
+<symbol id="icon-arrow-clockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/></symbol>
+<symbol id="icon-chevron-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/></symbol>
+<symbol id="icon-chevron-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/></symbol>
+<symbol id="icon-folder2-open" viewBox="0 0 16 16"><path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7z"/></symbol>
+<symbol id="icon-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/></symbol>
+<symbol id="icon-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></symbol>
+<symbol id="icon-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/></symbol>
+<symbol id="icon-dash-lg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/></symbol>
+<symbol id="icon-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/></symbol>
+<symbol id="icon-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></symbol>
+<symbol id="icon-copy" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></symbol>
+<symbol id="icon-arrow-up-circle" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/></symbol>
+<symbol id="icon-sun" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/></symbol>
+<symbol id="icon-upload" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/><path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/></symbol>
+<symbol id="icon-hdd-fill" viewBox="0 0 16 16"><path d="M0 10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1M.91 7.204A3 3 0 0 1 2 7h12c.384 0 .752.072 1.09.204l-1.867-3.422A1.5 1.5 0 0 0 11.906 3H4.094a1.5 1.5 0 0 0-1.317.782z"/></symbol>
+</svg>
+
   <div class="shell">
     <aside class="rail">
       <div class="brand-block">
-        <img class="brand" src="HOTW_ICON" alt="HOTW Hub" width="58" height="58">
-        <span class="brand-version" aria-label="Version HOTW_VERSION">HOTW_VERSION</span>
+        <img class="brand" src="./app_icon.png" alt="HOTW Hub" width="58" height="58">
+        <span class="brand-version" aria-label="Version 0.1.0">0.1.0</span>
       </div>
       <nav class="rail-nav" id="navigation" aria-label="HOTW Hub" hidden>
         <button class="rail-button" id="catalog-tab" aria-pressed="true" aria-label="Catalog" title="Catalog">
@@ -27,45 +74,42 @@ SPDX-License-Identifier: MIT
         <button class="rail-button" id="installed-tab" aria-pressed="false" aria-label="Installed" title="Installed">
           <svg class="icon" aria-hidden="true" data-icon="collection-fill"></svg>
         </button>
-        <button class="rail-button" id="settings" aria-label="Settings" title="Settings" aria-haspopup="dialog">
+        <button class="rail-button" id="settings" aria-label="Settings" title="Settings" aria-pressed="false">
           <svg class="icon" aria-hidden="true" data-icon="gear-fill"></svg>
         </button>
       </nav>
       <div class="rail-bottom">
-        <button id="release" class="rail-button release-button" aria-label="Update available" title="Update available" hidden>
-          <svg class="icon" aria-hidden="true" data-icon="arrow-up-circle"></svg>
-        </button>
-        <button id="source" class="rail-button rail-link" aria-label="GitHub" title="GitHub">
+<button id="source" class="rail-button rail-link" aria-label="GitHub" title="GitHub">
           <svg class="icon" aria-hidden="true" data-icon="github"></svg>
         </button>
       </div>
     </aside>
     <div class="main-pane">
-      <header class="titlebar">
-        <div class="title-drag pywebview-drag-region" id="title-drag" aria-label="Drag window"></div>
-        <div class="window-controls" aria-label="Window controls">
-          <button id="minimize" aria-label="Minimize" title="Minimize"><svg class="window-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6.5h9"/></svg></button>
-          <button id="maximize" aria-label="Maximize" title="Maximize"><svg class="window-glyph maximize-glyph" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9"/></svg><svg class="window-glyph restore-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 3.5v-2h7v7h-2"/><rect x="1.5" y="3.5" width="7" height="7"/></svg></button>
-          <button id="close-window" aria-label="Close window" title="Close window"><svg class="window-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="m1.5 1.5 9 9m0-9-9 9"/></svg></button>
-        </div>
-      </header>
+
       <main class="workspace">
       <section class="setup" id="setup" aria-labelledby="setup-title">
         <div class="setup-content">
-          <h1 id="setup-title">Connect BeamNG.drive</h1>
-          <p class="setup-description muted">Choose your BeamNG user folder to manage your drivers and passengers.</p>
-          <div class="setup-folder">
-            <svg class="icon" aria-hidden="true" data-icon="folder2-open"></svg>
-            <div><strong>BeamNG user folder</strong><p class="muted">Select the folder containing <b>settings</b> and <b>mods</b>.</p></div>
-          </div>
+          <h1 id="setup-title">Open HOTW Hub from BeamNG.drive</h1>
+          <p class="setup-description muted">Open Characters in HOTW and choose Download more characters.</p>
+
           <p id="setup-status" class="notice" role="status" hidden></p>
           <div class="setup-actions">
-            <button id="choose-setup" class="primary" disabled><svg class="icon" aria-hidden="true" data-icon="folder2-open"></svg> Choose BeamNG folder</button>
+            <button id="choose-setup" class="primary" disabled>Connect to BeamNG.drive</button>
           </div>
         </div>
       </section>
       <div class="workspace-content" id="main-view" hidden>
         <header class="toolbar"><h1 id="view-label">Character catalog</h1></header>
+        <section id="settings-page" class="settings-page" hidden>
+          <div class="settings-row">
+            <div><h2>Language</h2><p class="muted">Use the system language or choose your own.</p></div>
+            <select id="language" aria-label="Language"></select>
+          </div>
+          <div class="settings-row settings-folder">
+            <div><h2>Game connection</h2><p class="muted path" id="profile"></p></div>
+            <button id="choose" class="secondary" hidden>Connect to BeamNG.drive</button>
+          </div>
+        </section>
         <div class="catalog-filters" id="catalog-filters" role="group" aria-label="Sort characters">
           <button class="filter-button" id="sort-new" aria-pressed="true"><svg class="icon" aria-hidden="true" data-icon="sun"></svg> New</button>
           <button class="filter-button" id="sort-updated" aria-pressed="false"><svg class="icon" aria-hidden="true" data-icon="arrow-clockwise"></svg> Updated</button>
@@ -94,15 +138,6 @@ SPDX-License-Identifier: MIT
     <progress id="download-progress" max="1" aria-label="Character download progress"></progress>
     <div class="transfer-meta muted"><span id="transfer-count"></span><span id="transfer-percent"></span></div>
   </section>
-  <dialog id="preferences" aria-labelledby="settings-title">
-    <h2 id="settings-title">Settings</h2>
-    <p class="settings-label">BeamNG user folder</p>
-    <p class="muted path" id="profile">Choose the folder containing settings and mods.</p>
-    <div class="dialog-actions">
-      <button id="close-settings" class="secondary" autofocus>Close</button>
-      <button id="choose" class="primary"><svg class="icon" aria-hidden="true" data-icon="folder2-open"></svg> Choose folder</button>
-    </div>
-  </dialog>
   <dialog id="confirm">
     <h2 id="confirm-title">Remove character?</h2>
     <p class="muted">This removes the installed copy from this BeamNG profile.</p>
@@ -111,6 +146,6 @@ SPDX-License-Identifier: MIT
       <button id="confirm-remove" value="remove" class="danger">Remove</button>
     </div>
   </dialog>
-  <script>/* HOTW_SCRIPT */</script>
+  <script type="module" src="./hub.js"></script>
 </body>
 </html>
