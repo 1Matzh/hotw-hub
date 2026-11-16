@@ -1187,6 +1187,85 @@
       ],
       "createdAt": "2026-11-10T00:54:24Z",
       "updatedAt": "2026-11-10T00:54:24Z"
+    },
+    {
+      "id": "takumi",
+      "name": "Takumi Fujiwara",
+      "author": "Zenkay | Neitancrost",
+      "files": [
+        {
+          "path": "character.json",
+          "size": 91,
+          "sha256": "a2efc9e4cc495704c38234c4bb8063ec45ac93352037f03032e8c9763df6857e"
+        },
+        {
+          "path": "colors.json",
+          "size": 698,
+          "sha256": "9aafac24ea65d11c0f313d4a6c33ef2f8a1c8cfc11ce1bf868c91bf08a0b70d5"
+        },
+        {
+          "path": "feet.json",
+          "size": 1340,
+          "sha256": "d42358b1a595a8a9a069f41462b335130c449250b7ee957e57c8eba5dd46074d"
+        },
+        {
+          "path": "fullbody.json",
+          "size": 2843,
+          "sha256": "4b66eff12508f4bcfe6a5ebfb2a1484b72e8739d0a5701100e49396afded6624"
+        },
+        {
+          "path": "fullbody.xml",
+          "size": 1300576,
+          "sha256": "d4e5fc0cfc25e3544092f0136cb75b7f8d826f209560c4ea6dafa0da996214b6"
+        },
+        {
+          "path": "materials.json",
+          "size": 3980,
+          "sha256": "b9a5667e596f7c42bfe3b438d5b40f017f9f86489f3da7af4f55eaf1de91e28b"
+        },
+        {
+          "path": "textures/0.color.png",
+          "size": 136821,
+          "sha256": "a841e1d3c6d04f0adf8793802b3c4223a3e4180c6b1378a973cbb8f780e928b0"
+        },
+        {
+          "path": "textures/1.color.png",
+          "size": 77028,
+          "sha256": "133f11617be9b6d797597489f3729ba33f8041bab74d0e83d17a8e3c9e2acc96"
+        },
+        {
+          "path": "textures/2.color.png",
+          "size": 11346496,
+          "sha256": "9e1b011966f5b83f64cb37359d663f7c3e6e7d4dd66fb600e30b5355e5380ef8"
+        },
+        {
+          "path": "textures/3.color.png",
+          "size": 416413,
+          "sha256": "42396e4b9800f14878fa86524ec1732d0d384c654b4eff20eca75e8e8404c265"
+        },
+        {
+          "path": "textures/4.normal.png",
+          "size": 350598,
+          "sha256": "e43720100d176ae8ecb95f4f5c39681ef84d593472f7ab3a766da0a0de9500fb"
+        },
+        {
+          "path": "textures/5.color.png",
+          "size": 1956947,
+          "sha256": "51048de953f73f74e787e3dd7202384ac4cd4b394c99e00c271586694b73dc3f"
+        },
+        {
+          "path": "textures/6.normal.png",
+          "size": 745374,
+          "sha256": "adf4decadeefcb3bf0d0e453a012f0fce2be1cddc0d60468d9255fabd9722db5"
+        },
+        {
+          "path": "thumbnail.png",
+          "size": 56871,
+          "sha256": "009213ba7e72ddf718cecd85a9d740a0df893f6266a7105f2788a46e76ff1bd7"
+        }
+      ],
+      "createdAt": "2026-11-16T19:04:11Z",
+      "updatedAt": "2026-11-16T19:04:11Z"
     }
   ]
 }

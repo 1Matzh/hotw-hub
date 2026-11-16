@@ -1,0 +1,23 @@
+[
+  {
+    "material": "hotw_character_takumi_3",
+    "group": "skin",
+    "map": "/hotw/characters/takumi/textures/2.color.png",
+    "source": "/hotw/characters/takumi/textures/2.color.png",
+    "field": "diffuseMap"
+  },
+  {
+    "material": "hotw_character_takumi_4",
+    "group": "clothing",
+    "map": "/hotw/characters/takumi/textures/3.color.png",
+    "source": "/hotw/characters/takumi/textures/3.color.png",
+    "field": "baseColorMap"
+  },
+  {
+    "material": "hotw_character_takumi_5",
+    "group": "clothing",
+    "map": "/hotw/characters/takumi/textures/5.color.png",
+    "source": "/hotw/characters/takumi/textures/5.color.png",
+    "field": "baseColorMap"
+  }
+]

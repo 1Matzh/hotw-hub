@@ -1,0 +1,113 @@
+{
+  "source": "assets/ac_characters/takumi.kn5",
+  "author": "Zenkay | Neitancrost",
+  "meshes": [
+    {
+      "name": "rig_hotw_head_takumi_00",
+      "vertices": 54,
+      "triangles": 64,
+      "material": "hotw_character_takumi_0",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_takumi_10",
+      "vertices": 819,
+      "triangles": 1302,
+      "material": "hotw_character_takumi_1",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_takumi_20",
+      "vertices": 47,
+      "triangles": 66,
+      "material": "hotw_character_takumi_2",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_head_takumi_30",
+      "vertices": 870,
+      "triangles": 1470,
+      "material": "hotw_character_takumi_3",
+      "part": "head"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_takumi_40",
+      "vertices": 377,
+      "triangles": 543,
+      "material": "hotw_character_takumi_4",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_gloves_R_takumi_50",
+      "vertices": 809,
+      "triangles": 1263,
+      "material": "hotw_character_takumi_4",
+      "part": "gloves_R"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_takumi_60",
+      "vertices": 377,
+      "triangles": 543,
+      "material": "hotw_character_takumi_4",
+      "part": "sleeves_L"
+    },
+    {
+      "name": "rig_hotw_gloves_L_takumi_70",
+      "vertices": 809,
+      "triangles": 1263,
+      "material": "hotw_character_takumi_4",
+      "part": "gloves_L"
+    },
+    {
+      "name": "rig_hotw_upperbody_takumi_80",
+      "vertices": 461,
+      "triangles": 629,
+      "material": "hotw_character_takumi_5",
+      "part": "upperbody"
+    },
+    {
+      "name": "rig_hotw_lowerbody_takumi_80",
+      "vertices": 832,
+      "triangles": 1406,
+      "material": "hotw_character_takumi_5",
+      "part": "lowerbody"
+    },
+    {
+      "name": "rig_hotw_sleeves_L_takumi_90",
+      "vertices": 593,
+      "triangles": 1094,
+      "material": "hotw_character_takumi_5",
+      "part": "sleeves_L"
+    },
+    {
+      "name": "rig_hotw_neck_takumi_100",
+      "vertices": 149,
+      "triangles": 182,
+      "material": "hotw_character_takumi_5",
+      "part": "neck"
+    },
+    {
+      "name": "rig_hotw_sleeves_R_takumi_110",
+      "vertices": 544,
+      "triangles": 1015,
+      "material": "hotw_character_takumi_5",
+      "part": "sleeves_R"
+    },
+    {
+      "name": "rig_hotw_neck_cover_takumi_120",
+      "vertices": 19,
+      "triangles": 18,
+      "material": "hotw_character_takumi_5",
+      "part": "neck_cover"
+    }
+  ],
+  "armSeamTrianglesDropped": 0,
+  "newBones": 0,
+  "calfSkin": {
+    "footNodeRole": "calf_extension",
+    "vertices": 490
+  },
+  "sourceTriangles": 10840,
+  "nativeReady": true,
+  "eyeBones": 2
+}
