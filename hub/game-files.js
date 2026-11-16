@@ -9,12 +9,13 @@ export class GameConnectionError extends Error{
 export class GameConnection{
   constructor(port,session){
     if(!/^\d{4,5}$/.test(String(port))||Number(port)<1024||Number(port)>65535||!/^[0-9a-f]{64}$/.test(session))throw Error('Open HOTW Hub from inside BeamNG.drive.')
-    this.base=`http://127.0.0.1:${port}`;this.session=session;this.capabilities={};this.directories=new Set();this.kinds=new Map()
+    if(location.origin!==`http://127.0.0.1:${port}`)throw Error('Open HOTW Hub from inside BeamNG.drive.')
+    this.base=location.origin;this.session=session;this.capabilities={};this.directories=new Set();this.kinds=new Map()
   }
   async request(endpoint,path='',method='GET',body,recursive=false,source){
     let response
     try{response=await fetch(`${this.base}/${endpoint}?path=${encodeURIComponent(path)}${recursive?'&recursive=1':''}${source?'&from='+encodeURIComponent(source):''}`,{method,body,
-      headers:{Authorization:`Bearer ${this.session}`},credentials:'omit',cache:'no-store',redirect:'error',targetAddressSpace:'loopback',signal:AbortSignal.timeout(method==='PUT'?120000:15000)})}
+      headers:{Authorization:`Bearer ${this.session}`},credentials:'omit',cache:'no-store',redirect:'error',signal:AbortSignal.timeout(method==='PUT'?120000:15000)})}
     catch{throw new GameConnectionError()}
     if(response.status===404)throw new DOMException('Not found.','NotFoundError')
     if(!response.ok)throw Error('The game rejected this Hub request.')

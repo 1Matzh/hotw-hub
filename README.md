@@ -4,11 +4,11 @@ Character catalog for Hands on the Wheel for BeamNG.drive.
 
 ## Getting started
 
-Open **Characters → Download more characters** in HOTW. The game creates a temporary connection to the [Hub website](https://1matzh.github.io/hotw-hub/), which installs characters directly into its `hotw/characters` folder. Keep BeamNG.drive open while using the Hub.
+Open **Characters → Download more characters** in HOTW. The mod serves the Hub locally in your browser and installs characters into `hotw/characters` in your BeamNG user folder. Keep BeamNG.drive open while using the Hub.
 
-Use Chrome, Edge or another Chromium browser on Windows or Linux (Steam Deck: Desktop Mode). Allow local network access if prompted. BeamNG blocks opening this website automatically, so use **Copy connection link** in the game and paste it into your browser. Opening the public website without a game connection shows the game launch instructions.
+Use a modern browser on Windows or Linux (Steam Deck: Desktop Mode). If the browser does not open automatically, use **Copy connection link** in the game and paste it into your browser. The connection link belongs to your current game session; keep it private.
 
-Hub language is saved in the browser independently from HOTW.
+The Hub uses the game's language by default. A language chosen in Hub settings is saved separately in `hotw/hub-preferences.json`.
 
 ## Local character
 
@@ -29,7 +29,7 @@ Open **Characters** in HOTW to reload the game list, and open **Installed** in t
 
 ## Development
 
-The `hub/` directory contains the static website published by GitHub Pages. Character assets and contribution instructions live on the [characters branch](https://github.com/1Matzh/hotw-hub/tree/characters).
+The `hub/` directory contains the interface bundled with the mod and served by its local Lua connection. Interface updates ship with HOTW. Character assets and contribution instructions live on the [characters branch](https://github.com/1Matzh/hotw-hub/tree/characters); adding a character does not require a mod update.
 
 ## License
 

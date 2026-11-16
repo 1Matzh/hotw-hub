@@ -8,7 +8,8 @@ SPDX-License-Identifier: MIT
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://raw.githubusercontent.com http://127.0.0.1:*; img-src 'self' data: blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://raw.githubusercontent.com; img-src 'self' data: blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <title>HOTW Hub</title>
   <link rel="stylesheet" href="./hub.css">
   <link rel="icon" href="./app_icon.png">
@@ -101,7 +102,7 @@ THE SOFTWARE.
         <header class="toolbar"><h1 id="view-label">Character catalog</h1></header>
         <section id="settings-page" class="settings-page" hidden>
           <div class="settings-row">
-            <div><h2>Language</h2><p class="muted">Use the system language or choose your own.</p></div>
+            <div><h2>Language</h2><p class="muted">Use the game language or choose your own.</p></div>
             <select id="language" aria-label="Language"></select>
           </div>
           <div class="settings-row settings-folder">

@@ -235,7 +235,11 @@ async function store(){
   if(!database)database=new Promise((resolve,reject)=>{const request=indexedDB.open('hotw-hub',1);request.onupgradeneeded=()=>request.result.createObjectStore('preferences');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)})
   return database
 }
-async function preference(key,value){
+async function preference(key,value,connection){
+  if(connection){
+    if(value!==undefined)await connection.request('preferences','','PUT',JSON.stringify({language:value}))
+    return(await connection.json('preferences'))[key]
+  }
   const db=await store();return new Promise((resolve,reject)=>{
     const write=value!==undefined,tx=db.transaction('preferences',write?'readwrite':'readonly'),request=write?tx.objectStore('preferences').put(value,key):tx.objectStore('preferences').get(key)
     let result;request.onsuccess=()=>result=request.result;tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)
@@ -244,7 +248,7 @@ async function preference(key,value){
 export class Hub{
   constructor(languages){this.languages=languages;this.language='auto';this.library=null;this.remembered=null}
   locale(){
-    const raw=this.language==='auto'?navigator.language:this.language,value=raw.replaceAll('_','-').toLowerCase()
+    const raw=this.language==='auto'?(this.gameLanguage||navigator.language):this.language,value=raw.replaceAll('_','-').toLowerCase()
     const exact=this.languages.find(l=>[l.value.replaceAll('_','-').toLowerCase(),l.locale.toLowerCase()].includes(value))
     return(exact||this.languages.find(l=>l.value.slice(0,2).toLowerCase()===value.slice(0,2)))?.value||'en-US'
   }
@@ -254,8 +258,9 @@ export class Hub{
       installed,catalog:[...(this.library?.catalog.values()||[])].map(entry=>{const item=installed.find(i=>i.id===entry.id);return{...entry,installed:Boolean(item),local:Boolean(item?.local),updateAvailable:Boolean(item?.updateAvailable)}})}
   }
   async initialize(){
-    this.language=await preference('language')||'auto'
     this.connection=launchConnection()
+    if(this.connection){const saved=await this.connection.json('preferences');this.language=saved.language||'auto';this.gameLanguage=saved.gameLanguage}
+    else this.language=await preference('language')||'auto'
     if(this.connection)await this.connectGame()
     return this.snapshot()
   }
@@ -268,7 +273,7 @@ export class Hub{
   
   async refresh(){assert(this.library,'Open HOTW Hub from inside BeamNG.drive.');await this.library.refresh();return this.snapshot()}
   installed_characters(){return this.snapshot()}
-  async set_language(value){assert(value==='auto'||this.languages.some(l=>l.value===value),'Invalid language.');await preference('language',value);this.language=value;return this.snapshot()}
+  async set_language(value){assert(value==='auto'||this.languages.some(l=>l.value===value),'Invalid language.');await preference('language',value,this.connection);this.language=value;return this.snapshot()}
   portrait(id,local){return this.library.portrait(id,local)}
   async change(id,action){await this.library.change(id,action);return this.snapshot()}
   async download_progress(){return this.library?.progress}
