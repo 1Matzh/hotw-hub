@@ -84,7 +84,7 @@ export function verifyAssets(entry,assets){
   for(const [name,mat]of Object.entries(materials)){
     assert(new RegExp(`^hotw_character_${entry.id.replaceAll('-','_')}_[a-zA-Z0-9_]+$`).test(name)&&object(mat)&&Object.keys(mat).every(k=>materialFields.has(k))&&mat.class==='Material'&&mat.name===name&&mat.mapTo===name,'Materials must belong to this character.')
     assert(Array.isArray(mat.Stages)&&mat.Stages.length>0&&mat.Stages.length<=4,'Invalid material stages.')
-    for(const stage of mat.Stages){assert(object(stage)&&Object.keys(stage).every(k=>stageFields.has(k)),'Unsupported material stage.');for(const [k,v]of Object.entries(stage))if(k.endsWith('Map'))assert(belongs(v),'Materials may only reference this characterâ€™s textures.')}
+    for(const stage of mat.Stages){assert(object(stage)&&Object.keys(stage).every(k=>stageFields.has(k)),'Unsupported material stage.');for(const [k,v]of Object.entries(stage))if(k.endsWith('Map'))assert(belongs(v),'Materials may only reference this character’s textures.')}
   }
   const colors=parse('colors.json');assert(Array.isArray(colors)&&colors.length<=128,'Invalid color entries.')
   for(const color of colors)assert(object(color)&&Object.hasOwn(materials,color.material)&&['baseColorMap','diffuseMap'].includes(color.field)&&['skin','clothing'].includes(color.group)&&belongs(color.source)&&belongs(color.map),'Invalid recolor binding.')

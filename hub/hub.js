@@ -198,7 +198,7 @@ function characterDates(character) {
   const dates = element('div', 'card-meta muted')
   const created = Date.parse(character.createdAt || '')
   const updated = Date.parse(character.updatedAt || character.createdAt || '')
-  const age = element('time', 'card-updated', 'â€”')
+  const age = element('time', 'card-updated', '—')
   age.title = t("Update date unavailable")
   if (Number.isFinite(updated)) {
     const days = Math.max(0, Math.floor((Date.now() - updated) / 86400000))
@@ -297,7 +297,7 @@ function refresh() {
 
 function change(character, action) {
   const removing = action === 'remove'
-  return run(removing ? t('Removing {name}â€¦',{name:character.name}) : '', async () => {
+  return run(removing ? t('Removing {name}…',{name:character.name}) : '', async () => {
     const finish = removing ? null : trackDownload(character.name)
     try {
       state = await hubApi.change(character.id, action)
@@ -317,7 +317,7 @@ function trackDownload(name) {
   const percent = $('transfer-percent')
   transfer.hidden = false
   bar.removeAttribute('value')
-  message.textContent = t('Downloading {name}â€¦',{name})
+  message.textContent = t('Downloading {name}…',{name})
   count.textContent = ''
   percent.textContent = ''
   let active = true
@@ -332,8 +332,8 @@ function trackDownload(name) {
       bar.value = ratio
       count.textContent = `${size.format(progress.received / 1000000)} / ${size.format(progress.total / 1000000)} MB`
       percent.textContent = `${Math.round(ratio * 100)}%`
-      if (progress.phase === 'restart') message.textContent = t('Restarting HOTW Hubâ€¦')
-      else if (ratio === 1) message.textContent = t('Verifying and installing {name}â€¦',{name})
+      if (progress.phase === 'restart') message.textContent = t('Restarting HOTW Hub…')
+      else if (ratio === 1) message.textContent = t('Verifying and installing {name}…',{name})
     } catch {
       // The operation still reports its own result if the progress request fails.
     } finally {
