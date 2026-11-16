@@ -8,7 +8,7 @@ Open **Characters → Download more characters** in HOTW. The game creates a tem
 
 Use Chrome, Edge or another Chromium browser on Windows or Linux (Steam Deck: Desktop Mode). Allow local network access if prompted. BeamNG blocks opening this website automatically, so use **Copy connection link** in the game and paste it into your browser. Opening the public website without a game connection shows the game launch instructions.
 
-No application installation, Python or manual folder selection is required. Hub language is saved in the browser independently from HOTW.
+Hub language is saved in the browser independently from HOTW.
 
 ## Local character
 

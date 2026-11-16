@@ -2,7 +2,7 @@
 // Copyright (c) 2026 1Matzh
 // SPDX-License-Identifier: MIT
 // Browser-side catalog management. Only verified character files are sent to the game.
-import {launchConnection,rememberConnection} from './game-files.js'
+import {launchConnection,rememberConnection,forgetConnection} from './game-files.js'
 export const REMOTE='https://raw.githubusercontent.com/1Matzh/hotw-hub/characters/'
 const required=['character.json','fullbody.xml','fullbody.json','feet.json','materials.json','colors.json','thumbnail.png']
 const marker='hotw-installed.json',pending='hotw-pending.json'
@@ -14,6 +14,8 @@ const assert=(ok,message)=>{if(!ok)throw Error(message)}
 const encoder=new TextEncoder(),decoder=new TextDecoder('utf-8',{fatal:true})
 export async function hash(bytes){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('')}
 const revision=files=>hash(encoder.encode(JSON.stringify([...files].sort((a,b)=>a.path<b.path?-1:1).map(f=>[f.path,f.size,f.sha256]))))
+const revisions=new WeakMap()
+function catalogRevision(entry){if(!revisions.has(entry))revisions.set(entry,revision(entry.files));return revisions.get(entry)}
 async function directory(parent,name,create=false){try{return await parent.getDirectoryHandle(name,{create})}catch(e){if(e.name==='NotFoundError'&&!create)return null;throw e}}
 async function file(parent,path,create=false){
   const parts=path.split('/');let current=parent
@@ -28,6 +30,10 @@ async function write(parent,path,bytes){
   try{await stream.write(bytes);await stream.close()}catch(e){try{await stream.abort()}catch{}throw e}
 }
 const writeJSON=(parent,path,data)=>write(parent,path,JSON.stringify(data))
+async function copyFile(target,path,source,sourcePath){
+  if(target.connection?.capabilities.copy&&target.connection===source.connection)return target.copyFile(path,source,sourcePath)
+  await write(target,path,await read(source,sourcePath))
+}
 async function removeFile(parent,path){const parts=path.split('/');let current=parent;for(const p of parts.slice(0,-1)){current=await directory(current,p);if(!current)return}try{await current.removeEntry(parts.at(-1))}catch(e){if(e.name!=='NotFoundError')throw e}}
 async function names(parent,prefix=''){
   const result=[]
@@ -61,7 +67,9 @@ export function parseCatalog(document){
   return entries
 }
 export async function download(path,limit,progress=()=>{}){
-  const response=await fetch(REMOTE+path,{cache:'no-store',redirect:'error',credentials:'omit',signal:AbortSignal.timeout(90000)})
+  let response
+  try{response=await fetch(REMOTE+path,{cache:'no-store',redirect:'error',credentials:'omit',signal:AbortSignal.timeout(90000)})}
+  catch{throw Error('Could not download the catalog asset from GitHub.')}
   assert(response.ok,'Could not download the catalog asset from GitHub.')
   const reader=response.body.getReader(),parts=[];let length=0
   try{while(true){const {done,value}=await reader.read();if(done)break;length+=value.byteLength;assert(length<=limit,'Catalog asset exceeds its size limit.');parts.push(value);progress(value.byteLength)}}finally{await reader.cancel().catch(()=>{})}
@@ -114,6 +122,18 @@ export class Library{
     return data
   }
   async installed(){
+    if(this.root.connection?.capabilities.inventory){
+      const entries=await this.root.connection.inventory()
+      const result=await Promise.all(entries.map(async item=>{
+        const remote=this.catalog.get(item.id);let changed=false
+        if(!item.localCharacter&&remote){
+          if(item.revision)changed=item.revision!==await catalogRevision(remote)
+          else changed=await this.changedLegacy(await directory(this.characters,item.id),remote)
+        }
+        return{id:item.id,name:item.name,author:item.author,local:item.localCharacter,updateAvailable:changed}
+      }))
+      return result.sort((a,b)=>a.id.localeCompare(b.id))
+    }
     const result=[]
     for await(const [id,target]of this.characters.entries()){
       if(target.kind!=='directory'||!slug.test(id)||id==='default')continue
@@ -125,7 +145,7 @@ export class Library{
         const manifest=managed?await this.owned(target,id):null,remote=this.catalog.get(id)
         const update=Boolean(manifest&&remote&&(manifest.revision?manifest.revision!==await revision(remote.files):await this.changedLegacy(target,remote)))
         result.push({id,name:data.name,author:data.author,local:!managed,updateAvailable:update})
-      }catch(e){if(['NotAllowedError','SecurityError'].includes(e.name))throw e}
+      }catch(e){if(['NotAllowedError','SecurityError','GameConnectionError'].includes(e.name))throw e}
     }
     return result.sort((a,b)=>a.id.localeCompare(b.id))
   }
@@ -151,7 +171,7 @@ export class Library{
       if(record.hadOriginal){
         const backup=await directory(transaction,'backup');const original=await this.owned(backup,id)
         target=await directory(this.characters,id,true);await writeJSON(target,pending,{schema:1,id})
-        for(const path of [...original.files,marker])await write(target,path,await read(backup,path))
+        for(const path of [...original.files,marker])await copyFile(target,path,backup,path)
         await target.removeEntry(pending)
       }
     }
@@ -169,25 +189,27 @@ export class Library{
         else{assert(target&&await exists(target,marker),'Only characters installed through the catalog can be changed.');old=await this.owned(target,id)}
         const entry=this.catalog.get(id),assets=new Map()
         if(action!=='remove'){
-          assert(entry,'Refresh the character catalog first.');this.progress={received:0,total:entry.sizeBytes}
+          assert(entry,'Refresh the character catalog first.');this.progress={phase:'download',received:0,total:entry.sizeBytes}
           const queue=[...entry.files]
           const workers=await Promise.allSettled(Array.from({length:4},async()=>{
             try{while(queue.length){const f=queue.shift();assets.set(f.path,await asset(id,f,n=>this.progress.received+=n))}}
             catch(e){queue.length=0;throw e}
           }))
           const failed=workers.find(item=>item.status==='rejected');if(failed)throw failed.reason
-          verifyAssets(entry,assets)
+          this.progress.phase='verify';verifyAssets(entry,assets)
         }
         // The journal and complete original copy are durable before any live file changes.
         const transaction=await directory(this.transactions,id,true)
-        if(old){const backup=await directory(transaction,'backup',true);for(const path of [...old.files,marker])await write(backup,path,await read(target,path))}
+        this.progress={phase:action==='remove'?'remove':'prepare',received:0,total:0}
+        if(old){const backup=await directory(transaction,'backup',true);for(const path of [...old.files,marker])await copyFile(backup,path,target,path)}
         const record={schema:1,id,action,phase:'prepared',hadOriginal:Boolean(old),allowed:[...new Set([...(old?.files||[]),...(entry?.files.map(f=>f.path)||[]),marker])]}
         await writeJSON(transaction,'transaction.json',record)
         try{
           target=target||await directory(this.characters,id,true);await writeJSON(target,pending,{schema:1,id})
           if(action==='remove')await this.characters.removeEntry(id,{recursive:true})
           else{
-            for(const [path,bytes]of assets){await write(target,path,bytes);assets.delete(path)}
+            this.progress={phase:'install',received:0,total:entry.sizeBytes}
+            for(const [path,bytes]of assets){await write(target,path,bytes);this.progress.received+=bytes.byteLength;assets.delete(path)}
             for(const path of old?.files||[])if(!entry.files.some(f=>f.path===path))await removeFile(target,path)
             await writeJSON(target,marker,{schema:1,id,files:entry.files.map(f=>f.path),revision:await revision(entry.files)})
           }
@@ -228,7 +250,7 @@ export class Hub{
   }
   async snapshot(){
     const installed=this.library?await this.library.installed():[]
-    return {profile:this.library?this.library.root.name:null,language:this.language,locale:this.locale(),
+    return {profile:this.library?this.library.root.name:null,language:this.language,locale:this.locale(),connection:this.library?{port:Number(this.connection.base.split(':').at(-1)),session:this.connection.session.slice(0,8)+'…'+this.connection.session.slice(-8)}:null,
       installed,catalog:[...(this.library?.catalog.values()||[])].map(entry=>{const item=installed.find(i=>i.id===entry.id);return{...entry,installed:Boolean(item),local:Boolean(item?.local),updateAvailable:Boolean(item?.updateAvailable)}})}
   }
   async initialize(){
@@ -250,5 +272,7 @@ export class Hub{
   portrait(id,local){return this.library.portrait(id,local)}
   async change(id,action){await this.library.change(id,action);return this.snapshot()}
   async download_progress(){return this.library?.progress}
+  async check_connection(){if(this.library)await this.connection.request('session')}
+  disconnect(){this.library=null;this.connection=null;forgetConnection()}
   open_source(){window.open('https://github.com/1Matzh/hotw-hub','_blank','noopener,noreferrer')}
 }

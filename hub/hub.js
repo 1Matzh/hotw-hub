@@ -1,4 +1,5 @@
 import {Hub} from './web-library.js'
+import {GameConnectionError} from './game-files.js'
 const languageCatalog = await fetch('./languages.json',{cache:'no-store'}).then(response=>response.json())
 const hubApi = new Hub(languageCatalog.languages)
 // Hands on the Wheel (HOTW)
@@ -17,6 +18,8 @@ let order = 'new'
 let busy = false
 let catalogLoading = false
 let revision = 0
+let disconnected = false
+let noticeTimer = null
 
 
 let activeLocale = 'en-US'
@@ -56,11 +59,25 @@ function applyLanguage(snapshot) {
 }
 
 function status(message, error = false) {
-  for (const id of ['status', 'setup-status']) {
-    $(id).hidden = !message || (id === 'status' ? !state.profile : Boolean(state.profile))
-    $(id).textContent = t(message)
-    $(id).classList.toggle('error', error)
-  }
+  clearTimeout(noticeTimer)
+  $('status').hidden = !message
+  $('status-message').textContent = t(message || '')
+  $('status').classList.toggle('error', error)
+  if (message && !error) noticeTimer = setTimeout(() => { $('status').hidden = true }, 6500)
+}
+function connectionLost() {
+  if (disconnected) return
+  disconnected = true
+  hubApi.disconnect()
+  state = {...state,language:hubApi.language,locale:hubApi.locale(),profile:null,connection:null,catalog:[],installed:[]}
+  invalidatePortraits()
+  $('transfer').hidden = true
+  status('Connection lost. Open a new connection link from HOTW in BeamNG.drive.', true)
+  render()
+}
+function reportError(error) {
+  if (error instanceof GameConnectionError) connectionLost()
+  else status(error.message || String(error), true)
 }
 
 function element(tag, className, text) {
@@ -103,7 +120,13 @@ function render() {
   $('setup').hidden = Boolean(state.profile)
   $('main-view').hidden = !state.profile
   $('navigation').hidden = !state.profile
-  $('profile').textContent = state.profile || t('Open HOTW Hub from BeamNG.drive')
+  $('connection-session').textContent = state.connection?.session || '—'
+  $('connection-port').textContent = state.connection?.port || '—'
+  $('setup-title').textContent = t(disconnected ? 'Connection lost' : 'Open HOTW Hub from BeamNG.drive')
+  document.querySelector('.setup-description').textContent = t(disconnected
+    ? 'Keep BeamNG.drive open and copy a new connection link from HOTW to reconnect.'
+    : 'Open Characters in HOTW and choose Download more characters.')
+  $('choose-setup').hidden = !hubApi.connection
   $('installed-tab').title = `${t('Installed')} (${state.installed.length})`
   $('view-label').textContent = t(view === 'catalog' ? 'Character catalog' : preferences ? 'Settings' : 'Installed')
   $('catalog-tab').setAttribute('aria-pressed', view === 'catalog')
@@ -254,7 +277,7 @@ function showPortrait(image, character) {
   image.dataset.portrait = key
   image.removeAttribute('src')
   if (!portraits.has(key)) {
-    portraits.set(key, hubApi.portrait(character.id, local).catch(() => ''))
+    portraits.set(key, hubApi.portrait(character.id, local).catch(error => { if(error instanceof GameConnectionError) connectionLost(); return '' }))
   }
   portraits.get(key).then(data => {
     if (data && image.isConnected && image.dataset.portrait === key) image.src = data
@@ -275,7 +298,7 @@ async function run(message, operation) {
   try {
     status(await operation() || '')
   } catch (error) {
-    status(error.message || String(error), true)
+    reportError(error)
   } finally {
     busy = false
     render()
@@ -296,55 +319,44 @@ function refresh() {
 }
 
 function change(character, action) {
-  const removing = action === 'remove'
-  return run(removing ? t('Removing {name}…',{name:character.name}) : '', async () => {
-    const finish = removing ? null : trackDownload(character.name)
+  return run('', async () => {
+    const finish = trackOperation(character.name, action)
     try {
       state = await hubApi.change(character.id, action)
       invalidatePortraits()
-      return state.notice
-    } finally {
-      finish?.()
-    }
+      return t(action === 'remove' ? '{name} removed.' : action === 'update' ? '{name} updated.' : '{name} installed.', {name:character.name})
+    } finally { finish() }
   })
 }
-
-function trackDownload(name) {
-  const transfer = $('transfer')
-  const bar = $('download-progress')
-  const message = $('transfer-message')
-  const count = $('transfer-count')
-  const percent = $('transfer-percent')
+function trackOperation(name, action) {
+  const transfer = $('transfer'), bar = $('download-progress'), message = $('transfer-message')
+  const count = $('transfer-count'), percent = $('transfer-percent')
   transfer.hidden = false
   bar.removeAttribute('value')
-  message.textContent = t('Downloading {name}…',{name})
-  count.textContent = ''
-  percent.textContent = ''
-  let active = true
-  let reading = false
+  drawIcon(transfer.querySelector('svg'), action === 'remove' ? 'trash3-fill' : 'download')
+  message.textContent = t(action === 'remove' ? 'Removing {name}…' : 'Downloading {name}…', {name})
+  count.textContent = ''; percent.textContent = ''
+  let active = true, reading = false
   const timer = setInterval(async () => {
     if (reading) return
     reading = true
     try {
       const progress = await hubApi.download_progress()
-      if (!active || !progress?.total) return
-      const ratio = Math.min(progress.received / progress.total, 1)
-      bar.value = ratio
-      count.textContent = `${size.format(progress.received / 1000000)} / ${size.format(progress.total / 1000000)} MB`
-      percent.textContent = `${Math.round(ratio * 100)}%`
-      if (progress.phase === 'restart') message.textContent = t('Restarting HOTW Hub…')
-      else if (ratio === 1) message.textContent = t('Verifying and installing {name}…',{name})
-    } catch {
-      // The operation still reports its own result if the progress request fails.
-    } finally {
-      reading = false
-    }
+      if (!active || !progress) return
+      const source = progress.phase === 'remove' ? 'Removing {name}…'
+        : progress.phase === 'install' ? 'Installing {name}…'
+        : progress.phase === 'prepare' ? 'Preparing {name}…'
+        : progress.phase === 'verify' ? 'Verifying and installing {name}…' : 'Downloading {name}…'
+      message.textContent = t(source, {name})
+      if (progress.total) {
+        const ratio = Math.min(progress.received / progress.total, 1)
+        bar.value = ratio
+        count.textContent = `${size.format(progress.received / 1000000)} / ${size.format(progress.total / 1000000)} MB`
+        percent.textContent = `${Math.round(ratio * 100)}%`
+      } else { bar.removeAttribute('value'); count.textContent = ''; percent.textContent = '' }
+    } finally { reading = false }
   }, 120)
-  return () => {
-    active = false
-    clearInterval(timer)
-    transfer.hidden = true
-  }
+  return () => { active = false; clearInterval(timer); transfer.hidden = true }
 }
 
 function confirmRemoval(character) {
@@ -364,10 +376,14 @@ function selectView(next) {
   document.querySelector('.workspace').scrollTop = 0
   render()
   if (view === 'catalog') refresh()
-  else if (view === 'installed') run('', async () => {
-    state = await hubApi.installed_characters()
-    invalidatePortraits()
-  })
+  else if (view === 'installed' && hubApi.library) {
+    // Show the current snapshot immediately; reconcile local edits without
+    // disabling Remove buttons or overwriting a newer operation's result.
+    const before = state
+    hubApi.installed_characters().then(snapshot => {
+      if(state === before && !busy) { state = snapshot; invalidatePortraits(); render() }
+    }).catch(reportError)
+  }
 }
 
 function selectOrder(next) {
@@ -389,11 +405,13 @@ $('language').onchange = event => {
   const value = event.target.value
   return run('', async () => { state = await hubApi.set_language(value) })
 }
+$('close-status').onclick = () => { clearTimeout(noticeTimer); $('status').hidden = true }
 $('cancel-remove').onclick = () => $('confirm').close()
 async function reconnectGame() {
   let changed = false
   await run('', async () => {
     const selection = await hubApi.connectGame()
+    disconnected = false
     if (selection) {
       if (selection.error) throw Error(selection.error)
       state = selection
@@ -414,7 +432,20 @@ else $('choose-setup').hidden = !hubApi.connection
 
 window.addEventListener('hashchange', async () => {
   if (!location.hash.includes('session=')) return
+  disconnected = false
   await run('', async () => { state = await hubApi.initialize() })
   if (state.profile) refresh()
   else $('choose-setup').hidden = !hubApi.connection
 })
+
+// One lightweight session check while visible; never scan character files here.
+let checkingConnection = false
+async function checkConnection() {
+  if(document.hidden || !hubApi.library || checkingConnection || busy) return
+  checkingConnection = true
+  try { await hubApi.check_connection() } catch(error) { reportError(error) }
+  finally { checkingConnection = false }
+}
+setInterval(checkConnection, 4000)
+window.addEventListener('focus', checkConnection)
+document.addEventListener('visibilitychange', checkConnection)
