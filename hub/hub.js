@@ -21,6 +21,7 @@ let revision = 0
 let disconnected = false
 let noticeTimer = null
 let initialized = false
+let fillRequest = null
 
 
 let activeLocale = 'en-US'
@@ -157,6 +158,7 @@ function render() {
   $('cards').replaceChildren(...visible.map(characterCard))
   listObserver.unobserve($('load-more'))
   listObserver.observe($('load-more'))
+  scheduleFill()
 }
 
 function sortedCharacters() {
@@ -166,15 +168,41 @@ function sortedCharacters() {
   return [...state.catalog].sort((a, b) => date(b) - date(a))
 }
 
-function loadMore() {
-  if (busy || !state.profile || view === 'settings') return
-  const list = sortedCharacters()
-  const next = list.slice(visibleCount, visibleCount + batchSize)
+function cardLayout() {
+  if (busy || !state.profile || view === 'settings' || $('shelf').hidden) return null
+  const cards = $('cards'), first = cards.firstElementChild
+  if (!first || !cards.clientWidth) return null
+  const style = getComputedStyle(cards), box = first.getBoundingClientRect()
+  const gap = parseFloat(style.columnGap) || 0
+  const columns = Math.max(1, Math.floor((cards.clientWidth + gap) / (box.width + gap)))
+  const height = document.querySelector('.workspace').getBoundingClientRect().bottom - cards.getBoundingClientRect().top
+  const rows = Math.max(1, Math.ceil(height / (box.height + (parseFloat(style.rowGap) || 0))))
+  return {columns, capacity: columns * rows}
+}
+
+function appendUntil(count) {
+  const list = sortedCharacters(), target = Math.min(count, list.length)
+  const next = list.slice(visibleCount, target)
+  if (!next.length) return
   visibleCount += next.length
   $('cards').append(...next.map(characterCard))
   $('load-more').hidden = visibleCount >= list.length
   listObserver.unobserve($('load-more'))
   listObserver.observe($('load-more'))
+}
+
+function scheduleFill() {
+  if (fillRequest !== null) return
+  fillRequest = requestAnimationFrame(() => {
+    fillRequest = null
+    const layout = cardLayout()
+    if (layout) appendUntil(Math.ceil(Math.max(visibleCount, layout.capacity) / layout.columns) * layout.columns)
+  })
+}
+
+function loadMore() {
+  const layout = cardLayout()
+  if (layout) appendUntil(Math.ceil(Math.max(visibleCount + batchSize, layout.capacity) / layout.columns) * layout.columns)
 }
 
 const portraitObserver = new IntersectionObserver(entries => {
@@ -189,8 +217,11 @@ const portraitObserver = new IntersectionObserver(entries => {
 
 const listObserver = new IntersectionObserver(entries => {
   if (entries.some(entry => entry.isIntersecting)) loadMore()
-}, {root: document.querySelector('.workspace')})
+}, {root: document.querySelector('.workspace'), rootMargin: '180px 0px'})
 listObserver.observe($('load-more'))
+const layoutObserver = new ResizeObserver(scheduleFill)
+layoutObserver.observe(document.querySelector('.workspace'))
+layoutObserver.observe($('cards'))
 
 function characterCard(character) {
   const card = element('article', 'card')
