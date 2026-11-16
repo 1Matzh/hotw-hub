@@ -20,6 +20,7 @@ let catalogLoading = false
 let revision = 0
 let disconnected = false
 let noticeTimer = null
+let initialized = false
 
 
 let activeLocale = 'en-US'
@@ -72,6 +73,7 @@ function connectionLost() {
   state = {...state,language:hubApi.language,locale:hubApi.locale(),profile:null,connection:null,catalog:[],installed:[]}
   invalidatePortraits()
   $('transfer').hidden = true
+  applyLanguage(state)
   status('Connection lost. Open a new connection link from HOTW in BeamNG.drive.', true)
   render()
 }
@@ -117,9 +119,10 @@ function render() {
   $('settings').setAttribute('aria-pressed', preferences)
   $('language').disabled = busy
 
-  $('setup').hidden = Boolean(state.profile)
-  $('main-view').hidden = !state.profile
-  $('navigation').hidden = !state.profile
+  $('startup-loading').hidden = initialized
+  $('setup').hidden = !initialized || Boolean(state.profile)
+  $('main-view').hidden = !initialized || !state.profile
+  $('navigation').hidden = !initialized || !state.profile
   $('connection-session').textContent = state.connection?.session || '—'
   $('connection-port').textContent = state.connection?.port || '—'
   $('setup-title').textContent = t(disconnected ? 'Connection lost' : 'Open HOTW Hub from BeamNG.drive')
@@ -425,7 +428,8 @@ $('choose').onclick = reconnectGame
 $('choose-setup').onclick = reconnectGame
 
 await run('', async () => {
-  state = await hubApi.initialize()
+  try { state = await hubApi.initialize() }
+  finally { initialized = true }
 })
 if (state.profile) refresh()
 else $('choose-setup').hidden = !hubApi.connection

@@ -87,13 +87,14 @@ THE SOFTWARE.
     <div class="main-pane">
 
       <main class="workspace">
-      <section class="setup" id="setup" aria-labelledby="setup-title">
+      <div id="startup-loading" class="startup-loading" role="progressbar" aria-label="Loading"><span class="spinner" aria-hidden="true"></span></div>
+      <section class="setup" id="setup" aria-labelledby="setup-title" hidden>
         <div class="setup-content">
           <h1 id="setup-title">Open HOTW Hub from BeamNG.drive</h1>
           <p class="setup-description muted">Open Characters in HOTW and choose Download more characters.</p>
 
           <div class="setup-actions">
-            <button id="choose-setup" class="primary" disabled>Connect to BeamNG.drive</button>
+            <button id="choose-setup" class="primary" disabled hidden>Connect to BeamNG.drive</button>
           </div>
         </div>
       </section>
@@ -108,7 +109,6 @@ THE SOFTWARE.
             <div><h2>Game connection</h2><dl class="connection-details muted"><div><dt>Session</dt><dd><code id="connection-session"></code></dd></div><div><dt>Port</dt><dd id="connection-port"></dd></div></dl></div>
             <button id="choose" class="secondary" hidden>Connect to BeamNG.drive</button>
           </div>
-          <div class="settings-row"><div><h2>Privacy</h2><p class="muted">HOTW Hub runs in your browser and manages character files locally through BeamNG.drive.</p><p class="muted privacy-note">HOTW Hub has no analytics and does not upload your game files.</p></div></div>
         </section>
         <div class="catalog-filters" id="catalog-filters" role="group" aria-label="Sort characters">
           <button class="filter-button" id="sort-new" aria-pressed="true"><svg class="icon" aria-hidden="true" data-icon="sun"></svg> New</button>
