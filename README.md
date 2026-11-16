@@ -17,7 +17,7 @@ Put your game-ready character in `<BeamNG user folder>/hotw/characters/<id>/`. U
 For example, `hotw/characters/my-driver/character.json` contains:
 
 ```json
-{"id": "my-driver", "name": "My Driver", "author": "Your name"}
+{"id": "my-driver", "name": "My Driver", "authors": ["Your name", "Another author"]}
 ```
 
 Open **Characters** in HOTW to reload the game list, and open **Installed** in the Hub to see the local character. No catalog entry, SHA-256 hashes, or `hotw-installed.json` file is needed. Local characters are labeled **Local**. Keep editing or removing these folders yourself; the Hub preserves your source files and does not replace them with catalog downloads. After changing a loaded model, restart the game or add/change the optional `revision` value in its local `character.json` and reopen Characters to reload it.

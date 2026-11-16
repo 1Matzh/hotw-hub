@@ -123,7 +123,7 @@ progress:not([value]) { appearance: auto; }
 .card-details { display: flex; flex-direction: column; flex: 1; padding: 12px; overflow-wrap: anywhere; }
 .card-details h2 { min-height: 2.7em; margin: 0; font-size: 14px; font-weight: 650; line-height: 1.35; }
 .card-author { margin: 7px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
-.card-author span { color: var(--accent); }
+.card-author .author-name { color: var(--accent); }
 .card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 12px; margin: 12px -12px -12px; padding: 10px 12px 12px; border-top: 1px solid #43505e; font-size: 10px; line-height: 1.4; }
 .card-meta time { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .card-meta .icon { width: 11px; height: 11px; }

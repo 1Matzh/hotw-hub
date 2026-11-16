@@ -1,5 +1,6 @@
 import {Hub} from './web-library.js'
 import {GameConnectionError} from './game-files.js'
+import {authorParts} from './credits.js'
 const languageCatalog = await fetch('./languages.json',{cache:'no-store'}).then(response=>response.json())
 const hubApi = new Hub(languageCatalog.languages)
 // Hands on the Wheel (HOTW)
@@ -233,7 +234,11 @@ function characterCard(character) {
   portraitObserver.observe(portrait)
   const details = element('div', 'card-details')
   const author = element('p', 'card-author', t('by')+' ')
-  author.append(element('span', '', character.author))
+  for (const part of authorParts(character,activeLocale)) {
+    const text = element('span', part.type === 'element' ? 'author-name' : 'author-separator')
+    text.textContent = part.value
+    author.append(text)
+  }
   details.append(element('h2', '', character.name), author)
   const metadata = view === 'installed' && !character.local
     ? state.catalog.find(entry => entry.id === character.id) || character : character

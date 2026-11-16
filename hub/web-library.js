@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 // Browser-side catalog management. Only verified character files are sent to the game.
 import {launchConnection,rememberConnection,forgetConnection} from './game-files.js'
+import {characterAuthors} from './credits.js'
 export const REMOTE='https://raw.githubusercontent.com/1Matzh/hotw-hub/characters/'
 const required=['character.json','fullbody.xml','fullbody.json','feet.json','materials.json','colors.json','thumbnail.png']
 const marker='hotw-installed.json',pending='hotw-pending.json'
@@ -52,7 +53,7 @@ export function parseCatalog(document){
   for(const value of document.characters){
     assert(object(value)&&slug.test(value.id)&&value.id!=='default'&&!entries.has(value.id),'Invalid or duplicate character ID.')
     const namespace=value.id.replaceAll('-','_');assert(!namespaces.has(namespace),'Character material namespace is already in use.');namespaces.add(namespace)
-    for(const key of ['name','author'])assert(typeof value[key]==='string'&&value[key].trim().length>0&&value[key].length<=100,'Missing character name or credit.')
+    assert(typeof value.name==='string'&&value.name.trim()&&value.name.length<=100&&characterAuthors(value),'Missing character name or credit.')
     assert(Array.isArray(value.files)&&value.files.length<=160,'Invalid character asset list.')
     const paths=new Set();let total=0
     for(const f of value.files){
@@ -83,7 +84,7 @@ export async function asset(id,entry,progress){
 export function verifyAssets(entry,assets){
   const parse=name=>JSON.parse(decoder.decode(assets.get(name)))
   const metadata=parse('character.json')
-  assert(object(metadata)&&Object.keys(metadata).length===3&&['id','name','author'].every(k=>metadata[k]===entry[k]),'Character metadata differs from its catalog entry.')
+  assert(object(metadata)&&Object.keys(metadata).every(k=>['id','name','author','authors'].includes(k))&&['id','name'].every(k=>metadata[k]===entry[k])&&characterAuthors(metadata)&&JSON.stringify(characterAuthors(metadata))===JSON.stringify(characterAuthors(entry)),'Character metadata differs from its catalog entry.')
   const prefix=`/hotw/characters/${entry.id}/`,paths=new Set(entry.files.map(f=>f.path))
   const materials=parse('materials.json'),materialFields=new Set(['Stages','alphaRef','alphaTest','castShadows','class','doubleSided','dynamicCubemap','mapTo','materialTag0','name','version'])
   const stageFields=new Set(['ambientOcclusionMap','baseColorFactor','baseColorMap','diffuseColor','diffuseMap','emissiveFactor','emissiveIntensityNits','emissiveMap','metallicFactor','metallicMap','normalMap','normalMapStrength','opacityFactor','opacityMap','roughnessFactor','roughnessMap','specular','specularPower'])
@@ -130,7 +131,7 @@ export class Library{
           if(item.revision)changed=item.revision!==await catalogRevision(remote)
           else changed=await this.changedLegacy(await directory(this.characters,item.id),remote)
         }
-        return{id:item.id,name:item.name,author:item.author,local:item.localCharacter,updateAvailable:changed}
+        return{id:item.id,name:item.name,author:item.author,authors:characterAuthors(item),local:item.localCharacter,updateAvailable:changed}
       }))
       return result.sort((a,b)=>a.id.localeCompare(b.id))
     }
@@ -140,11 +141,11 @@ export class Library{
       try{
         if(await exists(target,pending))continue
         const data=await json(target,'character.json'),managed=await exists(target,marker)
-        assert(data.id===id&&['name','author'].every(k=>typeof data[k]==='string'&&data[k].trim()&&data[k].length<=100),'Invalid local character metadata.')
+        assert(data.id===id&&typeof data.name==='string'&&data.name.trim()&&data.name.length<=100&&characterAuthors(data),'Invalid local character metadata.')
         for(const path of required)assert(await exists(target,path),'Missing character assets.')
         const manifest=managed?await this.owned(target,id):null,remote=this.catalog.get(id)
         const update=Boolean(manifest&&remote&&(manifest.revision?manifest.revision!==await revision(remote.files):await this.changedLegacy(target,remote)))
-        result.push({id,name:data.name,author:data.author,local:!managed,updateAvailable:update})
+        result.push({id,name:data.name,author:data.author,authors:characterAuthors(data),local:!managed,updateAvailable:update})
       }catch(e){if(['NotAllowedError','SecurityError','GameConnectionError'].includes(e.name))throw e}
     }
     return result.sort((a,b)=>a.id.localeCompare(b.id))

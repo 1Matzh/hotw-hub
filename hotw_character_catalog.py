@@ -49,6 +49,17 @@ def require(condition, message):
         raise CatalogError(message)
 
 
+def character_authors(metadata):
+    names=metadata.get('authors')
+    if names is None and isinstance(metadata.get('author'),str):
+        names=metadata['author'].split('|')
+    require(isinstance(names,list) and 1<=len(names)<=10,'Invalid character authors.')
+    require(all(isinstance(name,str) and 0<len(name.strip())<=100 for name in names),'Invalid character author name.')
+    names=[name.strip() for name in names]
+    require(len(names)==len(set(names)),'Duplicate character author.')
+    return names
+
+
 def fetch(path, limit, progress=None):
     request = Request(REMOTE + path, headers={'User-Agent': 'HOTW-Character-Catalog'})
     try:
@@ -87,8 +98,8 @@ def parse_catalog(raw):
         namespace = character.replace('-', '_')
         require(namespace not in material_namespaces, 'Character material namespace is already in use.')
         material_namespaces.add(namespace)
-        require(all(isinstance(text, str) and 0 < len(text.strip()) <= 100 for text in (name, author)),
-                'Missing character name or credit.')
+        require(isinstance(name,str) and 0<len(name.strip())<=100,'Missing character name.')
+        authors=character_authors(entry)
         assets = entry.get('files')
         require(isinstance(assets, list) and len(assets) <= 160, 'Invalid character asset list.')
         files, total = {}, 0
@@ -109,7 +120,7 @@ def parse_catalog(raw):
                 require(isinstance(value, str) and len(value) <= 40, 'Invalid character date.')
                 require(datetime.fromisoformat(value.replace('Z', '+00:00')).tzinfo is not None, 'Character dates must include a time zone.')
             dates[field] = value
-        catalog[character] = {'id': character, 'name': name, 'author': author, 'sizeBytes': total, 'files': files, **dates}
+        catalog[character] = {'id': character, 'name': name, 'author': author, 'authors': authors, 'sizeBytes': total, 'files': files, **dates}
     return catalog
 
 
@@ -132,7 +143,8 @@ def verify_assets(directory, entry):
     prefix = f'/hotw/characters/{character}/'
     paths = {file[0] for file in entry['files'].values()}
     metadata = json.loads((directory / 'character.json').read_bytes())
-    require(metadata == {key: entry[key] for key in ('id', 'name', 'author')}, 'Character metadata differs from its catalog entry.')
+    require(set(metadata)<={'id','name','author','authors'} and all(metadata.get(key)==entry[key] for key in ('id','name'))
+            and character_authors(metadata)==character_authors(entry),'Character metadata differs from its catalog entry.')
     materials = json.loads((directory / 'materials.json').read_bytes())
     require(isinstance(materials, dict) and 0 < len(materials) <= 128, 'Invalid materials.')
     for name, material in materials.items():
@@ -308,8 +320,8 @@ class Library:
                 and SLUG.fullmatch(target.name), 'Invalid character folder.')
         details = json.loads(own_path(target / 'character.json').read_bytes())
         require(isinstance(details, dict) and details.get('id') == target.name
-                and all(isinstance(details.get(key), str) and 0 < len(details[key].strip()) <= 100
-                        for key in ('name', 'author')), 'Invalid local character metadata.')
+                and isinstance(details.get('name'),str) and 0<len(details['name'].strip())<=100,'Invalid local character metadata.')
+        character_authors(details)
         require(all(own_path(target / name).is_file() for name in REQUIRED), 'Missing character assets.')
         return details
 
