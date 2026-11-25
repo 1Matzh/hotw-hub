@@ -280,6 +280,33 @@ export class Hub{
   async change(id,action){await this.library.change(id,action);return this.snapshot()}
   async download_progress(){return this.library?.progress}
   async check_connection(){if(this.library)await this.connection.request('session')}
+  async addon_update_status(){return this.connection.json('addon-update')}
+  async update_addon(progress=()=>{}){
+    const started=await this.connection.json('addon-update','','POST')
+    progress(started);if(started.state!=='checking')return started
+    const operation=started.operation
+    const fetchBounded=async(url,limit,received=()=>{})=>{
+      const response=await fetch(url,{cache:'no-store',credentials:'omit',redirect:'error',signal:AbortSignal.timeout(90000)})
+      assert(response.ok&&response.body,'Could not download the addon update from GitHub.')
+      const reader=response.body.getReader(),parts=[];let size=0
+      try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;assert(size<=limit,'Addon update exceeds its size limit.');parts.push(value);received(size)}}finally{await reader.cancel().catch(()=>{})}
+      const bytes=new Uint8Array(size);let offset=0;for(const part of parts){bytes.set(part,offset);offset+=part.length}return bytes
+    }
+    try{
+      const root='https://raw.githubusercontent.com/1Matzh/hotw-hub/main/addon-updates/'
+      const envelope=await fetchBounded(root+'latest.json',16384)
+      // The game verifies the publisher signature before authorizing a payload.
+      const verified=await this.connection.json('addon-update-manifest',operation,'PUT',envelope)
+      progress(verified);if(verified.state!=='downloading')return verified
+      assert(verified.url===root+'hotw-hub-addon-'+verified.version+'.zip'&&Number.isSafeInteger(verified.total)&&verified.total>0&&verified.total<=16*1024*1024,'Invalid addon update descriptor.')
+      const payload=await fetchBounded(verified.url,verified.total,downloaded=>progress({...verified,downloaded}))
+      assert(payload.length===verified.total&&await hash(payload)===verified.sha256,'Addon update verification failed.')
+      return await this.connection.json('addon-update-payload',operation,'PUT',payload)
+    }catch(error){
+      await this.connection.json('addon-update-cancel',operation,'POST').catch(()=>{})
+      throw error
+    }
+  }
   disconnect(){this.library=null;this.connection=null;forgetConnection()}
   open_source(){window.open('https://github.com/1Matzh/hotw-hub','_blank','noopener,noreferrer')}
 }

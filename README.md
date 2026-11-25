@@ -6,7 +6,7 @@ Character catalog for Hands on the Wheel for BeamNG.drive.
 
 Download the addon from [GitHub Releases](https://github.com/1Matzh/hotw-hub/releases/latest). Install `hotw-hub-addon-1.0.0.zip` alongside the standard HOTW ZIP in the BeamNG mods folder and restart the game. Then open **Characters → Download more characters**. Keep BeamNG.drive open while using the Hub.
 
-When a newer addon is available, an **Update addon** button appears in the sidebar above the support heart. It opens the official release download. Replace the previous addon ZIP in your mods folder and restart the game after installing the update.
+When a newer addon is available, an **Update addon** button appears in the sidebar above the support heart. Click it to download, verify and replace the addon automatically. The previous addon is kept as a recovery copy. Once the update finishes, restart BeamNG.drive to activate it. The updater only replaces its own addon ZIP; the standard HOTW mod and installed characters are preserved.
 
 Use a modern browser on Windows or Linux (Steam Deck: Desktop Mode). If the browser does not open automatically, use **Copy connection link** in the game and paste it into your browser. The connection link belongs to your current game session; keep it private.
 

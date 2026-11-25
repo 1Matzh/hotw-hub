@@ -26,6 +26,7 @@ let noticeTimer = null
 let initialized = false
 let fillRequest = null
 let availableUpdate=null,checkingUpdate=false,lastUpdateCheck=0
+let updatingAddon=false,restartRequired=false,checkingAddonState=false
 
 
 let activeLocale = 'en-US'
@@ -61,16 +62,17 @@ function applyLanguage(snapshot) {
     }))
   }
   $('language').value = selectedLanguage
-  if(availableUpdate)$('addon-update-label').textContent=t('Update addon')+' · v'+availableUpdate.version
+  if(restartRequired)$('addon-update-label').textContent=t('Restart required')
+  else if(availableUpdate)$('addon-update-label').textContent=t('Update addon')+' · v'+availableUpdate.version
 
 }
 
-function status(message, error = false) {
+function status(message, error = false, persistent = false) {
   clearTimeout(noticeTimer)
   $('status').hidden = !message
   $('status-message').textContent = t(message || '')
   $('status').classList.toggle('error', error)
-  if (message && !error) noticeTimer = setTimeout(() => { $('status').hidden = true }, 6500)
+  if (message && !error && !persistent) noticeTimer = setTimeout(() => { $('status').hidden = true }, 6500)
 }
 function connectionLost() {
   if (disconnected) return
@@ -443,13 +445,40 @@ $('browse-catalog').onclick = () => selectView('catalog')
 $('sort-new').onclick = () => selectOrder('new')
 $('sort-updated').onclick = () => selectOrder('updated')
 $('source').onclick = () => hubApi.open_source()
-$('addon-update').onclick = () => {
-  if(!availableUpdate)return
-  window.open(availableUpdate.downloadUrl,'_blank','noopener,noreferrer')
-  status(t('The addon download has opened. Replace the previous addon ZIP in your mods folder and restart BeamNG.drive.'))
+function showAddonState(result){
+  if(result.restartRequired){
+    restartRequired=true;$('addon-update').hidden=false;$('addon-update').disabled=true
+    $('addon-update-label').textContent=t('Restart required');$('addon-update').setAttribute('aria-label',t('Restart required'))
+    status('Addon updated. Restart BeamNG.drive to finish.',false,true)
+  }else if(['checking','downloading','verifying','installing'].includes(result.state)){
+    const messages={checking:'Checking for addon updates...',downloading:'Downloading addon update...',verifying:'Verifying addon update...',installing:'Installing addon update...'}
+    const progress=result.state==='downloading'&&result.total?' '+Math.min(100,Math.round(result.downloaded/result.total*100))+'%':''
+    status(t(messages[result.state])+progress,false,true)
+  }
+}
+$('addon-update').onclick = async () => {
+  if(!availableUpdate||updatingAddon||restartRequired||busy)return
+  updatingAddon=true;busy=true;render();$('addon-update').disabled=true
+  try{
+    let result=await hubApi.update_addon(showAddonState)
+    const deadline=Date.now()+190000
+    while(['checking','downloading','verifying','installing'].includes(result.state)){
+      showAddonState(result);if(Date.now()>deadline)throw Error('Addon update failed. Your previous addon has been preserved.')
+      await new Promise(resolve=>setTimeout(resolve,700));result=await hubApi.addon_update_status()
+    }
+    if(result.state==='error')throw Error(result.error)
+    showAddonState(result)
+    if(result.state==='current'){availableUpdate=null;$('addon-update').hidden=true}
+  }catch(error){reportError(error)}
+  finally{updatingAddon=false;busy=false;render();$('addon-update').disabled=restartRequired}
+}
+async function syncAddonState(){
+  if(!state.profile||!hubApi.connection?.capabilities?.addonUpdate||updatingAddon||checkingAddonState)return
+  checkingAddonState=true
+  try{showAddonState(await hubApi.addon_update_status())}catch(error){reportError(error)}finally{checkingAddonState=false}
 }
 async function checkAddonUpdate(){
-  if(!state.profile||document.hidden||checkingUpdate||Date.now()-lastUpdateCheck<30*60*1000)return
+  if(restartRequired||!state.profile||document.hidden||checkingUpdate||Date.now()-lastUpdateCheck<30*60*1000)return
   checkingUpdate=true;lastUpdateCheck=Date.now()
   try{
     availableUpdate=await checkForUpdate(addonVersion)
@@ -488,6 +517,7 @@ await run('', async () => {
 if (state.profile) refresh()
 else $('choose-setup').hidden = !hubApi.connection
 checkAddonUpdate()
+syncAddonState()
 
 window.addEventListener('hashchange', async () => {
   if (!location.hash.includes('session=')) return
@@ -502,7 +532,7 @@ let checkingConnection = false
 async function checkConnection() {
   if(document.hidden || !hubApi.library || checkingConnection || busy) return
   checkingConnection = true
-  try { await hubApi.check_connection();checkAddonUpdate() } catch(error) { reportError(error) }
+  try { await hubApi.check_connection();checkAddonUpdate();syncAddonState() } catch(error) { reportError(error) }
   finally { checkingConnection = false }
 }
 setInterval(checkConnection, 4000)
