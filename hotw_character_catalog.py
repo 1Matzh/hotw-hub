@@ -172,6 +172,9 @@ def verify_assets(directory, entry):
                     'Recolor textures must belong to this character.')
     for filename, field in (('feet.json', 'contacts'), ('fullbody.json', 'meshes')):
         require(field in json.loads((directory / filename).read_bytes()), 'Missing rig metadata.')
+    rig = json.loads((directory / 'fullbody.json').read_bytes())
+    require(rig.get('skeletonProfile') == 'hotw-humanoid-v4' and rig.get('boneCount') == 74,
+            'This character must be updated to the shared HOTW humanoid skeleton.')
     model = (directory / 'fullbody.xml').read_bytes()
     require(b'<!DOCTYPE' not in model and b'<!ENTITY' not in model, 'External XML declarations are prohibited.')
     root = ElementTree.fromstring(model)

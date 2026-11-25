@@ -1,6 +1,8 @@
 import {Hub} from './web-library.js'
 import {GameConnectionError} from './game-files.js'
 import {authorParts} from './credits.js'
+import {checkForUpdate} from './addon-update.js'
+const addonVersion = await fetch('./addon-version.json',{cache:'no-store'}).then(response=>response.json()).then(data=>data.version)
 const languageCatalog = await fetch('./languages.json',{cache:'no-store'}).then(response=>response.json())
 const hubApi = new Hub(languageCatalog.languages)
 // Hands on the Wheel (HOTW)
@@ -23,6 +25,7 @@ let disconnected = false
 let noticeTimer = null
 let initialized = false
 let fillRequest = null
+let availableUpdate=null,checkingUpdate=false,lastUpdateCheck=0
 
 
 let activeLocale = 'en-US'
@@ -58,6 +61,7 @@ function applyLanguage(snapshot) {
     }))
   }
   $('language').value = selectedLanguage
+  if(availableUpdate)$('addon-update-label').textContent=t('Update addon')+' · v'+availableUpdate.version
 
 }
 
@@ -439,6 +443,20 @@ $('browse-catalog').onclick = () => selectView('catalog')
 $('sort-new').onclick = () => selectOrder('new')
 $('sort-updated').onclick = () => selectOrder('updated')
 $('source').onclick = () => hubApi.open_source()
+$('addon-update').onclick = () => {
+  if(!availableUpdate)return
+  window.open(availableUpdate.downloadUrl,'_blank','noopener,noreferrer')
+  status(t('The addon download has opened. Replace the previous addon ZIP in your mods folder and restart BeamNG.drive.'))
+}
+async function checkAddonUpdate(){
+  if(!state.profile||document.hidden||checkingUpdate||Date.now()-lastUpdateCheck<30*60*1000)return
+  checkingUpdate=true;lastUpdateCheck=Date.now()
+  try{
+    availableUpdate=await checkForUpdate(addonVersion)
+    $('addon-update').hidden=!availableUpdate
+    if(availableUpdate){$('addon-update-label').textContent=t('Update addon')+' · v'+availableUpdate.version;$('addon-update').setAttribute('aria-label',t('Update addon')+' '+availableUpdate.version)}
+  }finally{checkingUpdate=false}
+}
 $('settings').onclick = () => selectView('settings')
 $('language').onchange = event => {
   const value = event.target.value
@@ -469,6 +487,7 @@ await run('', async () => {
 })
 if (state.profile) refresh()
 else $('choose-setup').hidden = !hubApi.connection
+checkAddonUpdate()
 
 window.addEventListener('hashchange', async () => {
   if (!location.hash.includes('session=')) return
@@ -483,9 +502,11 @@ let checkingConnection = false
 async function checkConnection() {
   if(document.hidden || !hubApi.library || checkingConnection || busy) return
   checkingConnection = true
-  try { await hubApi.check_connection() } catch(error) { reportError(error) }
+  try { await hubApi.check_connection();checkAddonUpdate() } catch(error) { reportError(error) }
   finally { checkingConnection = false }
 }
 setInterval(checkConnection, 4000)
 window.addEventListener('focus', checkConnection)
+window.addEventListener('focus',checkAddonUpdate)
+setInterval(checkAddonUpdate,30*60*1000)
 document.addEventListener('visibilitychange', checkConnection)

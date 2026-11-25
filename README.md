@@ -4,7 +4,9 @@ Character catalog for Hands on the Wheel for BeamNG.drive.
 
 ## Getting started
 
-Open **Characters → Download more characters** in HOTW. The mod serves the Hub locally in your browser and installs characters into `hotw/characters` in your BeamNG user folder. Keep BeamNG.drive open while using the Hub.
+Download the addon from [GitHub Releases](https://github.com/1Matzh/hotw-hub/releases/latest). Install `hotw-hub-addon-1.0.0.zip` alongside the standard HOTW ZIP in the BeamNG mods folder and restart the game. Then open **Characters → Download more characters**. Keep BeamNG.drive open while using the Hub.
+
+When a newer addon is available, an **Update addon** button appears in the sidebar above the support heart. It opens the official release download. Replace the previous addon ZIP in your mods folder and restart the game after installing the update.
 
 Use a modern browser on Windows or Linux (Steam Deck: Desktop Mode). If the browser does not open automatically, use **Copy connection link** in the game and paste it into your browser. The connection link belongs to your current game session; keep it private.
 
@@ -27,9 +29,13 @@ Open **Characters** in HOTW to reload the game list, and open **Installed** in t
 - **Application:** open pull requests against `main`.
 - **Characters:** follow the [submission guide](https://github.com/1Matzh/hotw-hub/blob/characters/README.md) and open pull requests against `characters`.
 
+## Character removal requests
+
+If you own a character included in the catalog and would like it removed, please contact [1Matzh on the BeamNG.drive forum](https://www.beamng.com/members/1matzh.835029/).
+
 ## Development
 
-The `hub/` directory contains the interface bundled with the mod and served by its local Lua connection. Interface updates ship with HOTW. Character assets and contribution instructions live on the [characters branch](https://github.com/1Matzh/hotw-hub/tree/characters); adding a character does not require a mod update.
+The `hub/` directory contains the interface bundled exclusively with the optional addon and served by its local Lua connection. Build it with `Source/tools/Build-HubAddon.ps1`. Character assets and contribution instructions live on the [characters branch](https://github.com/1Matzh/hotw-hub/tree/characters); adding a character does not require a standard mod update.
 
 ## License
 

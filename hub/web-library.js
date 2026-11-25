@@ -98,6 +98,7 @@ export function verifyAssets(entry,assets){
   const colors=parse('colors.json');assert(Array.isArray(colors)&&colors.length<=128,'Invalid color entries.')
   for(const color of colors)assert(object(color)&&Object.hasOwn(materials,color.material)&&['baseColorMap','diffuseMap'].includes(color.field)&&['skin','clothing'].includes(color.group)&&belongs(color.source)&&belongs(color.map),'Invalid recolor binding.')
   assert(object(parse('feet.json'))&&Object.hasOwn(parse('feet.json'),'contacts')&&object(parse('fullbody.json'))&&Object.hasOwn(parse('fullbody.json'),'meshes'),'Missing rig metadata.')
+  const rig=parse('fullbody.json');assert(rig.skeletonProfile==='hotw-humanoid-v4'&&rig.boneCount===74,'This character must be updated to the shared HOTW humanoid skeleton.')
   const model=decoder.decode(assets.get('fullbody.xml'));assert(!/<!DOCTYPE|<!ENTITY/i.test(model),'External XML declarations are prohibited.')
   const xml=new DOMParser().parseFromString(model,'application/xml')
   assert(xml.documentElement.localName==='COLLADA'&&xml.documentElement.namespaceURI?.endsWith('/COLLADASchema')&&!xml.querySelector('parsererror'),'Invalid Collada model.')
