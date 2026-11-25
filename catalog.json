@@ -23,13 +23,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 5420,
-          "sha256": "dbf56cd2695a6190352cf0aa9bdf7c819e12f84fb363a759e8034d70947cf70a"
+          "size": 5841,
+          "sha256": "8242581e513c79d9eb9231599d5676c281c309c99c6003b7ba09c22028e84998"
         },
         {
           "path": "fullbody.xml",
-          "size": 13220887,
-          "sha256": "c0ee1651c60db478be0ec1ee103177d7e261fbc4e53f86a90ca77117e293401e"
+          "size": 13222047,
+          "sha256": "bcf34bfa6634b91eb3c9ea4bc389b9ad622022d169cf0775e23fa620a6e003f5"
         },
         {
           "path": "materials.json",
@@ -252,8 +252,8 @@
           "sha256": "619856e80fea61e200871cccd9a5f1271a22800cebdbfbc079462c037fa30e88"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "brian",
@@ -277,13 +277,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 4756,
-          "sha256": "c8a5a4ea098b70211c1f8ecfda84e8b4bc985452ac8757f0a27f855bb108c1ad"
+          "size": 5177,
+          "sha256": "73b6f0362c240a40deeb0c647392019963f7637213c46ea8bc28545e88a3bbeb"
         },
         {
           "path": "fullbody.xml",
-          "size": 1023016,
-          "sha256": "660c101ef8391bea37236358eb443907a200dc800b914bbc8883f06c2407b900"
+          "size": 1024180,
+          "sha256": "1b1293fc1c1a2faf4d933f905b864c41f6bcb2205534fd983e2b8b7d2e9a3c4d"
         },
         {
           "path": "materials.json",
@@ -331,8 +331,8 @@
           "sha256": "a5e2561840e2c6a64c2cea78ea3095c2a526e61d793805ce1931fd6a5ef3dc11"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "dummy_robot",
@@ -356,13 +356,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 3605,
-          "sha256": "45d65e6afaee3177ed11862724ca8e484205ce018cd1ec7afe73db97726c8761"
+          "size": 4025,
+          "sha256": "8122d38d0f1d32072fb2dee0b968641adfcbb186c77f24d71fae65c62b3fbcf4"
         },
         {
           "path": "fullbody.xml",
-          "size": 1696287,
-          "sha256": "bc62e3a2373030118588a33a05230e459a06f998158012c31fca6ed3c87d4d38"
+          "size": 1697447,
+          "sha256": "2429817475ccd883e4ef639a7c1df1d73fdfaf46066747b59c5753f9d62c78b2"
         },
         {
           "path": "materials.json",
@@ -405,8 +405,8 @@
           "sha256": "9891e72a9ce277cd4a2fcb41818467e1f171b33f58bbf61a46c7d9e9fa3eae82"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "james_bond",
@@ -430,13 +430,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 4903,
-          "sha256": "dccc433f5f084e3571976fcc666a630eb661d14c582b3a829ddddbb4cf0e8013"
+          "size": 5323,
+          "sha256": "5e79fbcb5a0bfd2c2868725ff9a8db56b02b634b327a29197d3fe500e1654f0b"
         },
         {
           "path": "fullbody.xml",
-          "size": 951302,
-          "sha256": "f586c8b9fe9882d5de6cef5dd1d359741f52803309385014c63dfdc7521415b1"
+          "size": 952466,
+          "sha256": "ef49afe4d612039fa14361baae4bd3a2c37ce4d62878593939d0ffef14eb171d"
         },
         {
           "path": "materials.json",
@@ -504,8 +504,8 @@
           "sha256": "0d0e5231a335e499f534419b2f07485ea593d4e5a131c9aa3a672a4e054fcf5c"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "rinoa",
@@ -529,13 +529,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 8044,
-          "sha256": "b75d6629894b058af875efd0e54a5985fc7ee4b26be9a3da4bb558f0d6d0b816"
+          "size": 8465,
+          "sha256": "8f003b4d9334e0db8b046aabf821c4126c4e52dc3a41021845226657aca86c21"
         },
         {
           "path": "fullbody.xml",
-          "size": 35654580,
-          "sha256": "c8adc699348d89eaaece8a52c0cd9a4a72c1a9a4b334a0fcbc725e42d6ed1fe4"
+          "size": 35655744,
+          "sha256": "943f1957c056eeb5e7e0de2745747dbb21e290cc039e28dea7a2a98b2e9e3b1e"
         },
         {
           "path": "materials.json",
@@ -693,8 +693,8 @@
           "sha256": "74fbd6cfaf70a0619552436209324834e2b292e35a0a32ae9cf6d93626c5d827"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "t-800",
@@ -718,13 +718,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 4610,
-          "sha256": "bd31e34f62b9683422d5e6ef429d7fc43a5519f7149ee06a4250aa0f6556512e"
+          "size": 5029,
+          "sha256": "f9730e57df172a6d387a42014e09d6bbdc03210ded36d0d0d4e84aaede5b7062"
         },
         {
           "path": "fullbody.xml",
-          "size": 17993863,
-          "sha256": "417776134811d144b124995ea3cefe9b368bd3aa03a8001472eec4e282129460"
+          "size": 17995023,
+          "sha256": "9327b4d1c1c8a6ec62ec1b7d62b199afceff67aa9b231b2f522ad16ab4aea8a5"
         },
         {
           "path": "materials.json",
@@ -807,8 +807,8 @@
           "sha256": "d1bb1ab9a063c11fc14a8199c42c5f3c1947e4b65921bf06b75bf4abbbbae447"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "senna",
@@ -832,13 +832,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 5922,
-          "sha256": "865a2513942c0b4bdf4aebac4e2a6e8fbfdb113a794a061b1eb04b3958e49f2e"
+          "size": 6343,
+          "sha256": "c6a003c4e3d428529ef4054055d13f5f78206a8074a10ec01b52a7359ae63ba6"
         },
         {
           "path": "fullbody.xml",
-          "size": 12056110,
-          "sha256": "98076369490ce4c6e8e5ee324830c1d8ee544e97639bc4c3a954186fe0008b14"
+          "size": 12057274,
+          "sha256": "9bf0de64a29943538c392bdb6f20be6ec60eb945cb3b36d1c00b07377ada3c9b"
         },
         {
           "path": "materials.json",
@@ -966,8 +966,8 @@
           "sha256": "68ccf23ee1de9d710b21d6b9c2af31403c0457d6a71276203fbeee762d07323b"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "robocop",
@@ -991,13 +991,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 7869,
-          "sha256": "1d062dfd19a44e47ed55b2ce59a7ec80e1d1afd913d44798b0514e3bf5a79cc3"
+          "size": 8290,
+          "sha256": "9e0bcd508898d3f1615f58432da7d67cde764b176964f63bcfa3bbff97b031d9"
         },
         {
           "path": "fullbody.xml",
-          "size": 2091868,
-          "sha256": "b63a970e811ccb2654281bf145e1adcda8837d780b1abc61aa752efa57b9785d"
+          "size": 2093032,
+          "sha256": "9f67bbc80a0fa22863550965fb4a65a456187390f0902b580911dfb9dd3c2d79"
         },
         {
           "path": "materials.json",
@@ -1185,8 +1185,8 @@
           "sha256": "54f001f56b113239b140647ceab1a89bb3e68b6af162561704877506f25bc4b0"
         }
       ],
-      "createdAt": "2026-11-10T00:54:24Z",
-      "updatedAt": "2026-11-25T19:27:32Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     },
     {
       "id": "takumi",
@@ -1213,13 +1213,13 @@
         },
         {
           "path": "fullbody.json",
-          "size": 4612,
-          "sha256": "33d8211d86a5addea79a23998b3a8f3bdaceab701f1dab2a5b69c6976d615a03"
+          "size": 5032,
+          "sha256": "5e2fc08aa6c4aa85eb07d67f9e362174edb49156c2d00167938adecac0a2e0d8"
         },
         {
           "path": "fullbody.xml",
-          "size": 1447564,
-          "sha256": "9e39b0b0d54e858229e1e75c6e62ad3a2e876b3308605a6e02e5c48a068fcabd"
+          "size": 1448728,
+          "sha256": "751047c4833ab512b87502848830cf7bf7d1fd9f0e5ffc4d956e031cfcdc8be1"
         },
         {
           "path": "materials.json",
@@ -1282,8 +1282,8 @@
           "sha256": "b81b682d683d5d4c033290103b9673268c30af0a3e8156c01adadc0a29f3d01c"
         }
       ],
-      "createdAt": "2026-11-16T19:04:11Z",
-      "updatedAt": "2026-11-25T19:29:44Z"
+      "createdAt": "2026-11-25T19:54:56Z",
+      "updatedAt": "2026-11-25T21:33:13Z"
     }
   ]
 }

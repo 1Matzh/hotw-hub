@@ -196,5 +196,25 @@
     "elbowContactFit": true,
     "forearmRollSamples": 3,
     "calfEndpoints": true
+  },
+  "cullingBounds": {
+    "min": [
+      -0.646725869831034,
+      -0.980405638259925,
+      -1.1690964639186858
+    ],
+    "max": [
+      0.6426144405021851,
+      1.287965440750122,
+      0.5613575220108032
+    ],
+    "maxSize": 1.5,
+    "paddingMetres": 0.15,
+    "helper": "bounds",
+    "rendered": false,
+    "sampledPoses": 25,
+    "surfaces": [
+      "shared seated motion samples"
+    ]
   }
 }
